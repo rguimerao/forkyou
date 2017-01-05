@@ -25,7 +25,7 @@ public class Brand extends FoodCreator {
 	}
 
 	public void addSellLocation(Location newLocation) {
-		sellLocations.add(newLocation, sellLocations.size());
+		this.sellLocations.add(newLocation, this.sellLocations.size());
 	}
 
 }

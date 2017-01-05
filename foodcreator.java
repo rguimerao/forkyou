@@ -22,7 +22,7 @@ public class FoodCreator extends ContactInfo {
 	}
 
 	public void addFood(Food newFood) {
-		foodsCreated.add(newFood, foodsCreated.size());
+		this.foodsCreated.add(newFood, this.foodsCreated.size());
 	}
 
 }
