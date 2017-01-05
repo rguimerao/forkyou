@@ -27,4 +27,16 @@ public class Food {
 		return this.recipe;
 	}
 
+	public void setRecipe(Recipe newRecipe) {
+		this.recipe = newRecipe;
+	}
+
+	public ArrayList<Location> getPurchaseLocations() {
+		return this.purchaseLocations;
+	}
+
+	public void addPurchaseLocation(Location newPurchaseLocation) {
+		this.purchaseLocations.add(newPurchaseLocation, this.purchaseLocations.size());
+	}
+
 }

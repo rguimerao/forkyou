@@ -16,6 +16,6 @@ public class Category {
 	}
 
 	public void addFood(Food newFood) {
-		foods.add(newFood, foods.size());
+		this.foods.add(newFood, this.foods.size());
 	}
 }
