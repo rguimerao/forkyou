@@ -80,7 +80,7 @@ public class ContactInfo {
 		return this.email;
 	}
 
-	public void setEmail(Strin newEmail) {
+	public void setEmail(String newEmail) {
 		this.email = newEmail;
 	}
 

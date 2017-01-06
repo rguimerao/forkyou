@@ -3,32 +3,33 @@ package backend;
 public class Food {
 
 	// ratings
+	// food for sell or not
+	protected String name;
 	protected Category category;
-	protected Recipe recipe;
 	protected ArrayList<Location> purchaseLocations;
 
-  public Food(Location purchaseLocation, Recipe recipe, Category category) {
+  public Food(String name, Category category) {
 
-		this.purchaseLocation = purchaseLocation;
-		this.recipe           = recipe;
-		this.category         = category;
+		this.name     = name;
+		this.category = category;
 		this.category.addFood(this); // ??? possible?
+		this.purchaseLocations = new ArrayList<Location>();
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String newName) {
+		this.name = newName;
 	}
 
 	public Category getCategory() {
 		return this.category;
 	}
 
-	public void resetCategory(Category newCategory) {
+	public void setCategory(Category newCategory) {
 		this.category = newCategory;
-	}
-
-	public Recipe getRecipe() {
-		return this.recipe;
-	}
-
-	public void setRecipe(Recipe newRecipe) {
-		this.recipe = newRecipe;
 	}
 
 	public ArrayList<Location> getPurchaseLocations() {
