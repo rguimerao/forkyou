@@ -15,4 +15,10 @@ public class User extends FoodCreator {
 	}
 
 	// TODO -> actions a user can do
+
+	public void rate(Object objectToRate, int rating) {
+
+		Rater rater = new Rater(); // TODO
+		rater.rate(objectToRate, rating);
+	}
 }

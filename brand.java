@@ -4,7 +4,6 @@ public class Brand extends FoodCreator {
 
 	private ArrayList<Location> sellLocations;
 
-	// TODO -> ratings attribute
 	// TODO -> actions a brand can do
 
   public Brand(
