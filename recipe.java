@@ -1,6 +1,6 @@
 package backend;
 
-public class Recipe {
+public class Recipe extends Identifier {
 
 	// ratings
 	public String name;

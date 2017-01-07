@@ -1,6 +1,6 @@
 package backend;
 
-public class Category {
+public class Category extends Identifier {
 
 	private String name;
 	private ArrayList<Food> foods;

@@ -1,6 +1,6 @@
 package backend;
 
-public class Food {
+public class Food extends Identifier {
 
 	// ratings
 	// food for sell or not
