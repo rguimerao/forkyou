@@ -4,8 +4,6 @@ public class Brand extends FoodCreator {
 
 	private ArrayList<Location> sellLocations;
 
-	// TODO -> actions a brand can do
-
   public Brand(
 		String name,
 		String description,
@@ -27,4 +25,7 @@ public class Brand extends FoodCreator {
 		this.sellLocations.add(newLocation, this.sellLocations.size());
 	}
 
+	public void obtainRating() {
+		// TODO -> call DB controller to obtain ratings
+	}
 }

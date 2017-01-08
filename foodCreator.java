@@ -37,14 +37,14 @@ public class FoodCreator extends ContactInfo {
 
 	public void createRecipe(String name, String description, Date lastUpdate, FoodCreator creator) {
 
-		// neeeds BD + controller
+		// TODO -> neeeds DB + controller
 		Recipe newRecipe = new Recipe(name, description, lastUpdate, creator);
 		addRecipe(newRecipe);
 	}
 
 	public void createCategory(String name) {
 
-		// needs BD + controller
+		// TODO -> needs DB + controller
 		Category newCategory = new Category(name);
 	}
 
@@ -57,27 +57,27 @@ public class FoodCreator extends ContactInfo {
 		int phoneNumber,
 		String email) {
 
-			// needs BD + controller
+			// TODO -> needs DB + controller
 			Location newLocation = new Location(name, description, street, postalCode, city, phoneNumber, email);
 	}
 
-	public void createIngredient(String name, Category category) {
+	public void createIngredient(String name, Category category, boolean forSell) {
 
-		// needs BD + controller
-		Food newIngredient = new Ingredient(name, category);
+		// TODO -> needs DB + controller
+		Food newIngredient = new Ingredient(name, category, forSell);
 		addFood(newIngredient);
 	}
 
-	public void createDish(String name, Category category) {
+	public void createDish(String name, Category category, boolean forSell) {
 
-		// needs BD + controller
-		Food newDish = new Dish(name, category);
+		// TODO -> needs DB + controller
+		Food newDish = new Dish(name, category, forSell);
 		addFood(newDish);
 	}
 
 	public void addFoodToDish(Dish dish, Food foodToAdd) {
 
-		// needs BD + controller
+		// TODO -> needs DB + controller
 		dish.addFood(foodToAdd);
 	}
 }

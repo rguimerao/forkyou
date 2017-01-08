@@ -2,17 +2,18 @@ package backend;
 
 public class Food extends Identifier {
 
-	// ratings
-	// food for sell or not
+	// TODO -> ratings
+	protected boolean forSell;
 	protected String name;
 	protected Category category;
 	protected ArrayList<Location> purchaseLocations;
 
-  public Food(String name, Category category) {
+  public Food(String name, Category category, boolean forSell) {
 
+		this.forSell  = forSell;
 		this.name     = name;
 		this.category = category;
-		this.category.addFood(this); // ??? possible?
+		this.category.addFood(this); // TODO -> ??? possible?
 		this.purchaseLocations = new ArrayList<Location>();
 	}
 
@@ -37,7 +38,13 @@ public class Food extends Identifier {
 	}
 
 	public void addPurchaseLocation(Location newPurchaseLocation) {
-		this.purchaseLocations.add(newPurchaseLocation, this.purchaseLocations.size());
+		if(forSell) {
+			this.purchaseLocations.add(newPurchaseLocation, this.purchaseLocations.size());
+		}
+	}
+
+	public void obtainRating() {
+		// TODO -> call DB controller to obtain ratings
 	}
 
 }

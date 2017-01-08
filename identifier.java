@@ -8,7 +8,8 @@ public class Identifier {
   public Identifier() {
 
 		if(maxID == null) {
-			maxID = new Integer();
+			maxID = 0; // TODO -> review
+			// maxID = new Integer();
 		}
 
 		maxID++;

@@ -5,9 +5,9 @@ public class Dish extends Food {
 	private Recipe recipe;
 	private ArrayList<Food> composedFoods;
 
-  public Dish(Recipe recipe, Category category) {
+  public Dish(Recipe recipe, Category category, boolean forSell) {
 
-		super(recipe, category);
+		super(recipe, category, forSell);
 		this.composedFoods = new ArrayList<Food>();
 	}
 

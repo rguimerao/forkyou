@@ -16,5 +16,8 @@ public class Location extends ContactInfo {
 		super(name, description, street, postalCode, city, phoneNumber, email);
 	}
 
+  public void obtainRating() {
+    // TODO -> call DB controller to obtain ratings
+  }
 
 }

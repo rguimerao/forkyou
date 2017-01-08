@@ -2,46 +2,46 @@ package backend;
 
 public class Rater implements VisitorRating {
 
-	// object BD controller here
-	
+	// TODO -> object DB controller here
+
 	public Rater() {
 
-		// TODO -> here we initiallize the object BD controller
-		// in order to insert data into the BD
+		// TODO -> here we initiallize the object DB controller
+		// in order to insert data into the DB
 	}
 
 	public void rate(Brand brand, int rating, int userID) {
-		// passar a BD
-		brand.getID();
+		// TODO -> to DB
+		/* brand.getID();
 		userID;
-		reting;
+		rating; */
 	}
 
 	public void rate(Dish dish, int rating, int userID) {
-		// passar a BD
-		dish.getID();
+		// TODO -> to DB
+		/* dish.getID();
 		userID;
-		rating;
+		rating; */
 	}
 
 	public void rate(Ingredient ingredient, int rating, int userID) {
-		// passar a BD
-		ingredient.getID();
+		// TODO -> to DB
+		/* ingredient.getID();
 		userID;
-		rating;
+		rating; */
 	}
 
 	public void rate(Location location, int rating, int userID) {
-		// passar a BD
-		location.getID();
+		// TODO -> to DB
+		/* location.getID();
 		userID;
-		rating;
+		rating; */
 	}
 
 	public void rate(Recipe recipe, int rating, int userID) {
-		// passar a BD
-		recipe.getID();
+		// TODO -> to DB
+		/* recipe.getID();
 		userID;
-		rating;
+		rating; */
 	}
 }

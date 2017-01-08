@@ -5,7 +5,7 @@ public class Recipe extends Identifier {
 	// ratings
 	public String name;
 	private String description;
-	private Date lastUpdate; // review Date java type
+	private Date lastUpdate; // TODO -> review Date java type
 	private FoodCreator creator;
 
   public Recipe(String name, String description, Date lastUpdate, FoodCreator creator) {
