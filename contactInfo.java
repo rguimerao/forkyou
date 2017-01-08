@@ -10,6 +10,7 @@ public class ContactInfo extends Identifier {
 	protected String street;
 	protected int postalCode;
 	protected String city;
+	protected String country;
 	protected int phoneNumber;
 	protected String email;
 
@@ -22,6 +23,7 @@ public class ContactInfo extends Identifier {
 		String street,
 		int postalCode,
 		String city,
+		String country,
 		int phoneNumber,
 		String email) {
 
@@ -31,6 +33,7 @@ public class ContactInfo extends Identifier {
 		this.street      = street;
 		this.postalCode  = postalCode;
 		this.city        = city;
+		this.country     = country;
 		this.phoneNumber = phoneNumber;
 		this.email       = email;
 	}
@@ -103,6 +106,20 @@ public class ContactInfo extends Identifier {
 	 */
 	public void setCity(String newCity) {
 		this.city = newCity;
+	}
+
+	/**
+	 * TODO
+	 */
+	public String getCountry() {
+		return this.country;
+	}
+
+	/**
+	 * TODO
+	 */
+	public void setCountry(String newCountry) {
+		this.city = newCountry;
 	}
 
 	/**

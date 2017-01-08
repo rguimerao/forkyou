@@ -16,10 +16,11 @@ public class Location extends ContactInfo {
 		String street,
 		int postalCode,
 		String city,
+    String country,
 		int phoneNumber,
 		String email) {
 
-		super(name, description, street, postalCode, city, phoneNumber, email);
+		super(name, description, street, postalCode, city, country, phoneNumber, email);
 	}
 
   /**

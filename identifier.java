@@ -15,7 +15,7 @@ public class Identifier {
 
 		if(maxID == null) {
 			maxID = 0; // TODO -> review
-			// maxID = new Integer();
+			// maxID = new Integer(0);
 		}
 
 		maxID++;

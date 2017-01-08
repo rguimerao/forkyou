@@ -13,6 +13,7 @@ public class Category extends Identifier {
 	 */
 	public Category(String name) {
 
+		super();
 		this.name  = name;
 		this.foods = new ArrayList<Food>();
 	}

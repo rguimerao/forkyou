@@ -91,20 +91,20 @@ public class FoodCreator extends ContactInfo {
 	/**
 	 * TODO
 	 */
-	public void createIngredient(String name, Category category, boolean forSell) {
+	public void createIngredient(String name, Category category, boolean forSell, float price) {
 
 		// TODO -> needs DB + controller
-		Food newIngredient = new Ingredient(name, category, forSell);
+		Food newIngredient = new Ingredient(name, category, forSell, this);
 		addFood(newIngredient);
 	}
 
 	/**
 	 * TODO
 	 */
-	public void createDish(String name, Category category, boolean forSell) {
+	public void createDish(String name, Category category, boolean forSell, float price) {
 
 		// TODO -> needs DB + controller
-		Food newDish = new Dish(name, category, forSell);
+		Food newDish = new Dish(name, category, forSell, this);
 		addFood(newDish);
 	}
 

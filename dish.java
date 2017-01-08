@@ -11,9 +11,9 @@ public class Dish extends Food {
 	/**
 	 * TODO
 	 */
-  public Dish(Recipe recipe, Category category, boolean forSell) {
+  public Dish(Recipe recipe, Category category, boolean forSell, float price, FoodCreator creator) {
 
-		super(recipe, category, forSell);
+		super(recipe, category, forSell, price, creator);
 		this.composedFoods = new ArrayList<Food>();
 	}
 

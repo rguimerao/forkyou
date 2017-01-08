@@ -16,14 +16,16 @@ public class User extends FoodCreator {
 		String street,
 		int postalCode,
 		String city,
+    String country,
 		int phoneNumber,
 		String email) {
 
-			super(name, description, street, postalCode, city, phoneNumber, email);
+			super(name, description, street, postalCode, city, country, phoneNumber, email);
       this.foodWishlist = new ArrayList<Food>();
 	}
 
 	// TODO -> actions a user can do
+  // can create a brand
 
   /**
    * TODO
