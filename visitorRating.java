@@ -1,5 +1,8 @@
 package backend;
 
+/**
+ * TODO
+ */
 public interface VisitorRating {
 
 	void rate(Brand brand, int rating, int userID);

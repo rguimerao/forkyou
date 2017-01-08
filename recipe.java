@@ -1,5 +1,8 @@
 package backend;
 
+/**
+ * TODO
+ */
 public class Recipe extends Identifier {
 
 	// ratings
@@ -8,6 +11,9 @@ public class Recipe extends Identifier {
 	private Date lastUpdate; // TODO -> review Date java type
 	private FoodCreator creator;
 
+	/**
+	 * TODO
+	 */
   public Recipe(String name, String description, Date lastUpdate, FoodCreator creator) {
 
 		super();
@@ -17,30 +23,51 @@ public class Recipe extends Identifier {
 		this.creator     = creator;
 	}
 
+	/**
+	 * TODO
+	 */
 	public String getName() {
 		return this.name;
 	}
 
+	/**
+	 * TODO
+	 */
 	public void setName(String newName) {
 		this.name = newName;
 	}
 
+	/**
+	 * TODO
+	 */
 	public String getDescription() {
 		return this.description;
 	}
 
+	/**
+	 * TODO
+	 */
 	public void setDescription(String newDescription) {
 		this.description = newDescription;
 	}
 
+	/**
+	 * TODO
+	 */
 	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
+	/**
+	 * TODO
+	 */
 	public void updateLastUpdate(Date newLastUpdate) {
 		this.lastUpdate = newLastUpdate;
 	}
 
+	/**
+	 * TODO
+	 */
 	public FoodCreator getFoodCreator() {
 		return this.creator;
 	}

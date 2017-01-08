@@ -1,10 +1,16 @@
 package backend;
 
+/**
+ * TODO
+ */
 public class FoodCreator extends ContactInfo {
 
 	protected ArrayList<Food> foodsCreated;
 	protected ArrayList<Recipe> recipesCreated;
 
+	/**
+	 * TODO
+	 */
   public FoodCreator(
 		String name,
 		String description,
@@ -19,22 +25,37 @@ public class FoodCreator extends ContactInfo {
 		this.recipesCreated = new ArrayList<Recipe>();
 	}
 
+	/**
+	 * TODO
+	 */
 	public ArrayList<food> getFoodsCreated() {
 		return this.foodCreated;
 	}
 
+	/**
+	 * TODO
+	 */
 	private void addFood(Food newFood) {
 		this.foodsCreated.add(newFood, this.foodsCreated.size());
 	}
 
+	/**
+	 * TODO
+	 */
 	public ArrayList<Recipe> getRecipesCreated() {
 		return this.recipesCreated;
 	}
 
+	/**
+	 * TODO
+	 */
 	private void addRecipe(Food newRecipe) {
 		this.recipesCreated.add(newRecipe, this.recipesCreated.size());
 	}
 
+	/**
+	 * TODO
+	 */
 	public void createRecipe(String name, String description, Date lastUpdate, FoodCreator creator) {
 
 		// TODO -> neeeds DB + controller
@@ -42,12 +63,18 @@ public class FoodCreator extends ContactInfo {
 		addRecipe(newRecipe);
 	}
 
+	/**
+	 * TODO
+	 */
 	public void createCategory(String name) {
 
 		// TODO -> needs DB + controller
 		Category newCategory = new Category(name);
 	}
 
+	/**
+	 * TODO
+	 */
 	public void createLocation(
 		String name,
 		String description,
@@ -61,6 +88,9 @@ public class FoodCreator extends ContactInfo {
 			Location newLocation = new Location(name, description, street, postalCode, city, phoneNumber, email);
 	}
 
+	/**
+	 * TODO
+	 */
 	public void createIngredient(String name, Category category, boolean forSell) {
 
 		// TODO -> needs DB + controller
@@ -68,6 +98,9 @@ public class FoodCreator extends ContactInfo {
 		addFood(newIngredient);
 	}
 
+	/**
+	 * TODO
+	 */
 	public void createDish(String name, Category category, boolean forSell) {
 
 		// TODO -> needs DB + controller
@@ -75,6 +108,9 @@ public class FoodCreator extends ContactInfo {
 		addFood(newDish);
 	}
 
+	/**
+	 * TODO
+	 */
 	public void addFoodToDish(Dish dish, Food foodToAdd) {
 
 		// TODO -> needs DB + controller

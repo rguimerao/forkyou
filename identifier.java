@@ -1,10 +1,16 @@
 package backend;
 
+/**
+ * TODO
+ */
 public class Identifier {
 
 	private static int maxID; // TODO -> review/test this
 	protected int ID;
 
+	/**
+	 * TODO
+	 */
   public Identifier() {
 
 		if(maxID == null) {
@@ -16,6 +22,9 @@ public class Identifier {
 		this.ID = maxID;
 	}
 
+	/**
+	 * TODO
+	 */
 	public int getID() {
 		return this.ID;
 	}

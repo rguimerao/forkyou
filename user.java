@@ -1,9 +1,15 @@
 package backend;
 
+/**
+ * TODO
+ */
 public class User extends FoodCreator {
 
   private ArrayList<Food> foodWishlist;
 
+  /**
+   * TODO
+   */
   public User(
 		String name,
 		String description,
@@ -19,20 +25,32 @@ public class User extends FoodCreator {
 
 	// TODO -> actions a user can do
 
+  /**
+   * TODO
+   */
 	public void rate(Object objectToRate, int rating) {
 
 		Rater rater = new Rater();
 		rater.rate(objectToRate, rating, getID());
 	}
 
+  /**
+   * TODO
+   */
   public void addFoodToWishlist(Food foodToAdd) {
     this.foodWishlist.add(foodToAdd, this.foodWishlist.size());
   }
 
+  /**
+   * TODO
+   */
   public ArrayList<Food> getWishlist() {
     return this.foodWishlist;
   }
 
+  /**
+   * TODO
+   */
   public void removeFoodFromWishList(int foodID) {
 
     boolean found = false;
