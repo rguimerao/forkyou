@@ -10,6 +10,7 @@ public class Recipe extends Identifier {
 
   public Recipe(String name, String description, Date lastUpdate, FoodCreator creator) {
 
+		super();
 		this.name        = name;
 		this.description = description;
 		this.lastUpdate  = lastUpdate;

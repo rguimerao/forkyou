@@ -10,6 +10,7 @@ public class Food extends Identifier {
 
   public Food(String name, Category category, boolean forSell) {
 
+		super();
 		this.forSell  = forSell;
 		this.name     = name;
 		this.category = category;

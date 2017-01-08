@@ -19,6 +19,7 @@ public class ContactInfo extends Identifier {
 		int phoneNumber,
 		String email) {
 
+		super();
 		this.name        = name;
 		this.description = description;
 		this.street      = street;
