@@ -6,12 +6,12 @@ package backend;
 public class Food extends Identifier {
 
 	// TODO -> ratings
-	protected String name;
-	protected Category category;
-	protected ArrayList<Location> purchaseLocations;
-	protected boolean forSell;
-	protected float price;
-	protected FoodCreator creator;
+	private String name;
+	private Category category;
+	private ArrayList<Location> purchaseLocations;
+	private boolean forSell;
+	private float price;
+	private FoodCreator creator;
 
 	/**
 	 * TODO

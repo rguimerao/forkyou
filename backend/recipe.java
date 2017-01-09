@@ -6,7 +6,7 @@ package backend;
 public class Recipe extends Identifier {
 
 	// ratings
-	public String name;
+	private String name;
 	private String description;
 	private Date lastUpdate; // TODO -> review Date java type (dateformat / calendar)
 	private FoodCreator creator;

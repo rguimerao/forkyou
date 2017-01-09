@@ -5,8 +5,8 @@ package backend;
  */
 public class FoodCreator extends ContactInfo {
 
-	protected ArrayList<Food> foodsCreated;
-	protected ArrayList<Recipe> recipesCreated;
+	private ArrayList<Food> foodsCreated;
+	private ArrayList<Recipe> recipesCreated;
 
 	/**
 	 * TODO

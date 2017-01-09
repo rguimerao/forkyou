@@ -5,14 +5,14 @@ package backend;
  */
 public class ContactInfo extends Identifier {
 
-	protected String name;
-	protected String description;
-	protected String street;
-	protected int postalCode;
-	protected String city;
-	protected String country;
-	protected int phoneNumber;
-	protected String email;
+	private String name;
+	private String description;
+	private String street;
+	private int postalCode;
+	private String city;
+	private String country;
+	private int phoneNumber;
+	private String email;
 
 	/**
 	 * TODO
