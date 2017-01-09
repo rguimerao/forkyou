@@ -47,6 +47,8 @@ public class DB {
 	 *	TODO
 	 */
 	public void executeQuery(String query) { // TODO -> return type? -> review java.sql?
+		// executed from controller
+		// select -> returns different than update/insert/delete
 		if (this.DB.connect()) {
 			this.DB.executeQuery(query);
 			this.DB.disconnect();
