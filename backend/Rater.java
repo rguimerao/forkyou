@@ -12,7 +12,7 @@ public class Rater implements VisitorRating {
 	 */
 	public Rater() {
 
-		// TODO -> here we initiallize the object DB controller
+		// TODO -> here we initialize the object DB controller
 		// in order to insert data into the DB
 	}
 

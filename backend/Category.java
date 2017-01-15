@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 /**
  * TODO
  */
@@ -14,8 +16,22 @@ public class Category extends Identifier {
 	public Category(String name) {
 
 		super();
-		this.name  = name;
+		this.setName(name);
 		this.foods = new ArrayList<Food>();
+	}
+
+	/**
+	 * TODO
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * TODO
+	 */
+	public void setName(String newName) {
+		this.name = newName;
 	}
 
 	/**
@@ -29,6 +45,6 @@ public class Category extends Identifier {
 	 * TODO
 	 */
 	public void addFood(Food newFood) {
-		this.foods.add(newFood, this.foods.size());
+		this.foods.add(newFood);
 	}
 }

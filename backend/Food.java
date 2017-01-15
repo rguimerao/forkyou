@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 /**
  * TODO
  */
@@ -68,7 +70,7 @@ public class Food extends Identifier {
 	 */
 	public void addPurchaseLocation(Location newPurchaseLocation) {
 		if(forSell) {
-			this.purchaseLocations.add(newPurchaseLocation, this.purchaseLocations.size());
+			this.purchaseLocations.add(newPurchaseLocation);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.Date;
+
 /**
  * TODO
  */
@@ -8,7 +10,7 @@ public class Recipe extends Identifier {
 	// ratings
 	private String name;
 	private String description;
-	private Date lastUpdate; // TODO -> review Date java type (dateformat / calendar)
+	private Date lastUpdate; // TODO -> review Date java type (date format / calendar)
 	private FoodCreator creator;
 
 	/**

@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 /**
  * TODO
  */
@@ -11,9 +13,9 @@ public class Dish extends Food {
 	/**
 	 * TODO
 	 */
-  public Dish(Recipe recipe, Category category, boolean forSell, float price, FoodCreator creator) {
+  public Dish(String name, Category category, boolean forSell, float price, FoodCreator creator) {
 
-		super(recipe, category, forSell, price, creator);
+		super(name, category, forSell, price, creator);
 		this.composedFoods = new ArrayList<Food>();
 	}
 
@@ -42,6 +44,6 @@ public class Dish extends Food {
 	 * TODO
 	 */
 	public void addFood(Food newFood) {
-		this.composedFoods.add(newFood, this.composedFoods.size());
+		this.composedFoods.add(newFood);
 	}
 }

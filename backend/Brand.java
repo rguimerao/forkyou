@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 /**
  * TODO
  */
@@ -35,7 +37,7 @@ public class Brand extends FoodCreator {
 	 * TODO
 	 */
 	public void addSellLocation(Location newLocation) {
-		this.sellLocations.add(newLocation, this.sellLocations.size());
+		this.sellLocations.add(newLocation);
 	}
 
 	/**

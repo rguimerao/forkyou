@@ -1,5 +1,8 @@
 package backend;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * TODO
  */
@@ -28,19 +31,19 @@ public class User extends FoodCreator {
   // can create a brand
 
   /**
-   * TODO
+   * TODO + review
    */
 	public void rate(Object objectToRate, int rating) {
 
-		Rater rater = new Rater();
-		rater.rate(objectToRate, rating, getID());
+		/* Rater rater = new Rater();
+		rater.rate(objectToRate, rating, getID()); */
 	}
 
   /**
    * TODO
    */
   public void addFoodToWishlist(Food foodToAdd) {
-    this.foodWishlist.add(foodToAdd, this.foodWishlist.size());
+    this.foodWishlist.add(foodToAdd);
   }
 
   /**
@@ -51,26 +54,27 @@ public class User extends FoodCreator {
   }
 
   /**
-   * TODO
+   * TODO + review
    */
-  public void removeFoodFromWishList(int foodID) {
+  @SuppressWarnings("unchecked")
+public void removeFoodFromWishList(int foodID) {
 
     boolean found = false;
     Iterator<Food> iterator = this.foodWishlist.iterator();
     int position = 0;
 
-		while (iterator.hasNext() && !found) {
+	while (iterator.hasNext() && !found) {
       position++;
       if (foodID == iterator.next().getID()) {
         found = true;
-        iterator.next().remove();
+        ((Iterator<Food>) iterator.next()).remove();
       }
 		}
     // TODO -> review and test
     // TODO -> review if food in position 0 and last
     for (int i = position; i < this.foodWishlist.size(); i++) {
       Food foodToMove = this.foodWishlist.get(i);
-      this.foodWishlist.add(foodToMove, i - 1);
+      this.foodWishlist.add(foodToMove);
       this.foodWishlist.remove(i);
     }
   }

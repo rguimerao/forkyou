@@ -1,5 +1,8 @@
 package backend;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 /**
  * TODO
  */
@@ -16,27 +19,28 @@ public class FoodCreator extends ContactInfo {
 		String description,
 		String street,
 		int postalCode,
-		String city,
+		String city, 
+		String country,
 		int phoneNumber,
 		String email) {
 
-		super(name, description, street, postalCode, city, phoneNumber, email);
-		this.foodsCreated   = new ArrayList<food>();
+		super(name, description, street, postalCode, city, country, phoneNumber, email);
+		this.foodsCreated   = new ArrayList<Food>();
 		this.recipesCreated = new ArrayList<Recipe>();
 	}
 
 	/**
 	 * TODO
 	 */
-	public ArrayList<food> getFoodsCreated() {
-		return this.foodCreated;
+	public ArrayList<Food> getFoodsCreated() {
+		return this.foodsCreated;
 	}
 
 	/**
 	 * TODO
 	 */
 	private void addFood(Food newFood) {
-		this.foodsCreated.add(newFood, this.foodsCreated.size());
+		this.foodsCreated.add(newFood);
 	}
 
 	/**
@@ -49,8 +53,8 @@ public class FoodCreator extends ContactInfo {
 	/**
 	 * TODO
 	 */
-	private void addRecipe(Food newRecipe) {
-		this.recipesCreated.add(newRecipe, this.recipesCreated.size());
+	private void addRecipe(Recipe newRecipe) {
+		this.recipesCreated.add(newRecipe);
 	}
 
 	/**
@@ -58,7 +62,7 @@ public class FoodCreator extends ContactInfo {
 	 */
 	public void createRecipe(String name, String description, Date lastUpdate, FoodCreator creator) {
 
-		// TODO -> neeeds DB + controller
+		// TODO -> needs DB + controller
 		Recipe newRecipe = new Recipe(name, description, lastUpdate, creator);
 		addRecipe(newRecipe);
 	}
@@ -81,11 +85,12 @@ public class FoodCreator extends ContactInfo {
 		String street,
 		int postalCode,
 		String city,
+		String country,
 		int phoneNumber,
 		String email) {
 
 			// TODO -> needs DB + controller
-			Location newLocation = new Location(name, description, street, postalCode, city, phoneNumber, email);
+			Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email);
 	}
 
 	/**
@@ -94,7 +99,7 @@ public class FoodCreator extends ContactInfo {
 	public void createIngredient(String name, Category category, boolean forSell, float price) {
 
 		// TODO -> needs DB + controller
-		Food newIngredient = new Ingredient(name, category, forSell, this);
+		Food newIngredient = new Ingredient(name, category, forSell, price, this);
 		addFood(newIngredient);
 	}
 
@@ -104,7 +109,7 @@ public class FoodCreator extends ContactInfo {
 	public void createDish(String name, Category category, boolean forSell, float price) {
 
 		// TODO -> needs DB + controller
-		Food newDish = new Dish(name, category, forSell, this);
+		Food newDish = new Dish(name, category, forSell, price, this);
 		addFood(newDish);
 	}
 

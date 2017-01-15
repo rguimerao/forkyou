@@ -16,7 +16,7 @@ public class Location extends ContactInfo {
 		String street,
 		int postalCode,
 		String city,
-    String country,
+		String country,
 		int phoneNumber,
 		String email) {
 
