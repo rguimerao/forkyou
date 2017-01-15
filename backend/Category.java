@@ -3,7 +3,10 @@ package backend;
 import java.util.ArrayList;
 
 /**
- * TODO
+ * Class category.
+ * A category has foods in it.
+ * @author rguimerao
+ *
  */
 public class Category extends Identifier {
 
@@ -11,40 +14,37 @@ public class Category extends Identifier {
 	private ArrayList<Food> foods;
 
 	/**
-	 * TODO
+	 * Constructor of category
+	 * @param name name of the category
 	 */
 	public Category(String name) {
 
 		super();
-		this.setName(name);
+		this.name  = name;
 		this.foods = new ArrayList<Food>();
 	}
 
 	/**
-	 * TODO
+	 * Getter of name
+	 * @return name of the category
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * TODO
-	 */
-	public void setName(String newName) {
-		this.name = newName;
-	}
-
-	/**
-	 * TODO
+	 * Getter of foods in category
+	 * @return array list with the foods in the category
 	 */
 	public ArrayList<Food> getFoods() {
 		return this.foods;
 	}
 
 	/**
-	 * TODO
+	 * Adds a food to the array of foods inside the category
+	 * @param foodToAdd food to add to the category
 	 */
-	public void addFood(Food newFood) {
-		this.foods.add(newFood);
+	public void addFood(Food foodToAdd) {
+		this.foods.add(foodToAdd);
 	}
 }

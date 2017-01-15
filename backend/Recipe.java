@@ -3,72 +3,85 @@ package backend;
 import java.util.Date;
 
 /**
- * TODO
+ * Class recipe.
+ * A dish has a recipe of how to cook it
+ * @author rguimerao
+ *
  */
 public class Recipe extends Identifier {
 
-	// ratings
 	private String name;
 	private String description;
-	private Date lastUpdate; // TODO -> review Date java type (date format / calendar)
+	private Date lastUpdate;
 	private FoodCreator creator;
 
 	/**
-	 * TODO
+	 * Constructor of recipe
+	 * @param name name of the recipe
+	 * @param description description and steps of the recipe
+	 * @param creator who created this recipe?
 	 */
-  public Recipe(String name, String description, Date lastUpdate, FoodCreator creator) {
+	public Recipe(String name, String description, FoodCreator creator) {
 
 		super();
 		this.name        = name;
 		this.description = description;
-		this.lastUpdate  = lastUpdate;
+		this.lastUpdate  = new Date();
 		this.creator     = creator;
 	}
 
 	/**
-	 * TODO
+	 * Getter of name
+	 * @return name of the recipe
 	 */
 	public String getName() {
 		return this.name;
 	}
 
 	/**
-	 * TODO
+	 * Updates recipe's name
+	 * @param newName new name the recipe will have
 	 */
-	public void setName(String newName) {
+	public void updateName(String newName) {
 		this.name = newName;
+		updateLastUpdate();
 	}
 
 	/**
-	 * TODO
+	 * Getter of description
+	 * @return description of the recipe
 	 */
 	public String getDescription() {
 		return this.description;
 	}
 
 	/**
-	 * TODO
+	 * Updates recipe's description
+	 * @param newDescription new description the recipe will have
 	 */
-	public void setDescription(String newDescription) {
+	public void updateDescription(String newDescription) {
 		this.description = newDescription;
+		updateLastUpdate();
 	}
 
 	/**
-	 * TODO
+	 * Getter of last update
+	 * @return last update the recipe was updated
 	 */
 	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
 	/**
-	 * TODO
+	 * Updates the last update date
 	 */
-	public void updateLastUpdate(Date newLastUpdate) {
-		this.lastUpdate = newLastUpdate;
+	private void updateLastUpdate() {
+		this.lastUpdate = new Date();
 	}
 
 	/**
-	 * TODO
+	 * Getter of food creator
+	 * @return recipe's food creator
 	 */
 	public FoodCreator getFoodCreator() {
 		return this.creator;

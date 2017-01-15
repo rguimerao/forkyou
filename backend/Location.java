@@ -1,16 +1,25 @@
 package backend;
 
 /**
- * TODO
+ * Class location.
+ * A location is where you buy and/or sell food
+ * @author rguimera
+ *
  */
 public class Location extends ContactInfo {
 
-	// TODO -> ratings attribute
-
-  /**
-   * TODO
-   */
-  public Location(
+	/**
+	 * Constructor of location
+	 * @param name name of the location
+	 * @param description description of the location
+	 * @param street street of the location
+	 * @param postalCode postal code of the location
+	 * @param city city of the location
+	 * @param country country of the location
+	 * @param phoneNumber phone number of the location
+	 * @param email email of the location
+	 */
+	public Location(
 		String name,
 		String description,
 		String street,
@@ -22,12 +31,4 @@ public class Location extends ContactInfo {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 	}
-
-  /**
-   * TODO
-   */
-  public void obtainRating() {
-    // TODO -> call DB controller to obtain ratings
-  }
-
 }

@@ -35,8 +35,8 @@ public class User extends FoodCreator {
    */
 	public void rate(Object objectToRate, int rating) {
 
-		/* Rater rater = new Rater();
-		rater.rate(objectToRate, rating, getID()); */
+		/*Rater rater = new Rater();
+		rater.rate(objectToRate, rating, getID());*/
 	}
 
   /**

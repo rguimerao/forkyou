@@ -1,7 +1,10 @@
 package backend;
 
 /**
- * TODO
+ * Class contact info.
+ * Has information about the contact to localize it.
+ * @author rguimerao
+ *
  */
 public class ContactInfo extends Identifier {
 
@@ -15,9 +18,17 @@ public class ContactInfo extends Identifier {
 	private String email;
 
 	/**
-	 * TODO
+	 * Constructor of contact info
+	 * @param name Name of the contact
+	 * @param description Description of the contact
+	 * @param street Street where the contact lives
+	 * @param postalCode Postal code of the street
+	 * @param city City of the contact
+	 * @param country Country of the contact
+	 * @param phoneNumber Phone number of the contact
+	 * @param email Email of the contact
 	 */
-  public ContactInfo(
+	public ContactInfo(
 		String name,
 		String description,
 		String street,
@@ -39,112 +50,128 @@ public class ContactInfo extends Identifier {
 	}
 
 	/**
-	 * TODO
+	 * Getter of name
+	 * @return name of the contact
 	 */
 	public String getName() {
 		return this.name;
 	}
 
 	/**
-	 * TODO
+	 * Setter of name
+	 * @param newName new name the contact will have
 	 */
 	public void setName(String newName) {
 		this.name = newName;
 	}
 
 	/**
-	 * TODO
+	 * Getter of description
+	 * @return description of the contact
 	 */
 	public String getDescription() {
 		return this.description;
 	}
 
 	/**
-	 * TODO
+	 * Setter of description
+	 * @param newDescription new description the contact will have
 	 */
 	public void setDescription(String newDescription) {
 		this.description = newDescription;
 	}
 
 	/**
-	 * TODO
+	 * Getter of street
+	 * @return street of the contact
 	 */
 	public String getStreet() {
 		return this.street;
 	}
 
 	/**
-	 * TODO
+	 * Setter of street
+	 * @param newStreet new street the contact will have
 	 */
 	public void setStreet(String newStreet) {
 		this.street = newStreet;
 	}
 
 	/**
-	 * TODO
+	 * Getter of postal code
+	 * @return postal code of the contact
 	 */
 	public int getPostalCode() {
 		return this.postalCode;
 	}
 
 	/**
-	 * TODO
+	 * Setter of postal code
+	 * @param newPostalCode new postal code the contact will have
 	 */
 	public void setPostalCode(int newPostalCode) {
 		this.postalCode = newPostalCode;
 	}
 
 	/**
-	 * TODO
+	 * Getter of city
+	 * @return city of the contact
 	 */
 	public String getCity() {
 		return this.city;
 	}
 
 	/**
-	 * TODO
+	 * Setter of city
+	 * @param newCity new city the contact will have
 	 */
 	public void setCity(String newCity) {
 		this.city = newCity;
 	}
 
 	/**
-	 * TODO
+	 * Getter of country
+	 * @return country of the contact
 	 */
 	public String getCountry() {
 		return this.country;
 	}
 
 	/**
-	 * TODO
+	 * Setter of country
+	 * @param newCountry new country of the contact
 	 */
 	public void setCountry(String newCountry) {
 		this.city = newCountry;
 	}
 
 	/**
-	 * TODO
+	 * Getter of phone number
+	 * @return phone number of the contact
 	 */
 	public int getPhoneNumber() {
 		return this.phoneNumber;
 	}
 
 	/**
-	 * TODO
+	 * Setter of phone number
+	 * @param newPhoneNumber new phone number the contact will have
 	 */
 	public void setPhoneNumber(int newPhoneNumber) {
 		this.phoneNumber = newPhoneNumber;
 	}
 
 	/**
-	 * TODO
+	 * Getter of email
+	 * @return email of the contact
 	 */
 	public String getEmail() {
 		return this.email;
 	}
 
 	/**
-	 * TODO
+	 * Setter of email
+	 * @param newEmail new email the contact will have
 	 */
 	public void setEmail(String newEmail) {
 		this.email = newEmail;

@@ -3,16 +3,27 @@ package backend;
 import java.util.ArrayList;
 
 /**
- * TODO
+ * Class brand
+ * A brand is a food creator. A brand represents "legal" food creator.
+ * @author rguimerao
+ *
  */
 public class Brand extends FoodCreator {
 
 	private ArrayList<Location> sellLocations;
 
 	/**
-	 * TODO
+	 * Constructor of brand
+	 * @param name name of the brand
+	 * @param description description of the brand
+	 * @param street street of the brand
+	 * @param postalCode postal code of the brand
+	 * @param city city of the brand
+	 * @param country country of the brand
+	 * @param phoneNumber phone number of the brand
+	 * @param email email of the brand
 	 */
-  public Brand(
+	public Brand(
 		String name,
 		String description,
 		String street,
@@ -27,23 +38,18 @@ public class Brand extends FoodCreator {
 	}
 
 	/**
-	 * TODO
+	 * Getter of sell locations
+	 * @return location where the brand sells food
 	 */
 	public ArrayList<Location> getSellLocations() {
 		return this.sellLocations;
 	}
 
 	/**
-	 * TODO
+	 * Add a new location to the sellLocations array
+	 * @param newLocation new location to add to the array
 	 */
 	public void addSellLocation(Location newLocation) {
 		this.sellLocations.add(newLocation);
-	}
-
-	/**
-	 * TODO
-	 */
-	public void obtainRating() {
-		// TODO -> call DB controller to obtain ratings
 	}
 }
