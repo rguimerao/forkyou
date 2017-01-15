@@ -44,7 +44,7 @@ public class FoodCreator extends ContactInfo {
 	 * Getter of foods created
 	 * @return foods created by the food creator
 	 */
-	public ArrayList<Food> getFoodsCreated() {
+	protected ArrayList<Food> getFoodsCreated() {
 		return this.foodsCreated;
 	}
 
@@ -60,7 +60,7 @@ public class FoodCreator extends ContactInfo {
 	 * Getter of recipes created
 	 * @return recipes created by the food creator
 	 */
-	public ArrayList<Recipe> getRecipesCreated() {
+	protected ArrayList<Recipe> getRecipesCreated() {
 		return this.recipesCreated;
 	}
 

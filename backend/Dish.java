@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Dish extends Food {
 
 	private Recipe recipe;
-	private ArrayList<Food> composedFoods;
+	protected ArrayList<Food> composedFoods;
 
 	/**
 	 * Constructor of dish

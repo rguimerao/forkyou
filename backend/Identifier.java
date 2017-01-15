@@ -21,7 +21,7 @@ public class Identifier {
 	 * Getter of ID
 	 * @return ID of the object inside the DB
 	 */
-	public int getID() {
+	protected int getID() {
 		return this.ID;
 	}
 	

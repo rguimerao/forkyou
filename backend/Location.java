@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 /**
  * Class location.
  * A location is where you buy and/or sell food
@@ -8,6 +10,7 @@ package backend;
  */
 public class Location extends ContactInfo {
 
+	private ArrayList<Food> foodsSelling;
 	/**
 	 * Constructor of location
 	 * @param name name of the location
@@ -30,5 +33,22 @@ public class Location extends ContactInfo {
 		String email) {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
+		this.foodsSelling = new ArrayList<Food>();
+	}
+	
+	/**
+	 * Getter of foods selling
+	 * @return array of the foods being sold in this location
+	 */
+	public ArrayList<Food> getFoodsSelling() {
+		return this.foodsSelling;
+	}
+	
+	/**
+	 * Adds a food to the selling foods array
+	 * @param foodToAdd food to add
+	 */
+	public void addFood(Food foodToAdd) {
+		this.foodsSelling.add(foodToAdd);
 	}
 }

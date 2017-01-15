@@ -53,7 +53,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of name
 	 * @return name of the contact
 	 */
-	public String getName() {
+	protected String getName() {
 		return this.name;
 	}
 
@@ -61,7 +61,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of name
 	 * @param newName new name the contact will have
 	 */
-	public void setName(String newName) {
+	protected void setName(String newName) {
 		this.name = newName;
 	}
 
@@ -69,7 +69,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of description
 	 * @return description of the contact
 	 */
-	public String getDescription() {
+	protected String getDescription() {
 		return this.description;
 	}
 
@@ -77,7 +77,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of description
 	 * @param newDescription new description the contact will have
 	 */
-	public void setDescription(String newDescription) {
+	protected void setDescription(String newDescription) {
 		this.description = newDescription;
 	}
 
@@ -85,7 +85,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of street
 	 * @return street of the contact
 	 */
-	public String getStreet() {
+	protected String getStreet() {
 		return this.street;
 	}
 
@@ -93,7 +93,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of street
 	 * @param newStreet new street the contact will have
 	 */
-	public void setStreet(String newStreet) {
+	protected void setStreet(String newStreet) {
 		this.street = newStreet;
 	}
 
@@ -101,7 +101,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of postal code
 	 * @return postal code of the contact
 	 */
-	public int getPostalCode() {
+	protected int getPostalCode() {
 		return this.postalCode;
 	}
 
@@ -109,7 +109,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of postal code
 	 * @param newPostalCode new postal code the contact will have
 	 */
-	public void setPostalCode(int newPostalCode) {
+	protected void setPostalCode(int newPostalCode) {
 		this.postalCode = newPostalCode;
 	}
 
@@ -117,7 +117,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of city
 	 * @return city of the contact
 	 */
-	public String getCity() {
+	protected String getCity() {
 		return this.city;
 	}
 
@@ -125,7 +125,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of city
 	 * @param newCity new city the contact will have
 	 */
-	public void setCity(String newCity) {
+	protected void setCity(String newCity) {
 		this.city = newCity;
 	}
 
@@ -133,7 +133,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of country
 	 * @return country of the contact
 	 */
-	public String getCountry() {
+	protected String getCountry() {
 		return this.country;
 	}
 
@@ -141,7 +141,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of country
 	 * @param newCountry new country of the contact
 	 */
-	public void setCountry(String newCountry) {
+	protected void setCountry(String newCountry) {
 		this.city = newCountry;
 	}
 
@@ -149,7 +149,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of phone number
 	 * @return phone number of the contact
 	 */
-	public int getPhoneNumber() {
+	protected int getPhoneNumber() {
 		return this.phoneNumber;
 	}
 
@@ -157,7 +157,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of phone number
 	 * @param newPhoneNumber new phone number the contact will have
 	 */
-	public void setPhoneNumber(int newPhoneNumber) {
+	protected void setPhoneNumber(int newPhoneNumber) {
 		this.phoneNumber = newPhoneNumber;
 	}
 
@@ -165,7 +165,7 @@ public class ContactInfo extends Identifier {
 	 * Getter of email
 	 * @return email of the contact
 	 */
-	public String getEmail() {
+	protected String getEmail() {
 		return this.email;
 	}
 
@@ -173,7 +173,7 @@ public class ContactInfo extends Identifier {
 	 * Setter of email
 	 * @param newEmail new email the contact will have
 	 */
-	public void setEmail(String newEmail) {
+	protected void setEmail(String newEmail) {
 		this.email = newEmail;
 	}
 

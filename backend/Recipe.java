@@ -86,5 +86,4 @@ public class Recipe extends Identifier {
 	public FoodCreator getFoodCreator() {
 		return this.creator;
 	}
-
 }

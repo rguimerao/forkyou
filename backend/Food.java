@@ -40,7 +40,7 @@ public class Food extends Identifier {
 	 * Getter of name
 	 * @return name of the food
 	 */
-	public String getName() {
+	protected String getName() {
 		return this.name;
 	}
 
@@ -56,7 +56,7 @@ public class Food extends Identifier {
 	 * Getter of category
 	 * @return category the food is in
 	 */
-	public Category getCategory() {
+	protected Category getCategory() {
 		return this.category;
 	}
 
@@ -64,7 +64,7 @@ public class Food extends Identifier {
 	 * Setter of category
 	 * @param newCategory new category the food will be in
 	 */
-	public void setCategory(Category newCategory) {
+	protected void setCategory(Category newCategory) {
 		this.category = newCategory;
 	}
 
@@ -72,7 +72,7 @@ public class Food extends Identifier {
 	 * Getter of purchase locations
 	 * @return array of location containing the locations where this food can be bought
 	 */
-	public ArrayList<Location> getPurchaseLocations() {
+	protected ArrayList<Location> getPurchaseLocations() {
 		return this.purchaseLocations;
 	}
 
@@ -80,9 +80,10 @@ public class Food extends Identifier {
 	 * Adds a purchase location to the food's purchase locations
 	 * @param purchaseLocationToAdd purchase location to add
 	 */
-	public void addPurchaseLocation(Location purchaseLocationToAdd) {
+	protected void addPurchaseLocation(Location purchaseLocationToAdd) {
 		if(forSell) {
 			this.purchaseLocations.add(purchaseLocationToAdd);
+			purchaseLocationToAdd.addFood(this);
 		}
 	}
 
@@ -90,7 +91,7 @@ public class Food extends Identifier {
 	 * Getter of is for sell
 	 * @return true is the food is for sell, false otherwise
 	 */
-	public boolean isForSell() {
+	protected boolean isForSell() {
 		return this.forSell;
 	}
 
@@ -98,7 +99,7 @@ public class Food extends Identifier {
 	 * Inverter of for sell.
 	 * Changes the value of forSell attribute to the opposite
 	 */
-	public void invertForSell() {
+	protected void invertForSell() {
 		this.forSell = !this.forSell;
 	}
 
@@ -106,7 +107,7 @@ public class Food extends Identifier {
 	 * Getter of price
 	 * @return price the food has
 	 */
-	public float getPrice() {
+	protected float getPrice() {
 		return this.price;
 	}
 
@@ -114,7 +115,7 @@ public class Food extends Identifier {
 	 * Setter of price
 	 * @param newPrice new price the food will have
 	 */
-	public void setPrice(float newPrice) {
+	protected void setPrice(float newPrice) {
 		this.price = newPrice;
 	}
 
@@ -122,7 +123,7 @@ public class Food extends Identifier {
 	 * Getter of creator
 	 * @return creator of this food
 	 */
-	public FoodCreator getCreator() {
+	protected FoodCreator getCreator() {
 		return this.creator;
 	}
 }
