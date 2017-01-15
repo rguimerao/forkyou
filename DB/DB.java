@@ -33,7 +33,8 @@ public class DB {
 	 *	TODO
 	 */
 	public boolean connect() {
-
+		
+		return false;
 	}
 
 	/**
@@ -49,9 +50,9 @@ public class DB {
 	public void executeQuery(String query) { // TODO -> return type? -> review java.sql?
 		// executed from controller
 		// select -> returns different than update/insert/delete
-		if (this.DB.connect()) {
+		/*if (this.DB.connect()) {
 			this.DB.executeQuery(query);
 			this.DB.disconnect();
-		}
+		}*/
 	}
 }
