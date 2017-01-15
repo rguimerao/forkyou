@@ -10,7 +10,7 @@ Test class → every test (1 per class?) <br />
 logger <br />
 location → opening hours <br />
 ratings <br />
-dish → can updates its own recipe <br />
 design by contract + tests? <br />
-user can remove item from wishlist + remove friend<br />
 DB - if connected or querying - cannot execute - singleton <br />
+tester singleton <br />
+review with test public/protected <br />

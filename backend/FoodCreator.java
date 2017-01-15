@@ -79,7 +79,7 @@ public class FoodCreator extends ContactInfo {
 	 * @param forSell is the ingredient for sell?
 	 * @param price price of the ingredient
 	 */
-	protected void createIngredient(String name, Category category, boolean forSell, float price) {
+	public void createIngredient(String name, Category category, boolean forSell, float price) {
 
 		// TODO -> needs DB + controller
 		Food newIngredient = new Ingredient(name, category, forSell, price, this);

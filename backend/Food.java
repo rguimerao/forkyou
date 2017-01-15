@@ -40,7 +40,7 @@ public class Food extends Identifier {
 	 * Getter of name
 	 * @return name of the food
 	 */
-	protected String getName() {
+	public String getName() {
 		return this.name;
 	}
 

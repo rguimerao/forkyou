@@ -51,6 +51,14 @@ public class User extends FoodCreator {
 	}
 
 	/**
+	 * Getter of wish list
+	 * @return array of foods
+	 */
+	public ArrayList<Food> getWishlist() {
+		return this.foodWishlist;
+	}
+	
+	/**
 	 * Adds food to the user's wish list
 	 * @param foodToAdd food to add
 	 */
@@ -59,11 +67,11 @@ public class User extends FoodCreator {
 	}
 
 	/**
-	 * Getter of wish list
-	 * @return array of foods
+	 * Removes food from wish list
+	 * @param position position of the food inside the array
 	 */
-	public ArrayList<Food> getWishlist() {
-		return this.foodWishlist;
+	public void removeFoodFromWishlist(int position) {
+		this.foodWishlist.remove(position);
 	}
 	
 	/**
@@ -80,6 +88,14 @@ public class User extends FoodCreator {
 	 */
 	public void addUserToFriendList(User userToAdd) {
 		this.friendList.add(userToAdd);
+	}
+	
+	/**
+	 * Removes user from friend list
+	 * @param position position of the friend inside the array
+	 */
+	public void removeFriend(int position) {
+		this.friendList.remove(position);
 	}
 	
 	/**

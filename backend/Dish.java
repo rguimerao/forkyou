@@ -42,6 +42,22 @@ public class Dish extends Food {
 	public void setRecipe(Recipe newRecipe) {
 		this.recipe = newRecipe;
 	}
+	
+	/**
+	 * Updates dish recipe's name
+	 * @param newName new name dish recipe will have
+	 */
+	public void updateRecipeName(String newName) {
+		this.recipe.updateName(newName);
+	}
+	
+	/**
+	 * Updates dish recipe's description
+	 * @param newDescription new description dish recipe will have
+	 */
+	public void updateRecipeDescription(String newDescription) {
+		this.recipe.updateDescription(newDescription);
+	}
 
 	/**
 	 * Getter of composed foods
