@@ -5,7 +5,8 @@ import DB.*;
 
 /**
  * Class tester.
- * Used to test stuff around the project
+ * Used to test stuff around the project.
+ * It is singleton
  * @author rguimerao
  *
  */
@@ -14,6 +15,9 @@ public class Tester {
 	public Tester() {
 	}
 	
+	/**
+	 * Remove item from wish list
+	 */
 	public void userRemoveItemFromList() {
 		
 		System.out.println("Creating user");

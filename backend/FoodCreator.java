@@ -1,6 +1,5 @@
 package backend;
 
-import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -44,7 +43,7 @@ public class FoodCreator extends ContactInfo {
 	 * Getter of foods created
 	 * @return foods created by the food creator
 	 */
-	protected ArrayList<Food> getFoodsCreated() {
+	public ArrayList<Food> getFoodsCreated() {
 		return this.foodsCreated;
 	}
 
@@ -60,7 +59,7 @@ public class FoodCreator extends ContactInfo {
 	 * Getter of recipes created
 	 * @return recipes created by the food creator
 	 */
-	protected ArrayList<Recipe> getRecipesCreated() {
+	public ArrayList<Recipe> getRecipesCreated() {
 		return this.recipesCreated;
 	}
 
@@ -93,7 +92,7 @@ public class FoodCreator extends ContactInfo {
 	 * @param forSell is this dish for sell?
 	 * @param price price of the dish
 	 */
-	protected void createDish(String name, Category category, boolean forSell, float price) {
+	public void createDish(String name, Category category, boolean forSell, float price) {
 
 		// TODO -> needs DB + controller
 		Food newDish = new Dish(name, category, forSell, price, this);
@@ -106,7 +105,7 @@ public class FoodCreator extends ContactInfo {
 	 * @param dish dish where the food will be added
 	 * @param foodToAdd food to add to the dish
 	 */
-	protected void addFoodToDish(Dish dish, Food foodToAdd) {
+	public void addFoodToDish(Dish dish, Food foodToAdd) {
 
 		// TODO -> needs DB + controller
 		dish.addFood(foodToAdd);
@@ -117,7 +116,7 @@ public class FoodCreator extends ContactInfo {
 	 * @param name name of the recipe
 	 * @param description description and steps of the recipe
 	 */
-	protected void createRecipe(String name, String description) {
+	public void createRecipe(String name, String description) {
 
 		// TODO -> needs DB + controller
 		Recipe newRecipe = new Recipe(name, description, this);
@@ -128,7 +127,7 @@ public class FoodCreator extends ContactInfo {
 	 * Creates a category
 	 * @param name name of the new category
 	 */
-	protected void createCategory(String name) {
+	public void createCategory(String name) {
 
 		// TODO -> needs DB + controller
 		//Category newCategory = new Category(name);
@@ -145,7 +144,7 @@ public class FoodCreator extends ContactInfo {
 	 * @param phoneNumber phone number of the location
 	 * @param email email of the location
 	 */
-	protected void createLocation(
+	public void createLocation(
 		String name,
 		String description,
 		String street,
