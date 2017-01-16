@@ -10,7 +10,7 @@ ratings <br />
 design by contract <br />
 DB - if connected or querying - cannot execute - singleton <br />
 connections to do: <br />
-&nbsp;- dish has 1 recipe <> recipe has dish ? <br />
-&nbsp;- user has foodWishList <> foods in user wishlist ? <br />
-&nbsp;- brand has location <> location has brand ? <br />
-&nbsp;- user N-N followers+following <br />
+    - dish has 1 recipe <> recipe has dish ? <br />
+    - user has foodWishList <> foods in user wishlist ? <br />
+    - brand has location <> location has brand ? <br />
+    - user N-N followers+following <br />
