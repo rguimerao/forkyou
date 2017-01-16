@@ -14,20 +14,23 @@ public class Recipe extends Identifier {
 	private String description;
 	private Date lastUpdate;
 	private FoodCreator creator;
+	private Dish dish;
 
 	/**
 	 * Constructor of recipe
 	 * @param name name of the recipe
 	 * @param description description and steps of the recipe
 	 * @param creator who created this recipe?
+	 * @param dish the dish this recipe creates
 	 */
-	public Recipe(String name, String description, FoodCreator creator) {
+	public Recipe(String name, String description, FoodCreator creator, Dish dish) {
 
 		super();
 		this.name        = name;
 		this.description = description;
 		this.lastUpdate  = new Date();
 		this.creator     = creator;
+		this.dish        = dish;
 	}
 
 	/**
@@ -85,5 +88,13 @@ public class Recipe extends Identifier {
 	 */
 	public FoodCreator getFoodCreator() {
 		return this.creator;
+	}
+	
+	/**
+	 * Gets the dish this recipe creates
+	 * @return dish this recipe creates
+	 */
+	public Dish getDish() {
+		return this.dish;
 	}
 }

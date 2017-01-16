@@ -70,16 +70,18 @@ public class User extends FoodCreator {
 	 */
 	public void addFoodToWishlist(Food foodToAdd) {
 		this.foodWishlist.add(foodToAdd);
+		foodToAdd.addUserToUsersWantingMe(this);
 		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
 	}
 
 	/**
 	 * Removes food from wish list
-	 * @param position position of the food inside the array
+	 * @param foodToRemove food to remove
 	 */
-	public void removeFoodFromWishlist(int position) {
-		this.foodWishlist.remove(position);
-		LOGGER.log(Level.INFO, "A food in position: " + position + " has been removed from the wishlist");
+	public void removeFoodFromWishlist(Food foodToRemove) {
+		foodToRemove.removeUserFromUsersWantingMe(this);
+		this.foodWishlist.remove(foodToRemove);
+		LOGGER.log(Level.INFO, foodToRemove.getName() + " has been removed from user wishlist");
 	}
 	
 	/**

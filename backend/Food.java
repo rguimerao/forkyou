@@ -17,6 +17,7 @@ public class Food extends Identifier {
 	private boolean forSell;
 	private float price;
 	private FoodCreator creator;
+	private ArrayList<User> usersWantingMe;
 	private static final Logger LOGGER = Logger.getLogger("Food");
 
 	/**
@@ -37,6 +38,7 @@ public class Food extends Identifier {
 		this.forSell  = forSell;
 		this.price    = price;
 		this.creator  = creator;
+		this.usersWantingMe = new ArrayList<User>();
 		LOGGER.log(Level.INFO, "A new food with name: " + name + " has been created");
 	}
 
@@ -130,5 +132,29 @@ public class Food extends Identifier {
 	 */
 	public FoodCreator getCreator() {
 		return this.creator;
+	}
+	
+	/**
+	 * Gets an array list of users wanting this food
+	 * @return array list of users wanting this food
+	 */
+	public ArrayList<User> getUsersWantingMe() {
+		return this.usersWantingMe;
+	}
+	
+	/**
+	 * Adds a user to the users wanting this food array
+	 * @param userToAdd user to be added to the list
+	 */
+	public void addUserToUsersWantingMe(User userToAdd) {
+		this.usersWantingMe.add(userToAdd);
+	}
+	
+	/**
+	 * Removes a user from the users wanting this food
+	 * @param userToRemove user to be removed
+	 */
+	public void removeUserFromUsersWantingMe(User userToRemove) {
+		this.usersWantingMe.remove(userToRemove);
 	}
 }

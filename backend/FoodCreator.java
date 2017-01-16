@@ -115,11 +115,12 @@ public class FoodCreator extends ContactInfo {
 	 * Creates a recipe and adds it to the recipes created array
 	 * @param name name of the recipe
 	 * @param description description and steps of the recipe
+	 * @param dish dish this new recipe will create
 	 */
-	public void createRecipe(String name, String description) {
+	public void createRecipe(String name, String description, Dish dish) {
 
 		// TODO -> needs DB + controller
-		Recipe newRecipe = new Recipe(name, description, this);
+		Recipe newRecipe = new Recipe(name, description, this, dish);
 		addRecipe(newRecipe);
 	}
 
@@ -152,9 +153,10 @@ public class FoodCreator extends ContactInfo {
 		String city,
 		String country,
 		int phoneNumber,
-		String email) {
+		String email,
+		Brand owner) {
 
 			// TODO -> needs DB + controller
-			//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email);
+			//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, owner);
 	}
 }
