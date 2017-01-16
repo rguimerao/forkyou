@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 public class User extends FoodCreator {
 
     private ArrayList<Food> foodWishlist;
-    private ArrayList<User> friendList;
+    private ArrayList<User> following;
+    private ArrayList<User> followers;
     private static final Logger LOGGER = Logger.getLogger("User");
     
     /**
@@ -39,7 +40,8 @@ public class User extends FoodCreator {
 	
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodWishlist = new ArrayList<Food>();
-		this.friendList   = new ArrayList<User>();
+		this.following    = new ArrayList<User>();
+		this.followers    = new ArrayList<User>();
 		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
 	}
 
@@ -81,27 +83,55 @@ public class User extends FoodCreator {
 	}
 	
 	/**
+	 * Getter of following users
+	 * @return array of following users
+	 */
+	public ArrayList<User> getFollowing() {
+		return this.following;
+	}
+	
+	/**
+	 * Adds a user to the following list only if its different than itself
+	 * @param userToAdd user to add to the following list
+	 */
+	public void addFollowing(User userToAdd) {
+		if (userToAdd != this) {
+			this.following.add(userToAdd);
+			userToAdd.addFollower(this);
+		}
+	}
+	
+	/**
+	 * Removes user from the following list
+	 * @param userToRemove user to remove from the following list
+	 */
+	public void removeFollowing(User userToRemove) {
+		this.following.remove(userToRemove);
+		userToRemove.removeFollower(this);
+	}
+	
+	/**
 	 * Getter of friend list
 	 * @return array of users
 	 */
-	public ArrayList<User> getFriendList() {
-		return this.friendList;
+	public ArrayList<User> getFollowers() {
+		return this.followers;
 	}
 	
 	/**
 	 * Adds a user to the friend list
 	 * @param userToAdd user to add to the friends list
 	 */
-	public void addUserToFriendList(User userToAdd) {
-		this.friendList.add(userToAdd);
+	private void addFollower(User followerToAdd) {
+		this.followers.add(followerToAdd);
 	}
 	
 	/**
 	 * Removes user from friend list
 	 * @param position position of the friend inside the array
 	 */
-	public void removeFriend(int position) {
-		this.friendList.remove(position);
+	private void removeFollower(User userToRemove) {
+		this.followers.remove(userToRemove);
 	}
 	
 	/**
