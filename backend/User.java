@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class user.
@@ -12,7 +14,8 @@ public class User extends FoodCreator {
 
     private ArrayList<Food> foodWishlist;
     private ArrayList<User> friendList;
-
+    private static final Logger LOGGER = Logger.getLogger("User");
+    
     /**
      * Constructor of user
      * @param name name of the user
@@ -37,6 +40,7 @@ public class User extends FoodCreator {
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodWishlist = new ArrayList<Food>();
 		this.friendList   = new ArrayList<User>();
+		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
 	}
 
 	/**
@@ -64,6 +68,7 @@ public class User extends FoodCreator {
 	 */
 	public void addFoodToWishlist(Food foodToAdd) {
 		this.foodWishlist.add(foodToAdd);
+		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
 	}
 
 	/**
@@ -72,6 +77,7 @@ public class User extends FoodCreator {
 	 */
 	public void removeFoodFromWishlist(int position) {
 		this.foodWishlist.remove(position);
+		LOGGER.log(Level.INFO, "A food in position: " + position + " has been removed from the wishlist");
 	}
 	
 	/**

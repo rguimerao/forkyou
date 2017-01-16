@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class category.
@@ -12,6 +14,7 @@ public class Category extends Identifier {
 
 	private String name;
 	private ArrayList<Food> foods;
+	private static final Logger LOGGER = Logger.getLogger("Category");
 
 	/**
 	 * Constructor of category
@@ -22,6 +25,7 @@ public class Category extends Identifier {
 		super();
 		this.name  = name;
 		this.foods = new ArrayList<Food>();
+		LOGGER.log(Level.INFO, "A new category has been created with name: " + name);
 	}
 
 	/**
@@ -29,6 +33,7 @@ public class Category extends Identifier {
 	 * @return name of the category
 	 */
 	public String getName() {
+		LOGGER.log(Level.INFO, "Name of category has been requested");
 		return name;
 	}
 
@@ -37,6 +42,7 @@ public class Category extends Identifier {
 	 * @return array list with the foods in the category
 	 */
 	public ArrayList<Food> getFoods() {
+		LOGGER.log(Level.INFO, "Array of foods in category has been requested");
 		return this.foods;
 	}
 
@@ -46,5 +52,6 @@ public class Category extends Identifier {
 	 */
 	public void addFood(Food foodToAdd) {
 		this.foods.add(foodToAdd);
+		LOGGER.log(Level.INFO, "A food has been added to a category");
 	}
 }

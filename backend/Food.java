@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class food
@@ -15,6 +17,7 @@ public class Food extends Identifier {
 	private boolean forSell;
 	private float price;
 	private FoodCreator creator;
+	private static final Logger LOGGER = Logger.getLogger("Food");
 
 	/**
 	 * Constructor of food
@@ -34,6 +37,7 @@ public class Food extends Identifier {
 		this.forSell  = forSell;
 		this.price    = price;
 		this.creator  = creator;
+		LOGGER.log(Level.INFO, "A new food with name: " + name + " has been created");
 	}
 
 	/**
@@ -41,6 +45,7 @@ public class Food extends Identifier {
 	 * @return name of the food
 	 */
 	public String getName() {
+		LOGGER.log(Level.INFO, "Name of food has been requested");
 		return this.name;
 	}
 
