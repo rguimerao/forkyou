@@ -9,8 +9,8 @@ location → opening hours <br />
 ratings <br />
 design by contract <br />
 DB - if connected or querying - cannot execute - singleton <br />
-connections to do: 
-	- dish has 1 recipe <> recipe has dish ?
-	- user has foodWishList <> foods in user wishlist ?
-	- brand has location <> location has brand ?
-	- user N-N followers+following
+connections to do: <br />
+&nbsp;- dish has 1 recipe <> recipe has dish ? <br />
+&nbsp;- user has foodWishList <> foods in user wishlist ? <br />
+&nbsp;- brand has location <> location has brand ? <br />
+&nbsp;- user N-N followers+following <br />
