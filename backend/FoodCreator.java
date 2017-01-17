@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class food creator
@@ -12,6 +14,7 @@ public class FoodCreator extends ContactInfo {
 
 	private ArrayList<Food> foodsCreated;
 	private ArrayList<Recipe> recipesCreated;
+	private static final Logger LOGGER = Logger.getLogger("Food Creator");
 
 	/**
 	 * Constructor of food creator
@@ -25,25 +28,27 @@ public class FoodCreator extends ContactInfo {
 	 * @param email email of the food creator
 	 */
 	public FoodCreator(
-		String name,
-		String description,
-		String street,
-		int postalCode,
-		String city, 
-		String country,
-		int phoneNumber,
-		String email) {
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city, 
+		final String country,
+		final int phoneNumber,
+		final String email) {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodsCreated   = new ArrayList<Food>();
 		this.recipesCreated = new ArrayList<Recipe>();
+		LOGGER.log(Level.INFO, "A food creator has been created");
 	}
 
 	/**
 	 * Getter of foods created
 	 * @return foods created by the food creator
 	 */
-	public ArrayList<Food> getFoodsCreated() {
+	public final ArrayList<Food> getFoodsCreated() {
+		LOGGER.log(Level.INFO, "Foods created from food creator getted");
 		return this.foodsCreated;
 	}
 
@@ -51,15 +56,17 @@ public class FoodCreator extends ContactInfo {
 	 * Adds a food to the foods created array
 	 * @param foodToAdd food to add to the array
 	 */
-	private void addFood(Food foodToAdd) {
+	private final void addFood(final Food foodToAdd) {
 		this.foodsCreated.add(foodToAdd);
+		LOGGER.log(Level.INFO, "Food added to foods created");
 	}
 
 	/**
 	 * Getter of recipes created
 	 * @return recipes created by the food creator
 	 */
-	public ArrayList<Recipe> getRecipesCreated() {
+	public final ArrayList<Recipe> getRecipesCreated() {
+		LOGGER.log(Level.INFO, "Recipes from food creator getted");
 		return this.recipesCreated;
 	}
 
@@ -67,36 +74,28 @@ public class FoodCreator extends ContactInfo {
 	 * Adds a recipe to the recipes created array
 	 * @param recipeToAdd recipe to add to the array
 	 */
-	private void addRecipe(Recipe recipeToAdd) {
+	private final void addRecipe(final Recipe recipeToAdd) {
 		this.recipesCreated.add(recipeToAdd);
+		LOGGER.log(Level.INFO, "Recipe added to food creator");
 	}
 
 	/**
-	 * Creates an ingredient and adds it to the foods created array
-	 * @param name name of the ingredient
-	 * @param category category which the ingredient belongs to
-	 * @param forSell is the ingredient for sell?
-	 * @param price price of the ingredient
+	 * Creates a food and adds it to the foods created array
+	 * @param name name of the food
+	 * @param category category which the food belongs to
+	 * @param forSell is the food for sell?
+	 * @param price price of the food
 	 */
-	public void createIngredient(String name, Category category, boolean forSell, float price) {
+	public final void createFood(
+		final String name, 
+		final Category category, 
+		final boolean forSell, 
+		final float price) {
 
 		// TODO -> needs DB + controller
-		Food newIngredient = new Ingredient(name, category, forSell, price, this);
-		addFood(newIngredient);
-	}
-
-	/**
-	 * Creates a dish and adds it to the foods created array
-	 * @param name name of the dish
-	 * @param category category which the dish belongs to
-	 * @param forSell is this dish for sell?
-	 * @param price price of the dish
-	 */
-	public void createDish(String name, Category category, boolean forSell, float price) {
-
-		// TODO -> needs DB + controller
-		Food newDish = new Dish(name, category, forSell, price, this);
-		addFood(newDish);
+		Food newFood = new Food(name, category, forSell, price, this);
+		addFood(newFood);
+		LOGGER.log(Level.INFO, "Food created and added on food creator");
 	}
 
 	/**
@@ -105,10 +104,11 @@ public class FoodCreator extends ContactInfo {
 	 * @param dish dish where the food will be added
 	 * @param foodToAdd food to add to the dish
 	 */
-	public void addFoodToDish(Dish dish, Food foodToAdd) {
+	public final void addFoodToDish(final Dish dish, final Food foodToAdd) {
 
 		// TODO -> needs DB + controller
 		dish.addFood(foodToAdd);
+		LOGGER.log(Level.INFO, "Food added to dish on food creator");
 	}
 	
 	/**
@@ -117,21 +117,26 @@ public class FoodCreator extends ContactInfo {
 	 * @param description description and steps of the recipe
 	 * @param dish dish this new recipe will create
 	 */
-	public void createRecipe(String name, String description, Dish dish) {
+	public final void createRecipe(
+		final String name, 
+		final String description, 
+		final Dish dish) {
 
 		// TODO -> needs DB + controller
 		Recipe newRecipe = new Recipe(name, description, this, dish);
 		addRecipe(newRecipe);
+		LOGGER.log(Level.INFO, "Recipe created and added on food creator");
 	}
 
 	/**
 	 * Creates a category
 	 * @param name name of the new category
 	 */
-	public void createCategory(String name) {
+	public final void createCategory(final String name) {
 
 		// TODO -> needs DB + controller
 		//Category newCategory = new Category(name);
+		LOGGER.log(Level.INFO, "Category created on food creator");
 	}
 
 	/**
@@ -144,19 +149,21 @@ public class FoodCreator extends ContactInfo {
 	 * @param country country of the location
 	 * @param phoneNumber phone number of the location
 	 * @param email email of the location
+	 * @param owner brand owner of the location
 	 */
 	public void createLocation(
-		String name,
-		String description,
-		String street,
-		int postalCode,
-		String city,
-		String country,
-		int phoneNumber,
-		String email,
-		Brand owner) {
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email,
+		final Brand owner) {
 
 			// TODO -> needs DB + controller
 			//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, owner);
+		LOGGER.log(Level.INFO, "Location created on food creator");
 	}
 }

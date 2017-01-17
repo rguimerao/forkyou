@@ -1,5 +1,8 @@
 package backend;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Class contact info.
  * Has information about the contact to localize it.
@@ -16,6 +19,7 @@ public class ContactInfo extends Identifier {
 	private String country;
 	private int phoneNumber;
 	private String email;
+	private static final Logger LOGGER = Logger.getLogger("ContactInfo");
 
 	/**
 	 * Constructor of contact info
@@ -29,14 +33,14 @@ public class ContactInfo extends Identifier {
 	 * @param email Email of the contact
 	 */
 	public ContactInfo(
-		String name,
-		String description,
-		String street,
-		int postalCode,
-		String city,
-		String country,
-		int phoneNumber,
-		String email) {
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email) {
 
 		super();
 		this.name        = name;
@@ -47,13 +51,15 @@ public class ContactInfo extends Identifier {
 		this.country     = country;
 		this.phoneNumber = phoneNumber;
 		this.email       = email;
+		LOGGER.log(Level.INFO, "A new contact info has been created");
 	}
 
 	/**
 	 * Getter of name
 	 * @return name of the contact
 	 */
-	public String getName() {
+	public final String getName() {
+		LOGGER.log(Level.INFO, "Name of contact info has been getted");
 		return this.name;
 	}
 
@@ -61,15 +67,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of name
 	 * @param newName new name the contact will have
 	 */
-	public void setName(String newName) {
+	public final void setName(final String newName) {
 		this.name = newName;
+		LOGGER.log(Level.INFO, "Name of contact info has been setted");
 	}
 
 	/**
 	 * Getter of description
 	 * @return description of the contact
 	 */
-	public String getDescription() {
+	public final String getDescription() {
+		LOGGER.log(Level.INFO, "Description of contact info has been getted");
 		return this.description;
 	}
 
@@ -77,15 +85,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of description
 	 * @param newDescription new description the contact will have
 	 */
-	public void setDescription(String newDescription) {
+	public final void setDescription(final String newDescription) {
 		this.description = newDescription;
+		LOGGER.log(Level.INFO, "Description of contact info has been setted");
 	}
 
 	/**
 	 * Getter of street
 	 * @return street of the contact
 	 */
-	public String getStreet() {
+	public final String getStreet() {
+		LOGGER.log(Level.INFO, "Street of contact info has been getted");
 		return this.street;
 	}
 
@@ -93,15 +103,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of street
 	 * @param newStreet new street the contact will have
 	 */
-	public void setStreet(String newStreet) {
+	public final void setStreet(final String newStreet) {
 		this.street = newStreet;
+		LOGGER.log(Level.INFO, "Street of contact info has been setted");
 	}
 
 	/**
 	 * Getter of postal code
 	 * @return postal code of the contact
 	 */
-	public int getPostalCode() {
+	public final int getPostalCode() {
+		LOGGER.log(Level.INFO, "Postal code of contact info has been getted");
 		return this.postalCode;
 	}
 
@@ -109,15 +121,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of postal code
 	 * @param newPostalCode new postal code the contact will have
 	 */
-	public void setPostalCode(int newPostalCode) {
+	public final void setPostalCode(final int newPostalCode) {
 		this.postalCode = newPostalCode;
+		LOGGER.log(Level.INFO, "Postal code of contact info has been setted");
 	}
 
 	/**
 	 * Getter of city
 	 * @return city of the contact
 	 */
-	public String getCity() {
+	public final String getCity() {
+		LOGGER.log(Level.INFO, "City of contact info has been getted");
 		return this.city;
 	}
 
@@ -125,15 +139,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of city
 	 * @param newCity new city the contact will have
 	 */
-	public void setCity(String newCity) {
+	public final void setCity(final String newCity) {
 		this.city = newCity;
+		LOGGER.log(Level.INFO, "City of contact info has been setted");
 	}
 
 	/**
 	 * Getter of country
 	 * @return country of the contact
 	 */
-	public String getCountry() {
+	public final String getCountry() {
+		LOGGER.log(Level.INFO, "Country of contact info has been getted");
 		return this.country;
 	}
 
@@ -141,15 +157,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of country
 	 * @param newCountry new country of the contact
 	 */
-	public void setCountry(String newCountry) {
+	public final void setCountry(final String newCountry) {
 		this.city = newCountry;
+		LOGGER.log(Level.INFO, "Country of contact info has been setted");
 	}
 
 	/**
 	 * Getter of phone number
 	 * @return phone number of the contact
 	 */
-	public int getPhoneNumber() {
+	public final int getPhoneNumber() {
+		LOGGER.log(Level.INFO, "Phone number of contact info has been getted");
 		return this.phoneNumber;
 	}
 
@@ -157,15 +175,17 @@ public class ContactInfo extends Identifier {
 	 * Setter of phone number
 	 * @param newPhoneNumber new phone number the contact will have
 	 */
-	public void setPhoneNumber(int newPhoneNumber) {
+	public final void setPhoneNumber(final int newPhoneNumber) {
 		this.phoneNumber = newPhoneNumber;
+		LOGGER.log(Level.INFO, "Phone number of contact info has been setted");
 	}
 
 	/**
 	 * Getter of email
 	 * @return email of the contact
 	 */
-	public String getEmail() {
+	public final String getEmail() {
+		LOGGER.log(Level.INFO, "Email of contact info has been getted");
 		return this.email;
 	}
 
@@ -173,8 +193,9 @@ public class ContactInfo extends Identifier {
 	 * Setter of email
 	 * @param newEmail new email the contact will have
 	 */
-	public void setEmail(String newEmail) {
+	public final void setEmail(final String newEmail) {
 		this.email = newEmail;
+		LOGGER.log(Level.INFO, "Email of contact info has been setted");
 	}
 
 }

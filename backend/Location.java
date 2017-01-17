@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class location.
@@ -12,6 +14,8 @@ public class Location extends ContactInfo {
 
 	private ArrayList<Food> foodsSelling;
 	private Brand owner;
+	private static final Logger LOGGER = Logger.getLogger("Location");
+	
 	/**
 	 * Constructor of location
 	 * @param name name of the location
@@ -25,26 +29,28 @@ public class Location extends ContactInfo {
 	 * @param owner brand owner of this location
 	 */
 	public Location(
-		String name,
-		String description,
-		String street,
-		int postalCode,
-		String city,
-		String country,
-		int phoneNumber,
-		String email,
-		Brand owner) {
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email,
+		final Brand owner) {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodsSelling = new ArrayList<Food>();
 		this.owner = owner;
+		LOGGER.log(Level.INFO, "A new location has been created");
 	}
 	
 	/**
 	 * Getter of foods selling
 	 * @return array of the foods being sold in this location
 	 */
-	public ArrayList<Food> getFoodsSelling() {
+	public final ArrayList<Food> getFoodsSelling() {
+		LOGGER.log(Level.INFO, "Foods selling in this location getted");
 		return this.foodsSelling;
 	}
 	
@@ -52,15 +58,17 @@ public class Location extends ContactInfo {
 	 * Adds a food to the selling foods array
 	 * @param foodToAdd food to add
 	 */
-	public void addFood(Food foodToAdd) {
+	public final void addFood(final Food foodToAdd) {
 		this.foodsSelling.add(foodToAdd);
+		LOGGER.log(Level.INFO, "A new food has been added to foods selling in this location");
 	}
 	
 	/**
 	 * Gets the location owner
 	 * @return brand owner of this location
 	 */
-	public Brand getOwner() {
+	public final Brand getOwner() {
+		LOGGER.log(Level.INFO, "Owner from location getted");
 		return this.owner;
 	}
 	
@@ -68,7 +76,8 @@ public class Location extends ContactInfo {
 	 * Sets a new brand owner for this location
 	 * @param newOwner new brand owner for the location
 	 */
-	public void setOwner(Brand newOwner) {
+	public final void setOwner(final Brand newOwner) {
 		this.owner = newOwner;
+		LOGGER.log(Level.INFO, "New owner from location setted");
 	}
 }

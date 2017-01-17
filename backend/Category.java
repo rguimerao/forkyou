@@ -20,7 +20,7 @@ public class Category extends Identifier {
 	 * Constructor of category
 	 * @param name name of the category
 	 */
-	public Category(String name) {
+	public Category(final String name) {
 
 		super();
 		this.name  = name;
@@ -32,7 +32,7 @@ public class Category extends Identifier {
 	 * Getter of name
 	 * @return name of the category
 	 */
-	public String getName() {
+	public final String getName() {
 		LOGGER.log(Level.INFO, "Name of category has been requested");
 		return name;
 	}
@@ -41,7 +41,7 @@ public class Category extends Identifier {
 	 * Getter of foods in category
 	 * @return array list with the foods in the category
 	 */
-	public ArrayList<Food> getFoods() {
+	public final ArrayList<Food> getFoods() {
 		LOGGER.log(Level.INFO, "Array of foods in category has been requested");
 		return this.foods;
 	}
@@ -50,7 +50,7 @@ public class Category extends Identifier {
 	 * Adds a food to the array of foods inside the category
 	 * @param foodToAdd food to add to the category
 	 */
-	public void addFood(Food foodToAdd) {
+	public final void addFood(final Food foodToAdd) {
 		this.foods.add(foodToAdd);
 		LOGGER.log(Level.INFO, "A food has been added to a category");
 	}

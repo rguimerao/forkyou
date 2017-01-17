@@ -1,16 +1,17 @@
 # TODO
 List of TODO things on the project
 
-controllers → review who needs one <br />
-singleton → list controllers <br />
-tests <br />
-Date type obsolete? <br />
-logger <br />
-location → opening hours <br />
-ratings <br />
-design by contract <br />
-DB - if connected or querying - cannot execute - singleton <br />
-connections to do: <br />
 <ul>
-    <li>user N-N followers+following</li>
+	<li>controllers → review who needs one</li>
+	<li>singleton → list controllers</li>
+	<li>tests</li>
+	<li>Date type obsolete?</li>
+	<li>location → has opening hours</li>
+	<li>ratings - visitor pattern (rater)</li>
+	<li>https://en.wikipedia.org/wiki/Visitor_pattern -> rater</li>
+	<li>design by contract</li>
+	<li>DB - if connected or querying - cannot execute - singleton</li>
+	<li>a user can also buy food</li>
+	<li>use cases</li>
+	<li>upgrade the to-do list</li>
 </ul>

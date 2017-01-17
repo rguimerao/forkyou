@@ -29,14 +29,14 @@ public class User extends FoodCreator {
      * @param email email of the user
      */
 	public User(
-		String name,
-		String description,
-		String street,
-		int postalCode,
-		String city,
-		String country,
-		int phoneNumber,
-		String email) {
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email) {
 	
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodWishlist = new ArrayList<Food>();
@@ -50,17 +50,19 @@ public class User extends FoodCreator {
 	 * @param objectToRate object to rate
 	 * @param rating rating
 	 */
-	public void rate(Object objectToRate, int rating) {
+	public void rate(Identifier objectToRate, int rating) {
 
 		/*Rater rater = new Rater();
 		rater.rate(objectToRate, rating, getID());*/
+		// TODO -> LOGGER
 	}
 
 	/**
 	 * Getter of wish list
 	 * @return array of foods
 	 */
-	public ArrayList<Food> getWishlist() {
+	public final ArrayList<Food> getWishlist() {
+		LOGGER.log(Level.INFO, "Food wishlist getted");
 		return this.foodWishlist;
 	}
 	
@@ -68,7 +70,7 @@ public class User extends FoodCreator {
 	 * Adds food to the user's wish list
 	 * @param foodToAdd food to add
 	 */
-	public void addFoodToWishlist(Food foodToAdd) {
+	public final void addFoodToWishlist(final Food foodToAdd) {
 		this.foodWishlist.add(foodToAdd);
 		foodToAdd.addUserToUsersWantingMe(this);
 		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
@@ -78,7 +80,7 @@ public class User extends FoodCreator {
 	 * Removes food from wish list
 	 * @param foodToRemove food to remove
 	 */
-	public void removeFoodFromWishlist(Food foodToRemove) {
+	public final void removeFoodFromWishlist(final Food foodToRemove) {
 		foodToRemove.removeUserFromUsersWantingMe(this);
 		this.foodWishlist.remove(foodToRemove);
 		LOGGER.log(Level.INFO, foodToRemove.getName() + " has been removed from user wishlist");
@@ -88,7 +90,8 @@ public class User extends FoodCreator {
 	 * Getter of following users
 	 * @return array of following users
 	 */
-	public ArrayList<User> getFollowing() {
+	public final ArrayList<User> getFollowing() {
+		LOGGER.log(Level.INFO, "Followig of users getted");
 		return this.following;
 	}
 	
@@ -96,10 +99,13 @@ public class User extends FoodCreator {
 	 * Adds a user to the following list only if its different than itself
 	 * @param userToAdd user to add to the following list
 	 */
-	public void addFollowing(User userToAdd) {
-		if (userToAdd != this) {
+	public final void addFollowing(final User userToAdd) {
+		if (userToAdd != this) { // TODO by id?
 			this.following.add(userToAdd);
 			userToAdd.addFollower(this);
+			LOGGER.log(Level.INFO, "User added to following");
+		} else {
+			LOGGER.log(Level.WARNING, "ERROR addFollowing user tried to follow youself");
 		}
 	}
 	
@@ -107,16 +113,18 @@ public class User extends FoodCreator {
 	 * Removes user from the following list
 	 * @param userToRemove user to remove from the following list
 	 */
-	public void removeFollowing(User userToRemove) {
+	public final void removeFollowing(final User userToRemove) {
 		this.following.remove(userToRemove);
 		userToRemove.removeFollower(this);
+		LOGGER.log(Level.INFO, "User removed from following");
 	}
 	
 	/**
 	 * Getter of friend list
 	 * @return array of users
 	 */
-	public ArrayList<User> getFollowers() {
+	public final ArrayList<User> getFollowers() {
+		LOGGER.log(Level.INFO, "Followers list getted");
 		return this.followers;
 	}
 	
@@ -124,16 +132,18 @@ public class User extends FoodCreator {
 	 * Adds a user to the friend list
 	 * @param userToAdd user to add to the friends list
 	 */
-	private void addFollower(User followerToAdd) {
+	private final void addFollower(final User followerToAdd) {
 		this.followers.add(followerToAdd);
+		LOGGER.log(Level.INFO, "A user is now following you");
 	}
 	
 	/**
 	 * Removes user from friend list
 	 * @param position position of the friend inside the array
 	 */
-	private void removeFollower(User userToRemove) {
+	private final void removeFollower(final User userToRemove) {
 		this.followers.remove(userToRemove);
+		LOGGER.log(Level.INFO, "A user has removed you from its following list");
 	}
 	
 	/**
@@ -147,15 +157,15 @@ public class User extends FoodCreator {
 	 * @param phoneNumber phone number  of the new brand
 	 * @param email email of the new brand
 	 */
-	public void createBrand(
-			String name,
-			String description,
-			String street,
-			int postalCode,
-			String city,
-			String country,
-			int phoneNumber,
-			String email) {
+	public final void createBrand(
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email) {
 		
 		/* Brand newBrand = 
 				new Brand(
@@ -169,5 +179,6 @@ public class User extends FoodCreator {
 						email
 						);
 		db controller -> add new brand */
+		// TODO -> LOGGER
 	}
 }

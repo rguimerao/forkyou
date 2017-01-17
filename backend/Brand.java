@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class brand
@@ -11,6 +13,8 @@ import java.util.ArrayList;
 public class Brand extends FoodCreator {
 
 	private ArrayList<Location> sellLocations;
+	private String website;
+	private static final Logger LOGGER = Logger.getLogger("Brand");
 
 	/**
 	 * Constructor of brand
@@ -24,24 +28,46 @@ public class Brand extends FoodCreator {
 	 * @param email email of the brand
 	 */
 	public Brand(
-		String name,
-		String description,
-		String street,
-		int postalCode,
-		String city,
-		String country,
-		int phoneNumber,
-		String email) {
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email,
+		final String website) {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		sellLocations = new ArrayList<Location>();
+		this.website  = website;
+		LOGGER.log(Level.INFO, "A new brand has been created with name: " + name);
+	}
+	
+	/**
+	 * Gets brand website
+	 * @return website of the brand
+	 */
+	public final String getWebsite() {
+		LOGGER.log(Level.INFO, "Website of brand getted");
+		return this.website;
+	}
+	
+	/**
+	 * Sets a new website of the brand
+	 * @param newWebsite new website of the brand
+	 */
+	public final void setWebsite(final String newWebsite) {
+		this.website = newWebsite;
+		LOGGER.log(Level.INFO, "Website of brand setted");
 	}
 
 	/**
 	 * Getter of sell locations
 	 * @return location where the brand sells food
 	 */
-	public ArrayList<Location> getSellLocations() {
+	public final ArrayList<Location> getSellLocations() {
+		LOGGER.log(Level.INFO, "Sell locations from brand: " + getName() + " has been getted");
 		return this.sellLocations;
 	}
 
@@ -49,10 +75,39 @@ public class Brand extends FoodCreator {
 	 * Add a new location to the sellLocations array
 	 * @param newLocation new location to add to the array
 	 */
-	public void addSellLocation(Location newLocation) {
+	public final void addSellLocation(final Location newLocation) {
 		this.sellLocations.add(newLocation);
 		if (newLocation.getOwner() != this) {
 			newLocation.setOwner(this);
 		}
+		LOGGER.log(Level.INFO, "A new location has been added to the brand");
+	}
+	
+	/**
+	 * Creates a new location where food is bought and sold of this brand
+	 * @param name name of the location
+	 * @param description description of the location
+	 * @param street street of the location
+	 * @param postalCode postal code of the location
+	 * @param city city of the location
+	 * @param country country of the location
+	 * @param phoneNumber phone number of the location
+	 * @param email email of the location
+	 */
+	@Override
+	public final void createLocation(
+		final String name,
+		final String description,
+		final String street,
+		final int postalCode,
+		final String city,
+		final String country,
+		final int phoneNumber,
+		final String email,
+		final Brand owner) {
+
+		// TODO -> needs DB + controller
+		//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, this);
+		LOGGER.log(Level.INFO, "Location created on brand");
 	}
 }

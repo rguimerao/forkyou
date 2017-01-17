@@ -51,7 +51,7 @@ public class DB {
 		// select -> returns different than update/insert/delete
 		/*if (this.DB.connect()) {
 			this.DB.executeQuery(query);
-			this.DB.disconnect();
+			this.DB.disconnect(); -> TODO this does not go here
 		}*/
 	}
 }

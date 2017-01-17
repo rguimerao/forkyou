@@ -41,13 +41,14 @@ public class Tester {
 						0, 
 						user)
 				);
-		user.addFoodToWishlist(
-				new Ingredient("ing 2", 
+		Ingredient ingredientTwo = 
+				new Ingredient(
+						"ing 2", 
 						new Category("first cat"), 
 						false, 
 						0, 
-						user)
-				);
+						user);
+		user.addFoodToWishlist(ingredientTwo);
 		user.addFoodToWishlist(
 				new Ingredient("ing 3", 
 						new Category("first cat"), 
@@ -62,7 +63,7 @@ public class Tester {
 		}
 		
 		System.out.println("Removing item from wishlist");
-		user.removeFoodFromWishlist(1);
+		user.removeFoodFromWishlist(ingredientTwo);
 
 		
 		System.out.println("showing ingredients again");

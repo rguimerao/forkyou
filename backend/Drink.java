@@ -1,5 +1,8 @@
 package backend;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Class drink.
  * A drink is a type of dish made of ingredients and only ingredients.
@@ -8,6 +11,8 @@ package backend;
  */
 public class Drink extends Dish {
 	
+	private static final Logger LOGGER = Logger.getLogger("Drink");
+	
 	/**
 	 * Constructor of drink
 	 * @param name name of the drink
@@ -15,10 +20,15 @@ public class Drink extends Dish {
 	 * @param price price of the drink
 	 * @param creator creator of this drink
 	 */
-	public Drink(String name, boolean forSell, float price, FoodCreator creator) {
+	public Drink(
+		final String name, 
+		final boolean forSell, 
+		final float price, 
+		final FoodCreator creator) {
 		
 		// TODO -> controller get category drinks
 		super(name, new Category("drinks"), forSell, price, creator);
+		LOGGER.log(Level.INFO, "A drink has been created");
 		
 	}
 
@@ -28,9 +38,12 @@ public class Drink extends Dish {
 	 * @param ingredientToAdd ingredient to add to the drink
 	 */
 	@Override
-	public void addFood(Food ingredientToAdd) {
+	public final void addFood(final Food ingredientToAdd) {
 		if (ingredientToAdd instanceof Ingredient) {
 			this.composedFoods.add(ingredientToAdd);
+			LOGGER.log(Level.INFO, "An ingredient has been added to a drink");
+		} else {
+			LOGGER.log(Level.WARNING, "A non-ingredient food has tried to be added to a drink!");
 		}
 	}
 

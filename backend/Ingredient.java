@@ -22,7 +22,12 @@ public class Ingredient extends Food {
 	 * @param price price of the ingredient
 	 * @param creator creator of the ingredient
 	 */
-	public Ingredient(String name, Category category, boolean forSell, float price, FoodCreator creator) {
+	public Ingredient(
+		final String name, 
+		final Category category, 
+		final boolean forSell, 
+		final float price, 
+		final FoodCreator creator) {
 
 		super(name, category, forSell, price, creator);
 		LOGGER.log(Level.INFO, "A new ingredient with name: " + name + " has been created");

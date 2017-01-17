@@ -28,7 +28,12 @@ public class Food extends Identifier {
 	 * @param price price of the food
 	 * @param creator creator of the food
 	 */
-	public Food(String name, Category category, boolean forSell, float price, FoodCreator creator) {
+	public Food(
+		final String name, 
+		final Category category, 
+		final boolean forSell, 
+		final float price, 
+		final FoodCreator creator) {
 
 		super();
 		this.name     = name;
@@ -46,7 +51,7 @@ public class Food extends Identifier {
 	 * Getter of name
 	 * @return name of the food
 	 */
-	public String getName() {
+	public final String getName() {
 		LOGGER.log(Level.INFO, "Name of food has been requested");
 		return this.name;
 	}
@@ -55,15 +60,17 @@ public class Food extends Identifier {
 	 * Setter of name
 	 * @param newName new name the food will have
 	 */
-	public void setName(String newName) {
+	public final void setName(final String newName) {
 		this.name = newName;
+		LOGGER.log(Level.INFO, "Name of food setted");
 	}
 
 	/**
 	 * Getter of category
 	 * @return category the food is in
 	 */
-	public Category getCategory() {
+	public final Category getCategory() {
+		LOGGER.log(Level.INFO, "Category of food getted");
 		return this.category;
 	}
 
@@ -71,15 +78,17 @@ public class Food extends Identifier {
 	 * Setter of category
 	 * @param newCategory new category the food will be in
 	 */
-	public void setCategory(Category newCategory) {
+	public final void setCategory(final Category newCategory) {
 		this.category = newCategory;
+		LOGGER.log(Level.INFO, "Category of food setted");
 	}
 
 	/**
 	 * Getter of purchase locations
 	 * @return array of location containing the locations where this food can be bought
 	 */
-	public ArrayList<Location> getPurchaseLocations() {
+	public final ArrayList<Location> getPurchaseLocations() {
+		LOGGER.log(Level.INFO, "Purchase locations of food getted");
 		return this.purchaseLocations;
 	}
 
@@ -87,10 +96,13 @@ public class Food extends Identifier {
 	 * Adds a purchase location to the food's purchase locations
 	 * @param purchaseLocationToAdd purchase location to add
 	 */
-	public void addPurchaseLocation(Location purchaseLocationToAdd) {
+	public final void addPurchaseLocation(final Location purchaseLocationToAdd) {
 		if(forSell) {
+			LOGGER.log(Level.INFO, "Purchase location added to food");
 			this.purchaseLocations.add(purchaseLocationToAdd);
 			purchaseLocationToAdd.addFood(this);
+		} else {
+			LOGGER.log(Level.WARNING, "A purchase location has tried to be added to a not for sell food!");
 		}
 	}
 
@@ -98,7 +110,8 @@ public class Food extends Identifier {
 	 * Getter of is for sell
 	 * @return true is the food is for sell, false otherwise
 	 */
-	public boolean isForSell() {
+	public final boolean isForSell() {
+		LOGGER.log(Level.INFO, "isForSell of food getted");
 		return this.forSell;
 	}
 
@@ -106,15 +119,17 @@ public class Food extends Identifier {
 	 * Inverter of for sell.
 	 * Changes the value of forSell attribute to the opposite
 	 */
-	public void invertForSell() {
+	public final void invertForSell() {
 		this.forSell = !this.forSell;
+		LOGGER.log(Level.INFO, "isForSell of food inverted. Now it is: " + this.forSell);
 	}
 
 	/**
 	 * Getter of price
 	 * @return price the food has
 	 */
-	public float getPrice() {
+	public final float getPrice() {
+		LOGGER.log(Level.INFO, "Price of food getted");
 		return this.price;
 	}
 
@@ -122,15 +137,17 @@ public class Food extends Identifier {
 	 * Setter of price
 	 * @param newPrice new price the food will have
 	 */
-	public void setPrice(float newPrice) {
+	public final void setPrice(final float newPrice) {
 		this.price = newPrice;
+		LOGGER.log(Level.INFO, "Price of food setted");
 	}
 
 	/**
 	 * Getter of creator
 	 * @return creator of this food
 	 */
-	public FoodCreator getCreator() {
+	public final FoodCreator getCreator() {
+		LOGGER.log(Level.INFO, "Creator of food getted");
 		return this.creator;
 	}
 	
@@ -138,7 +155,8 @@ public class Food extends Identifier {
 	 * Gets an array list of users wanting this food
 	 * @return array list of users wanting this food
 	 */
-	public ArrayList<User> getUsersWantingMe() {
+	public final ArrayList<User> getUsersWantingMe() {
+		LOGGER.log(Level.INFO, "Users wanting food of food getted");
 		return this.usersWantingMe;
 	}
 	
@@ -146,15 +164,17 @@ public class Food extends Identifier {
 	 * Adds a user to the users wanting this food array
 	 * @param userToAdd user to be added to the list
 	 */
-	public void addUserToUsersWantingMe(User userToAdd) {
+	public final void addUserToUsersWantingMe(final User userToAdd) {
 		this.usersWantingMe.add(userToAdd);
+		LOGGER.log(Level.INFO, "User added to list of users wanting this food");
 	}
 	
 	/**
 	 * Removes a user from the users wanting this food
 	 * @param userToRemove user to be removed
 	 */
-	public void removeUserFromUsersWantingMe(User userToRemove) {
+	public final void removeUserFromUsersWantingMe(final User userToRemove) {
 		this.usersWantingMe.remove(userToRemove);
+		LOGGER.log(Level.INFO, "User removed from user wanting this food");
 	}
 }

@@ -1,6 +1,8 @@
 package backend;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class recipe.
@@ -15,6 +17,7 @@ public class Recipe extends Identifier {
 	private Date lastUpdate;
 	private FoodCreator creator;
 	private Dish dish;
+	private static final Logger LOGGER = Logger.getLogger("Recipe");
 
 	/**
 	 * Constructor of recipe
@@ -23,7 +26,11 @@ public class Recipe extends Identifier {
 	 * @param creator who created this recipe?
 	 * @param dish the dish this recipe creates
 	 */
-	public Recipe(String name, String description, FoodCreator creator, Dish dish) {
+	public Recipe(
+		final String name, 
+		final String description, 
+		final FoodCreator creator, 
+		final Dish dish) {
 
 		super();
 		this.name        = name;
@@ -31,13 +38,15 @@ public class Recipe extends Identifier {
 		this.lastUpdate  = new Date();
 		this.creator     = creator;
 		this.dish        = dish;
+		LOGGER.log(Level.INFO, "A new recipe has been created");
 	}
 
 	/**
 	 * Getter of name
 	 * @return name of the recipe
 	 */
-	public String getName() {
+	public final String getName() {
+		LOGGER.log(Level.INFO, "Name of recipe has been getted");
 		return this.name;
 	}
 
@@ -45,16 +54,18 @@ public class Recipe extends Identifier {
 	 * Updates recipe's name
 	 * @param newName new name the recipe will have
 	 */
-	public void updateName(String newName) {
+	public final void updateName(final String newName) {
 		this.name = newName;
 		updateLastUpdate();
+		LOGGER.log(Level.INFO, "Name of recipe updated");
 	}
 
 	/**
 	 * Getter of description
 	 * @return description of the recipe
 	 */
-	public String getDescription() {
+	public final String getDescription() {
+		LOGGER.log(Level.INFO, "Description of recipe has been getted");
 		return this.description;
 	}
 
@@ -62,31 +73,35 @@ public class Recipe extends Identifier {
 	 * Updates recipe's description
 	 * @param newDescription new description the recipe will have
 	 */
-	public void updateDescription(String newDescription) {
+	public final void updateDescription(final String newDescription) {
 		this.description = newDescription;
 		updateLastUpdate();
+		LOGGER.log(Level.INFO, "Description of recipe updated");
 	}
 
 	/**
 	 * Getter of last update
 	 * @return last update the recipe was updated
 	 */
-	public Date getLastUpdate() {
+	public final Date getLastUpdate() {
+		LOGGER.log(Level.INFO, "Last update of recipe getted");
 		return this.lastUpdate;
 	}
 
 	/**
 	 * Updates the last update date
 	 */
-	private void updateLastUpdate() {
+	private final void updateLastUpdate() {
 		this.lastUpdate = new Date();
+		LOGGER.log(Level.INFO, "Recipe updated!");
 	}
 
 	/**
 	 * Getter of food creator
 	 * @return recipe's food creator
 	 */
-	public FoodCreator getFoodCreator() {
+	public final FoodCreator getFoodCreator() {
+		LOGGER.log(Level.INFO, "Creator of recipe getted");
 		return this.creator;
 	}
 	
@@ -94,7 +109,8 @@ public class Recipe extends Identifier {
 	 * Gets the dish this recipe creates
 	 * @return dish this recipe creates
 	 */
-	public Dish getDish() {
+	public final Dish getDish() {
+		LOGGER.log(Level.INFO, "Dish of recipe getted");
 		return this.dish;
 	}
 }

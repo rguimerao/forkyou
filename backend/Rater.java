@@ -6,6 +6,7 @@ package backend;
 public class Rater implements VisitorRating {
 
 	// TODO -> object DB controller here
+	// TODO -> LOGGER
 
 	/**
 	 * TODO
