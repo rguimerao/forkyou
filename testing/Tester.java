@@ -1,7 +1,6 @@
 package testing;
 
 import backend.*;
-import DB.*;
 
 /**
  * Class tester.
