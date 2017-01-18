@@ -15,23 +15,16 @@ public class Tester {
 	public Tester() {
 	}
 	
+	public User createUser() {
+		return new User("John Silver", "I am a pirate", "Treasure Island, num 19", 0, "City", "Caribean", 0, "johnsilver@treasureisland.com");
+	}
 	/**
 	 * Remove item from wish list
 	 */
 	public void userRemoveItemFromList() {
 		
 		System.out.println("Creating user");
-		User user = 
-				new User(
-						"juan", 
-						"desc", 
-						"", 
-						0, 
-						"city", 
-						"country", 
-						0, 
-						"email"
-						);
+		User user = createUser();
 		
 		System.out.println("creating and adding ingredients");
 		user.addFoodToWishlist(
@@ -71,5 +64,13 @@ public class Tester {
 			
 			System.out.println(food.getName());
 		}
+	}
+	
+	public void foodAddedToCategoryInFoodCreator() {
+		User user         = createUser();
+		Category category = new Category("category num 1");
+		Food food         = new Food("Food Name", category, false, 0, user);
+		
+		System.out.println(category.getFoods().size());
 	}
 }

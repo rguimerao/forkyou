@@ -46,18 +46,6 @@ public class User extends FoodCreator {
 	}
 
 	/**
-	 * Rates objects
-	 * @param objectToRate object to rate
-	 * @param rating rating
-	 */
-	public void rate(Identifier objectToRate, int rating) {
-
-		/*Rater rater = new Rater();
-		rater.rate(objectToRate, rating, getID());*/
-		// TODO -> LOGGER
-	}
-
-	/**
 	 * Getter of wish list
 	 * @return array of foods
 	 */

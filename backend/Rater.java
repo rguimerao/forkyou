@@ -1,12 +1,19 @@
 package backend;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- * TODO
+ * Class rater
+ * Rater implements VisitorRating
+ * A rater rates an object given an object to rate, rating and user ID
+ * @author rguimerao
+ *
  */
 public class Rater implements VisitorRating {
 
-	// TODO -> object DB controller here
-	// TODO -> LOGGER
+	// TODO -> object DB_controller here
+	private static final Logger LOGGER = Logger.getLogger("Rater");
 
 	/**
 	 * TODO
@@ -15,55 +22,75 @@ public class Rater implements VisitorRating {
 
 		// TODO -> here we initialize the object DB controller
 		// in order to insert data into the DB
+		LOGGER.log(Level.INFO, "A rater has been created");
 	}
 
 	/**
-	 * TODO
+	 * Rates a brand
+	 * @param brand brand to be rated
+	 * @param rating rating given to the brand
+	 * @param userID userID rating
 	 */
-	public void rate(Brand brand, int rating, int userID) {
+	public void rate(final Brand brand, final int rating, final int userID) {
 		// TODO -> to DB
 		/* brand.getID();
 		userID;
 		rating; */
+		LOGGER.log(Level.INFO, "A brand has been rated");
 	}
 
 	/**
-	 * TODO
+	 * Rates a location
+	 * @param location location to be rated
+	 * @param rating rating given to the location
+	 * @param userID userID rating
 	 */
-	public void rate(Dish dish, int rating, int userID) {
-		// TODO -> to DB
-		/* dish.getID();
-		userID;
-		rating; */
+	public void rate(final Location location, final int rating, final int userID) {
+
+		LOGGER.log(Level.INFO, "A location has been rated");
 	}
 
 	/**
-	 * TODO
+	 * Rates a recipe
+	 * @param recipe recipe to be rated
+	 * @param rating rating given to the recipe
+	 * @param userID userID rating
 	 */
-	public void rate(Ingredient ingredient, int rating, int userID) {
-		// TODO -> to DB
-		/* ingredient.getID();
-		userID;
-		rating; */
-	}
+	public void rate(final Recipe recipe, final int rating, final int userID) {
 
-	/**
-	 * TODO
-	 */
-	public void rate(Location location, int rating, int userID) {
-		// TODO -> to DB
-		/* location.getID();
-		userID;
-		rating; */
+		LOGGER.log(Level.INFO, "A recipe has been rated");
 	}
-
+	
 	/**
-	 * TODO
+	 * Rates a dish
+	 * @param dish dish to be rated
+	 * @param rating rating given to the drink
+	 * @param userID userID rating
 	 */
-	public void rate(Recipe recipe, int rating, int userID) {
-		// TODO -> to DB
-		/* recipe.getID();
-		userID;
-		rating; */
+	public void rate(final Dish dish, final int rating, final int userID) {
+		
+		LOGGER.log(Level.INFO, "A dish has been rated");
+	}
+	
+	/**
+	 * Rates a drink
+	 * @param drink drink to be rated
+	 * @param rating rating given to the drink
+	 * @param userID userID rating
+	 */
+	public void rate(final Drink drink, final int rating, final int userID) {
+		
+		LOGGER.log(Level.INFO, "A drink has been rated");
+	}
+	
+	/**
+	 * Rates an ingredient
+	 * @param ingredient ingredient to be rated
+	 * @param rating rating given to the ingredient
+	 * @param userID userID rating
+	 */
+	public void rate(final Ingredient ingredient, final int rating, final int userID) {
+		
+		LOGGER.log(Level.INFO, "An ingredient has been rated");
 	}
 }

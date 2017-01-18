@@ -38,12 +38,19 @@ public class Food extends Identifier {
 		super();
 		this.name     = name;
 		this.category = category;
-		this.category.addFood(this); // TODO -> ??? possible?
-		this.purchaseLocations = new ArrayList<Location>();
 		this.forSell  = forSell;
-		this.price    = price;
 		this.creator  = creator;
-		this.usersWantingMe = new ArrayList<User>();
+		
+		if (price >= 0) {
+			this.price = price;
+		} else {
+			this.price = -1;
+			LOGGER.log(Level.WARNING, "Price of new food is negative!");
+		}
+
+		this.usersWantingMe    = new ArrayList<User>();
+		this.purchaseLocations = new ArrayList<Location>();
+		this.category.addFood(this);
 		LOGGER.log(Level.INFO, "A new food with name: " + name + " has been created");
 	}
 

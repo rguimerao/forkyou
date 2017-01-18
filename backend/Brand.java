@@ -110,4 +110,14 @@ public class Brand extends FoodCreator {
 		//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, this);
 		LOGGER.log(Level.INFO, "Location created on brand");
 	}
+	
+	/**
+	 * Accepts a rate by telling the rater to rate myself
+	 * @param rater rater to execute the rate
+	 * @param rating rating given
+	 * @param userID userId rating
+	 */
+	public final void acceptRate(final Rater rater, final int rating, final int userID) {
+		rater.rate(this, rating, userID);
+	}
 }

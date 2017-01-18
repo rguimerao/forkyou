@@ -89,4 +89,14 @@ public class Dish extends Food {
 		this.composedFoods.add(foodToAdd);
 		LOGGER.log(Level.INFO, "A food has been added to the composed foods of dish");
 	}
+	
+	/**
+	 * Accepts a rate by telling the rater to rate myself
+	 * @param rater rater to execute the rate
+	 * @param rating rating given
+	 * @param userID userId rating
+	 */
+	public void acceptRate(final Rater rater, final int rating, final int userID) {
+		rater.rate(this, rating, userID);
+	}
 }

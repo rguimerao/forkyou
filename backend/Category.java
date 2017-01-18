@@ -52,6 +52,6 @@ public class Category extends Identifier {
 	 */
 	public final void addFood(final Food foodToAdd) {
 		this.foods.add(foodToAdd);
-		LOGGER.log(Level.INFO, "A food has been added to a category");
+		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to a category");
 	}
 }

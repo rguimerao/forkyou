@@ -80,4 +80,14 @@ public class Location extends ContactInfo {
 		this.owner = newOwner;
 		LOGGER.log(Level.INFO, "New owner from location setted");
 	}
+	
+	/**
+	 * Accepts a rate by telling the rater to rate myself
+	 * @param rater rater to execute the rate
+	 * @param rating rating given
+	 * @param userID userId rating
+	 */
+	public void acceptRate(final Rater rater, final int rating, final int userID) {
+		rater.rate(this, rating, userID);
+	}
 }
