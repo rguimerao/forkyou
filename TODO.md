@@ -12,4 +12,5 @@ List of TODO things on the project
 	<li>ratings done by frontend controller</li>
 	<li>use cases</li>
 	<li>password hash</li>
+	<li>license.md</li>
 </ul>
