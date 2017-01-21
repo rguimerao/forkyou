@@ -8,7 +8,8 @@ List of TODO things on the project
 	<li>location → has opening hours</li>
 	<li>design by contract</li>
 	<li>DB - if connected or querying - cannot execute - singleton</li>
-	<li>a user can also buy food</li>
-	<li> ratings done by frontend controller</li>
+	<li>a user can also buy food → long term</li>
+	<li>ratings done by frontend controller</li>
 	<li>use cases</li>
+	<li>password hash</li>
 </ul>

@@ -122,5 +122,6 @@ public class Recipe extends Identifier {
 	 */
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
+		LOGGER.log(Level.INFO, "A recipe has accepted a rating");
 	}
 }

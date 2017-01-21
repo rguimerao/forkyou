@@ -119,5 +119,6 @@ public class Brand extends FoodCreator {
 	 */
 	public final void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
+		LOGGER.log(Level.INFO, "A brand has accepted a rating");
 	}
 }

@@ -14,6 +14,7 @@ public class FoodCreator extends ContactInfo {
 
 	private ArrayList<Food> foodsCreated;
 	private ArrayList<Recipe> recipesCreated;
+    private ArrayList<User> followers;
 	private static final Logger LOGGER = Logger.getLogger("Food Creator");
 
 	/**
@@ -40,6 +41,7 @@ public class FoodCreator extends ContactInfo {
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodsCreated   = new ArrayList<Food>();
 		this.recipesCreated = new ArrayList<Recipe>();
+		this.followers      = new ArrayList<User>();
 		LOGGER.log(Level.INFO, "A food creator has been created");
 	}
 
@@ -162,8 +164,35 @@ public class FoodCreator extends ContactInfo {
 		final String email,
 		final Brand owner) {
 
-			// TODO -> needs DB + controller
-			//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, owner);
+		// TODO -> needs DB + controller
+		//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, owner);
 		LOGGER.log(Level.INFO, "Location created on food creator");
+	}
+	
+	/**
+	 * Getter of followers list
+	 * @return array of users
+	 */
+	public final ArrayList<User> getFollowers() {
+		LOGGER.log(Level.INFO, "Followers list getted");
+		return this.followers;
+	}
+	
+	/**
+	 * Adds a user to the followers list
+	 * @param followerUserToAdd user to add to the followers list
+	 */
+	protected final void addFollower(final User followerUserToAdd) {
+		this.followers.add(followerUserToAdd);
+		LOGGER.log(Level.INFO, "A user is now following you");
+	}
+	
+	/**
+	 * Removes user from followers list
+	 * @param userToRemove user to remove from the followers list
+	 */
+	protected final void removeFollower(final User userToRemove) {
+		this.followers.remove(userToRemove);
+		LOGGER.log(Level.INFO, "A user has removed you from its following list");
 	}
 }

@@ -41,5 +41,6 @@ public class Ingredient extends Food {
 	 */
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
+		LOGGER.log(Level.INFO, "An ingredient has accepted a rating");
 	}
 }

@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 public class User extends FoodCreator {
 
     private ArrayList<Food> foodWishlist;
-    private ArrayList<User> following;
-    private ArrayList<User> followers;
+    private ArrayList<User> followingUsers;
+    private ArrayList<Brand> followingBrands;
     private static final Logger LOGGER = Logger.getLogger("User");
     
     /**
@@ -39,9 +39,9 @@ public class User extends FoodCreator {
 		final String email) {
 	
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
-		this.foodWishlist = new ArrayList<Food>();
-		this.following    = new ArrayList<User>();
-		this.followers    = new ArrayList<User>();
+		this.foodWishlist    = new ArrayList<Food>();
+		this.followingUsers  = new ArrayList<User>();
+		this.followingBrands = new ArrayList<Brand>();
 		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
 	}
 
@@ -78,20 +78,20 @@ public class User extends FoodCreator {
 	 * Getter of following users
 	 * @return array of following users
 	 */
-	public final ArrayList<User> getFollowing() {
-		LOGGER.log(Level.INFO, "Followig of users getted");
-		return this.following;
+	public final ArrayList<User> getFollowingUsers() {
+		LOGGER.log(Level.INFO, "Followig users of users getted");
+		return this.followingUsers;
 	}
 	
 	/**
 	 * Adds a user to the following list only if its different than itself
 	 * @param userToAdd user to add to the following list
 	 */
-	public final void addFollowing(final User userToAdd) {
+	public final void followUser(final User userToAdd) {
 		if (userToAdd != this) { // TODO by id?
-			this.following.add(userToAdd);
+			this.followingUsers.add(userToAdd);
 			userToAdd.addFollower(this);
-			LOGGER.log(Level.INFO, "User added to following");
+			LOGGER.log(Level.INFO, "User added to following users");
 		} else {
 			LOGGER.log(Level.WARNING, "ERROR addFollowing user tried to follow youself");
 		}
@@ -101,37 +101,39 @@ public class User extends FoodCreator {
 	 * Removes user from the following list
 	 * @param userToRemove user to remove from the following list
 	 */
-	public final void removeFollowing(final User userToRemove) {
-		this.following.remove(userToRemove);
+	public final void removeFollowingUser(final User userToRemove) {
+		this.followingUsers.remove(userToRemove);
 		userToRemove.removeFollower(this);
-		LOGGER.log(Level.INFO, "User removed from following");
+		LOGGER.log(Level.INFO, "User removed from following users");
 	}
 	
 	/**
-	 * Getter of friend list
-	 * @return array of users
+	 * Gets an array list with all the brands this user follows
+	 * @return array list of type brand
 	 */
-	public final ArrayList<User> getFollowers() {
-		LOGGER.log(Level.INFO, "Followers list getted");
-		return this.followers;
+	public final ArrayList<Brand> getFollowingBrands() {
+		LOGGER.log(Level.INFO, "Following brands of users getted");
+		return this.followingBrands;
 	}
 	
 	/**
-	 * Adds a user to the friend list
-	 * @param userToAdd user to add to the friends list
+	 * Adds a brand to the following brands array
+	 * @param brandToFollow brand to follow
 	 */
-	private final void addFollower(final User followerToAdd) {
-		this.followers.add(followerToAdd);
-		LOGGER.log(Level.INFO, "A user is now following you");
+	public final void followBrand(final Brand brandToFollow) {
+		this.followingBrands.add(brandToFollow);
+		brandToFollow.addFollower(this);
+		LOGGER.log(Level.INFO, "A brand has been followed");
 	}
 	
 	/**
-	 * Removes user from friend list
-	 * @param position position of the friend inside the array
+	 * Removes a brand from the following list
+	 * @param brandToUnfollow brand to be removed
 	 */
-	private final void removeFollower(final User userToRemove) {
-		this.followers.remove(userToRemove);
-		LOGGER.log(Level.INFO, "A user has removed you from its following list");
+	public final void removeFollowingBrand(final Brand brandToUnfollow) {
+		this.followingBrands.remove(brandToUnfollow);
+		brandToUnfollow.removeFollower(this);
+		LOGGER.log(Level.INFO, "A brand has been unfollowed");
 	}
 	
 	/**
@@ -168,5 +170,6 @@ public class User extends FoodCreator {
 						);
 		db controller -> add new brand */
 		// TODO -> LOGGER
+		LOGGER.log(Level.INFO, "A user has created a brand");
 	}
 }

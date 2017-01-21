@@ -46,7 +46,7 @@ public class Rater implements VisitorRating {
 	 * @param userID userID rating
 	 */
 	public void rate(final Location location, final int rating, final int userID) {
-
+		// TODO
 		LOGGER.log(Level.INFO, "A location has been rated");
 	}
 
@@ -57,7 +57,7 @@ public class Rater implements VisitorRating {
 	 * @param userID userID rating
 	 */
 	public void rate(final Recipe recipe, final int rating, final int userID) {
-
+		// TODO
 		LOGGER.log(Level.INFO, "A recipe has been rated");
 	}
 	
@@ -68,7 +68,7 @@ public class Rater implements VisitorRating {
 	 * @param userID userID rating
 	 */
 	public void rate(final Dish dish, final int rating, final int userID) {
-		
+		// TODO
 		LOGGER.log(Level.INFO, "A dish has been rated");
 	}
 	
@@ -79,7 +79,7 @@ public class Rater implements VisitorRating {
 	 * @param userID userID rating
 	 */
 	public void rate(final Drink drink, final int rating, final int userID) {
-		
+		// TODO
 		LOGGER.log(Level.INFO, "A drink has been rated");
 	}
 	
@@ -90,7 +90,7 @@ public class Rater implements VisitorRating {
 	 * @param userID userID rating
 	 */
 	public void rate(final Ingredient ingredient, final int rating, final int userID) {
-		
+		// TODO
 		LOGGER.log(Level.INFO, "An ingredient has been rated");
 	}
 }

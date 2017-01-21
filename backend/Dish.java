@@ -98,5 +98,6 @@ public class Dish extends Food {
 	 */
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
+		LOGGER.log(Level.INFO, "A dish has accepted a rating");
 	}
 }
