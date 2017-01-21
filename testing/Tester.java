@@ -2,6 +2,10 @@ package testing;
 
 import backend.*;
 
+import java.sql.SQLException;
+
+import DB.*;
+
 /**
  * Class tester.
  * Used to test stuff around the project.
@@ -72,4 +76,14 @@ public class Tester {
 		
 		System.out.println(category.getFoods().size());
 	}
+	
+	public void testDBConnection() throws SQLException, ClassNotFoundException {
+		System.out.println("Enter tester function");
+		DataBase db = null;
+		System.out.println("db = null");
+		System.out.println("to -> db.getInstance()");
+		db.getInstance();
+		System.out.println("exito!");
+	}
+	
 }
