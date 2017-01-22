@@ -2,7 +2,10 @@ package testing;
 
 import backend.*;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import DB.*;
 
@@ -18,9 +21,14 @@ public class Tester {
 	public Tester() {
 	}
 	
+	/**
+	 * Creates a user to test
+	 * @return Testing user
+	 */
 	public User createUser() {
 		return new User("John Silver", "I am a pirate", "Treasure Island, num 19", 0, "City", "Caribean", 0, "johnsilver@treasureisland.com");
 	}
+	
 	/**
 	 * Remove item from wish list
 	 */
@@ -77,13 +85,41 @@ public class Tester {
 		System.out.println(category.getFoods().size());
 	}
 	
-	public void testDBConnection() throws SQLException, ClassNotFoundException {
-		System.out.println("Enter tester function");
+	public void testDBConnection() 
+			throws SQLException, ClassNotFoundException {
+		
+		System.out.println("Testing DB connection");
 		DataBase db = null;
-		System.out.println("db = null");
-		System.out.println("to -> db.getInstance()");
-		db.getInstance();
-		System.out.println("exito!");
+		db = db.getInstance();
+		System.out.println("Success!!");
+	}
+	
+
+	public void testDBSelect() 
+			throws ClassNotFoundException, SQLException {
+		
+		DataBase db = null;
+		db = db.getInstance();
+		
+		Statement stmt = null;
+	    String query = "SELECT name FROM Contact_Info";
+	    
+	    if (!db.isConnectionClosed()) {
+	    	Connection con = db.getConnection();
+	    	try {
+		        stmt = con.createStatement();
+		        ResultSet rs = stmt.executeQuery(query);
+		        
+		        while (rs.next()) {
+		            String name = rs.getString("name");
+		            System.out.println(name);
+		        }
+		    } catch (SQLException e ) {
+		        e.printStackTrace();
+		    } finally {
+		        if (stmt != null) { stmt.close(); }
+		    }
+	    }
 	}
 	
 }
