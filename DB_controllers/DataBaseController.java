@@ -1,6 +1,5 @@
 package DB_controllers;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,7 +13,7 @@ import DB.DataBase;
  * @author rguimerao
  *
  */
-public class DataBaseController {
+public class DataBaseController implements VisitorIDObtainer {
 
 	private static DataBaseController instance;
 	private static final Logger LOGGER = Logger.getLogger("DataBaseController");
@@ -62,5 +61,36 @@ public class DataBaseController {
 		        if (stmt != null) { stmt.close(); }
 		    }
 	    }
+	}
+	
+	/**
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * 
+	 */
+	public int obtainID(Category category) 
+			throws SQLException, ClassNotFoundException {
+		
+		DataBase db = null;
+		db          = db.getInstance();
+		int id      = -1;
+		
+		Statement stmt = null;
+	    String query   = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1";
+	    if (!db.isConnectionClosed()) {
+	    	try {
+		        stmt = db.getConnection().createStatement();
+		        ResultSet rs = stmt.executeQuery(query);
+		        while (rs.next()) {
+		            id = rs.getInt("id");
+		        }
+		    } catch (SQLException e ) {
+		        e.printStackTrace();
+		    } finally {
+		        if (stmt != null) { stmt.close(); }
+		    }
+	    }
+	    
+	    return id;
 	}
 }

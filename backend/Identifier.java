@@ -1,5 +1,6 @@
 package backend;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import DB_controllers.DataBaseController;
@@ -36,7 +37,8 @@ public class Identifier {
 	/**
 	 * Obtains the ID from the DB
 	 */
-	public void obtainID(final DataBaseController dbController) {
+	public void obtainID(final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.SEVERE, "obtainID in Identifier");
 	}
 }

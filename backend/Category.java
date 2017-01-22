@@ -1,5 +1,6 @@
 package backend;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,11 +33,15 @@ public class Category extends Identifier {
 
 	/**
 	 * Obtains the ID from the DB
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Override
-	public void obtainID(final DataBaseController dbController) {
-		LOGGER.log(Level.INFO, "obtainID in Category");
-		// TODO -> DB
+	public void obtainID(final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
+		
+		this.ID = dbController.obtainID(this);
+		LOGGER.log(Level.INFO, "obtainID in Category with result: " + getID());
 	}
 	
 	/**

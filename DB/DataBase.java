@@ -68,7 +68,7 @@ public class DataBase{
         	LOGGER.log(Level.INFO, "Connection is closed, creating new one");
             instance = new DataBase();
         } else {
-        	LOGGER.log(Level.SEVERE, "CRITICAL ERROR! GETTING INSTANCE OF DATABASE!");
+        	LOGGER.log(Level.INFO, "Instance of DB is not null and it is opened, returning current instance");
         }
 
         return instance;

@@ -153,7 +153,9 @@ public class FoodCreator extends ContactInfo {
 	public final void createCategory(final String name, final DataBaseController dbController) 
 			throws ClassNotFoundException, SQLException {
 
-		dbController.createNewCategory(new Category(name));
+		Category newCategory = new Category(name);
+		dbController.createNewCategory(newCategory);
+		newCategory.obtainID(dbController);
 		LOGGER.log(Level.INFO, "Category created on food creator");
 	}
 

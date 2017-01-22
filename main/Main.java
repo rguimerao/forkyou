@@ -15,5 +15,6 @@ public class Main {
 		//tester.testDBConnection();
 		//tester.testDBSelect();
 		//tester.testDBInsertCategory();
+		//tester.testFullInsertCategory();
     }
 }

@@ -22,17 +22,10 @@ public class Tester {
 	public Tester() {
 	}
 	
-	/**
-	 * Creates a user to test
-	 * @return Testing user
-	 */
 	public User createUser() {
 		return new User("John Silver", "I am a pirate", "Treasure Island, num 19", 0, "City", "Caribean", 0, "johnsilver@treasureisland.com");
 	}
 	
-	/**
-	 * Remove item from wish list
-	 */
 	public void userRemoveItemFromList() {
 		
 		System.out.println("Creating user");
@@ -130,5 +123,15 @@ public class Tester {
 		DataBaseController dbController = null;
 		dbController = dbController.getInstance();
 		user.createCategory("Drinks", dbController);
+	}
+
+	public void testFullInsertCategory() 
+			throws ClassNotFoundException, SQLException {
+		User user = createUser();
+		
+		DataBaseController dbController = null;
+		dbController = dbController.getInstance();
+		
+		user.createCategory("Pizzas", dbController);
 	}
 }
