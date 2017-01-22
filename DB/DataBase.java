@@ -48,8 +48,7 @@ public class DataBase{
     		}
     		
     	} catch (SQLException e) {
-    	    //throw new IllegalStateException("Cannot connect the database!", e);
-    		e.printStackTrace();
+    	    throw new IllegalStateException("Cannot connect the database!", e);
     	}
     }
 

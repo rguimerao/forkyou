@@ -1,8 +1,11 @@
 package backend;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import DB_controllers.DataBaseController;
 
 /**
  * Class food creator
@@ -133,11 +136,13 @@ public class FoodCreator extends ContactInfo {
 	/**
 	 * Creates a category
 	 * @param name name of the new category
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void createCategory(final String name) {
+	public final void createCategory(final String name, final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
 
-		// TODO -> needs DB + controller
-		//Category newCategory = new Category(name);
+		dbController.createNewCategory(new Category(name));
 		LOGGER.log(Level.INFO, "Category created on food creator");
 	}
 

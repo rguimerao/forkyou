@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import DB.*;
+import DB_controllers.DataBaseController;
 
 /**
  * Class tester.
@@ -102,7 +103,7 @@ public class Tester {
 		db = db.getInstance();
 		
 		Statement stmt = null;
-	    String query = "SELECT name FROM Contact_Info";
+	    String query = "SELECT id FROM Contact_Info";
 	    
 	    if (!db.isConnectionClosed()) {
 	    	Connection con = db.getConnection();
@@ -111,8 +112,8 @@ public class Tester {
 		        ResultSet rs = stmt.executeQuery(query);
 		        
 		        while (rs.next()) {
-		            String name = rs.getString("name");
-		            System.out.println(name);
+		            String id = rs.getString("id");
+		            System.out.println(id);
 		        }
 		    } catch (SQLException e ) {
 		        e.printStackTrace();
@@ -121,5 +122,13 @@ public class Tester {
 		    }
 	    }
 	}
-	
+
+	public void testDBInsertCategory() 
+			throws ClassNotFoundException, SQLException {
+		
+		User user = createUser();
+		DataBaseController dbController = null;
+		dbController = dbController.getInstance();
+		user.createCategory("Drinks", dbController);
+	}
 }
