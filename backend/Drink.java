@@ -3,6 +3,8 @@ package backend;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class drink.
  * A drink is a type of dish made of ingredients and only ingredients.
@@ -33,6 +35,15 @@ public class Drink extends Dish {
 	}
 
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Drink");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Adds an ingredient to the drink
 	 * If it is not an ingredient, it won't be added
 	 * @param ingredientToAdd ingredient to add to the drink
@@ -45,6 +56,7 @@ public class Drink extends Dish {
 		} else {
 			LOGGER.log(Level.WARNING, "A non-ingredient food has tried to be added to a drink!");
 		}
+		// TODO -> DB
 	}
 	
 	/**
@@ -56,5 +68,6 @@ public class Drink extends Dish {
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
 		LOGGER.log(Level.INFO, "A drink has accepted a rating");
+		// TODO -> DB
 	}
 }

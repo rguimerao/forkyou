@@ -6,12 +6,15 @@ Backend:
 	<li>Date type obsolete?</li>
 	<li>location → has opening hours</li>
 	<li>a user can also buy food → long term</li>
-	<li>password hash</li>
+	<li>password hash - foodcreator</li>
+	<li>ratings only by food not specialization</li>
 </ul>
 
 Database:
 <ul>
-	<li>DB - if connected or querying - cannot execute</li>
+	<li>Ratings</li>
+	<li>Password - food creator</li>
+	<li>inserts - selects - updates - deletes</li>
 </ul>
 
 Controllers:
@@ -24,6 +27,6 @@ Testing and code cleaning:
 <ul>
 	<li>tests - test classes</li>
 	<li>design by contract</li>
-	<li>use cases</li>
+	<li>use cases before DB</li>
 	<li>license.md</li>
 </ul>

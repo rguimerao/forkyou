@@ -49,6 +49,15 @@ public class FoodCreator extends ContactInfo {
 	}
 
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in FoodCreator");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Getter of foods created
 	 * @return foods created by the food creator
 	 */
@@ -64,6 +73,7 @@ public class FoodCreator extends ContactInfo {
 	private final void addFood(final Food foodToAdd) {
 		this.foodsCreated.add(foodToAdd);
 		LOGGER.log(Level.INFO, "Food added to foods created");
+		// TODO -> DB
 	}
 
 	/**
@@ -82,6 +92,7 @@ public class FoodCreator extends ContactInfo {
 	private final void addRecipe(final Recipe recipeToAdd) {
 		this.recipesCreated.add(recipeToAdd);
 		LOGGER.log(Level.INFO, "Recipe added to food creator");
+		// TODO -> DB
 	}
 
 	/**
@@ -190,6 +201,7 @@ public class FoodCreator extends ContactInfo {
 	protected final void addFollower(final User followerUserToAdd) {
 		this.followers.add(followerUserToAdd);
 		LOGGER.log(Level.INFO, "A user is now following you");
+		// TODO -> DB
 	}
 	
 	/**
@@ -199,5 +211,6 @@ public class FoodCreator extends ContactInfo {
 	protected final void removeFollower(final User userToRemove) {
 		this.followers.remove(userToRemove);
 		LOGGER.log(Level.INFO, "A user has removed you from its following list");
+		// TODO -> DB
 	}
 }

@@ -14,6 +14,6 @@ public class Main {
 		//tester.foodAddedToCategoryInFoodCreator();
 		//tester.testDBConnection();
 		//tester.testDBSelect();
-		tester.testDBInsertCategory();
+		//tester.testDBInsertCategory();
     }
 }

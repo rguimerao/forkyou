@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class food
  * @author rguimerao
@@ -53,6 +55,15 @@ public class Food extends Identifier {
 		this.category.addFood(this);
 		LOGGER.log(Level.INFO, "A new food with name: " + name + " has been created");
 	}
+	
+	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Food");
+		// TODO -> DB
+	}
 
 	/**
 	 * Getter of name
@@ -70,6 +81,7 @@ public class Food extends Identifier {
 	public final void setName(final String newName) {
 		this.name = newName;
 		LOGGER.log(Level.INFO, "Name of food setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -88,6 +100,7 @@ public class Food extends Identifier {
 	public final void setCategory(final Category newCategory) {
 		this.category = newCategory;
 		LOGGER.log(Level.INFO, "Category of food setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -111,6 +124,7 @@ public class Food extends Identifier {
 		} else {
 			LOGGER.log(Level.WARNING, "A purchase location has tried to be added to a not for sell food!");
 		}
+		// TODO -> DB
 	}
 
 	/**
@@ -129,6 +143,7 @@ public class Food extends Identifier {
 	public final void invertForSell() {
 		this.forSell = !this.forSell;
 		LOGGER.log(Level.INFO, "isForSell of food inverted. Now it is: " + this.forSell);
+		// TODO -> DB
 	}
 
 	/**
@@ -147,6 +162,7 @@ public class Food extends Identifier {
 	public final void setPrice(final float newPrice) {
 		this.price = newPrice;
 		LOGGER.log(Level.INFO, "Price of food setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -174,6 +190,7 @@ public class Food extends Identifier {
 	public final void addUserToUsersWantingMe(final User userToAdd) {
 		this.usersWantingMe.add(userToAdd);
 		LOGGER.log(Level.INFO, "User added to list of users wanting this food");
+		// TODO -> DB
 	}
 	
 	/**
@@ -183,5 +200,6 @@ public class Food extends Identifier {
 	public final void removeUserFromUsersWantingMe(final User userToRemove) {
 		this.usersWantingMe.remove(userToRemove);
 		LOGGER.log(Level.INFO, "User removed from user wanting this food");
+		// TODO -> DB
 	}
 }

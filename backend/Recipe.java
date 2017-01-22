@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class recipe.
  * A dish has a recipe of how to cook it
@@ -40,6 +42,15 @@ public class Recipe extends Identifier {
 		this.dish        = dish;
 		LOGGER.log(Level.INFO, "A new recipe has been created");
 	}
+	
+	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Recipe");
+		// TODO -> DB
+	}
 
 	/**
 	 * Getter of name
@@ -58,6 +69,7 @@ public class Recipe extends Identifier {
 		this.name = newName;
 		updateLastUpdate();
 		LOGGER.log(Level.INFO, "Name of recipe updated");
+		// TODO -> DB
 	}
 
 	/**
@@ -77,6 +89,7 @@ public class Recipe extends Identifier {
 		this.description = newDescription;
 		updateLastUpdate();
 		LOGGER.log(Level.INFO, "Description of recipe updated");
+		// TODO -> DB
 	}
 
 	/**
@@ -94,6 +107,7 @@ public class Recipe extends Identifier {
 	private final void updateLastUpdate() {
 		this.lastUpdate = new Date();
 		LOGGER.log(Level.INFO, "Recipe updated!");
+		// TODO -> DB
 	}
 
 	/**
@@ -123,5 +137,6 @@ public class Recipe extends Identifier {
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
 		LOGGER.log(Level.INFO, "A recipe has accepted a rating");
+		// TODO -> DB
 	}
 }

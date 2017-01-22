@@ -3,6 +3,8 @@ package backend;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class ingredient.
  * An ingredient is a food, a dish is composed by foods, mostly ingredients.
@@ -34,6 +36,15 @@ public class Ingredient extends Food {
 	}
 	
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Ingredient");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Accepts a rate by telling the rater to rate myself
 	 * @param rater rater to execute the rate
 	 * @param rating rating given
@@ -42,5 +53,6 @@ public class Ingredient extends Food {
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
 		LOGGER.log(Level.INFO, "An ingredient has accepted a rating");
+		// TODO -> DB
 	}
 }

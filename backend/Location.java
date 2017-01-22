@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class location.
  * A location is where you buy and/or sell food
@@ -46,6 +48,15 @@ public class Location extends ContactInfo {
 	}
 	
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Location");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Getter of foods selling
 	 * @return array of the foods being sold in this location
 	 */
@@ -61,6 +72,7 @@ public class Location extends ContactInfo {
 	public final void addFood(final Food foodToAdd) {
 		this.foodsSelling.add(foodToAdd);
 		LOGGER.log(Level.INFO, "A new food has been added to foods selling in this location");
+		// TODO -> DB
 	}
 	
 	/**
@@ -79,6 +91,7 @@ public class Location extends ContactInfo {
 	public final void setOwner(final Brand newOwner) {
 		this.owner = newOwner;
 		LOGGER.log(Level.INFO, "New owner from location setted");
+		// TODO -> DB
 	}
 	
 	/**
@@ -90,5 +103,6 @@ public class Location extends ContactInfo {
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
 		LOGGER.log(Level.INFO, "A location has accepted a rating");
+		// TODO -> DB
 	}
 }

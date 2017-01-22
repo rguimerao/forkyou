@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class brand
  * A brand is a food creator. A brand represents "legal" food creator.
@@ -45,6 +47,15 @@ public class Brand extends FoodCreator {
 	}
 	
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Brand");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Gets brand website
 	 * @return website of the brand
 	 */
@@ -60,6 +71,7 @@ public class Brand extends FoodCreator {
 	public final void setWebsite(final String newWebsite) {
 		this.website = newWebsite;
 		LOGGER.log(Level.INFO, "Website of brand setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -81,6 +93,7 @@ public class Brand extends FoodCreator {
 			newLocation.setOwner(this);
 		}
 		LOGGER.log(Level.INFO, "A new location has been added to the brand");
+		// TODO -> DB
 	}
 	
 	/**
@@ -120,5 +133,6 @@ public class Brand extends FoodCreator {
 	public final void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
 		LOGGER.log(Level.INFO, "A brand has accepted a rating");
+		// TODO -> DB
 	}
 }

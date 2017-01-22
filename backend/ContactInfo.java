@@ -3,6 +3,8 @@ package backend;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class contact info.
  * Has information about the contact to localize it.
@@ -53,6 +55,15 @@ public class ContactInfo extends Identifier {
 		this.email       = email;
 		LOGGER.log(Level.INFO, "A new contact info has been created");
 	}
+	
+	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in ContactInfo");
+		// TODO -> DB
+	}
 
 	/**
 	 * Getter of name
@@ -70,6 +81,7 @@ public class ContactInfo extends Identifier {
 	public final void setName(final String newName) {
 		this.name = newName;
 		LOGGER.log(Level.INFO, "Name of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -88,6 +100,7 @@ public class ContactInfo extends Identifier {
 	public final void setDescription(final String newDescription) {
 		this.description = newDescription;
 		LOGGER.log(Level.INFO, "Description of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -106,6 +119,7 @@ public class ContactInfo extends Identifier {
 	public final void setStreet(final String newStreet) {
 		this.street = newStreet;
 		LOGGER.log(Level.INFO, "Street of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -124,6 +138,7 @@ public class ContactInfo extends Identifier {
 	public final void setPostalCode(final int newPostalCode) {
 		this.postalCode = newPostalCode;
 		LOGGER.log(Level.INFO, "Postal code of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -142,6 +157,7 @@ public class ContactInfo extends Identifier {
 	public final void setCity(final String newCity) {
 		this.city = newCity;
 		LOGGER.log(Level.INFO, "City of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -160,6 +176,7 @@ public class ContactInfo extends Identifier {
 	public final void setCountry(final String newCountry) {
 		this.city = newCountry;
 		LOGGER.log(Level.INFO, "Country of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -178,6 +195,7 @@ public class ContactInfo extends Identifier {
 	public final void setPhoneNumber(final int newPhoneNumber) {
 		this.phoneNumber = newPhoneNumber;
 		LOGGER.log(Level.INFO, "Phone number of contact info has been setted");
+		// TODO -> DB
 	}
 
 	/**
@@ -196,6 +214,7 @@ public class ContactInfo extends Identifier {
 	public final void setEmail(final String newEmail) {
 		this.email = newEmail;
 		LOGGER.log(Level.INFO, "Email of contact info has been setted");
+		// TODO -> DB
 	}
 
 }

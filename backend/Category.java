@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class category.
  * A category has foods in it.
@@ -29,6 +31,15 @@ public class Category extends Identifier {
 	}
 
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Category");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Getter of name
 	 * @return name of the category
 	 */
@@ -53,5 +64,6 @@ public class Category extends Identifier {
 	public final void addFood(final Food foodToAdd) {
 		this.foods.add(foodToAdd);
 		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to a category");
+		// TODO -> DB
 	}
 }

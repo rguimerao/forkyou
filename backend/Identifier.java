@@ -2,6 +2,7 @@ package backend;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import DB_controllers.DataBaseController;
 
 /**
  * Class to obtain ID of the object and know its position inside the DB
@@ -10,12 +11,13 @@ import java.util.logging.Logger;
  */
 public class Identifier {
 
-	private int ID;
+	protected int ID;
 	private static final Logger LOGGER = Logger.getLogger("Identifier");
 
 	/**
 	 * Constructor of class
-	 * TODO
+	 * Starts the id with -1
+	 * After that, the obtain ID must be called from controller
 	 */
 	public Identifier() {
 		this.ID = -1;
@@ -34,12 +36,7 @@ public class Identifier {
 	/**
 	 * Obtains the ID from the DB
 	 */
-	public void obtainID() {
-		/*
-		 * TODO
-		 * this.ID = controller.getObjectID();
-		 */
-		LOGGER.log(Level.INFO, "ID of identifier has been obtained with result = " + this.ID);
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.SEVERE, "obtainID in Identifier");
 	}
-
 }
