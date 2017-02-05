@@ -1,5 +1,6 @@
 package backend;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,7 +61,8 @@ public class ContactInfo extends Identifier {
 	 * Obtains the ID from the DB
 	 */
 	@Override
-	public void obtainID(final DataBaseController dbController) {
+	public void obtainID(final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "obtainID in ContactInfo");
 		// TODO -> DB
 	}

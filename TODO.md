@@ -5,16 +5,16 @@ Backend:
 <ul>
 	<li>Date type obsolete?</li>
 	<li>location → has opening hours</li>
-	<li>a user can also buy food → long term</li>
 	<li>password hash - foodcreator</li>
-	<li>ratings only by food not specialization</li>
+	<li>identifier → abstract/interface?</li>
+	<li>Food - food is in dishes</li>
+	<li>frontend controller checks food price >= 0 and not food</li>
 </ul>
 
 Database:
 <ul>
-	<li>Ratings</li>
-	<li>Password - food creator</li>
 	<li>inserts - selects - updates - deletes</li>
+	<li>[refactor] contact_info att</li>
 </ul>
 
 Controllers:
@@ -28,5 +28,17 @@ Testing and code cleaning:
 	<li>tests - test classes</li>
 	<li>design by contract</li>
 	<li>use cases before DB</li>
+	<li>logger + comments</li>
 	<li>license.md</li>
+	<li>sonarqube</li>
+	<li>checkstyle</li>
+	<li>http://marketplace.eclipse.org/content/findbugs-eclipse-plugin</li>
+	<li>http://marketplace.eclipse.org/content/pmd-eclipse</li>
+</ul>
+
+New features to add:
+<ul>
+	<li>special ingredients</li>
+	<li>a user can also buy food → long term</li>
+	<li>Chat</li>
 </ul>

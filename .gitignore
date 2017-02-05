@@ -1,8 +1,6 @@
+# Auto generated files
 .classpath
 .project
-/backend/*.class
-/DB/*.class
-/DB_controllers/*.class
-/app_controllers/*.class
-/frontend/*.class
-/testing/*.class
+
+# .class files
+*/*.class

@@ -1,8 +1,10 @@
 package DB_controllers;
 
 import java.sql.SQLException;
-
+import backend.Brand;
 import backend.Category;
+import backend.ContactInfo;
+import backend.Location;
 
 /**
  * Interface VisitorIDObtainer
@@ -12,5 +14,9 @@ import backend.Category;
  */
 public interface VisitorIDObtainer {
 
-	int obtainID(Category category) throws SQLException, ClassNotFoundException;
+	int obtainID(final Category category) throws SQLException, ClassNotFoundException;
+	int obtainID(final Brand brand) throws SQLException, ClassNotFoundException;
+	int obtainID(final Location location) throws SQLException, ClassNotFoundException;
+	int obtainID(final ContactInfo contactInfo) throws SQLException, ClassNotFoundException;
+
 }

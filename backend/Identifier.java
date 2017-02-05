@@ -35,6 +35,14 @@ public class Identifier {
 	}
 	
 	/**
+	 * 
+	 * @param newID
+	 */
+	public void setID(int newID) {
+		this.ID = newID;
+	}
+	
+	/**
 	 * Obtains the ID from the DB
 	 */
 	public void obtainID(final DataBaseController dbController) 
