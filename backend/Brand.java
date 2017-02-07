@@ -1,11 +1,11 @@
 package backend;
 
+import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import DB_controllers.DataBaseController;
 
 /**
  * Class brand
@@ -20,7 +20,7 @@ public class Brand extends FoodCreator {
 	private static final Logger LOGGER = Logger.getLogger("Brand");
 
 	/**
-	 * Constructor of brand
+	 * Constructor of brand.
 	 * @param name name of the brand
 	 * @param description description of the brand
 	 * @param street street of the brand
@@ -32,14 +32,14 @@ public class Brand extends FoodCreator {
 	 */
 	public Brand(
 		final String name,
-		final String description,
-		final String street,
-		final int postalCode,
-		final String city,
-		final String country,
-		final int phoneNumber,
-		final String email,
-		final String website) {
+        final String description,
+        final String street,
+        final int postalCode,
+        final String city,
+        final String country,
+        final int phoneNumber,
+        final String email,
+        final String website) {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.sellLocations = new ArrayList<Location>();

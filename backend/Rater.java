@@ -18,12 +18,14 @@ public class Rater implements VisitorRating {
 	private static final Logger LOGGER = Logger.getLogger("Rater");
 
 	/**
-	 * TODO
+	 * Constructor of Rater
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public Rater() {
+	public Rater() 
+			throws ClassNotFoundException, SQLException {
 
-		// TODO -> here we initialize the object DB controller
-		// in order to insert data into the DB
+		dbController = dbController.getInstance();
 		LOGGER.log(Level.INFO, "A rater has been created");
 	}
 
@@ -37,7 +39,7 @@ public class Rater implements VisitorRating {
 	 */
 	public void rate(final Brand brand, final int rating, final int userID) 
 			throws ClassNotFoundException, SQLException {
-		dbController = dbController.getInstance();
+		//dbController = dbController.getInstance();
 		dbController.rateBrand(brand.getID(), rating, userID);
 		LOGGER.log(Level.INFO, "A brand has been rated");
 	}

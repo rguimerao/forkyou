@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import backend.*;
+import backend.*; // TODO -> only necessary
 import DB.DataBase;
 
 /**
- * TODO
+ * Class DataBaseController
+ * Controles the querys to be done by the DB
+ * Singleton
  * @author rguimerao
  *
  */
@@ -20,7 +22,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	private static final Logger LOGGER = Logger.getLogger("DataBaseController");
 	
 	/**
-	 * TODO
+	 * Constructor - Singleton
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -31,22 +33,26 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Returns an object of itself
+	 * @return instance of the class
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	public final static DataBaseController getInstance() 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "Get instance DBController");
-		instance = new DataBaseController();
+		if (instance == null) {
+			instance = new DataBaseController();
+		}
+		
 		return instance;
 	}
-	
+
 	/**
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * 
+	 * Obtains the ID of the given category
+	 * @param category category to be given the ID
+	 * @throws SQLEception
+	 * @throws ClassNotFoundException
 	 */
 	public int obtainID(final Category category) 
 			throws SQLException, ClassNotFoundException {
@@ -76,9 +82,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * 
+	 * Obtains the ID of the given brand
+	 * @param brand brand to be given the ID
+	 * @throws SQLEception
+	 * @throws ClassNotFoundException
 	 */
 	public int obtainID(final Brand brand) 
 			throws SQLException, ClassNotFoundException {
@@ -108,9 +115,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * 
+	 * Obtains the ID of the given location
+	 * @param location location to be given the ID
+	 * @throws SQLEception
+	 * @throws ClassNotFoundException
 	 */
 	public int obtainID(final Location location) 
 			throws SQLException, ClassNotFoundException {
@@ -140,9 +148,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * 
+	 * Obtains the ID of the given Contact Info
+	 * @param contactInfo contact info to be given the ID
+	 * @throws SQLEception
+	 * @throws ClassNotFoundException
 	 */
 	public int obtainID(final ContactInfo contactInfo) 
 			throws SQLException, ClassNotFoundException {
@@ -172,8 +181,8 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * TODO
-	 * @param newCategory
+	 * Inserts a new category into the DB
+	 * @param newCategory category to be inserted
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -201,8 +210,8 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * TODO
-	 * @param newContactInfo
+	 * Inserts a new contact info into the DB
+	 * @param newContactInfo new contact info to be inserted
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -236,8 +245,8 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * TODO
-	 * @param newLocation
+	 * Inserts a new location into the DB
+	 * @param newLocation new location to be inserted
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -268,8 +277,8 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the drink category for drink objects
+	 * @return Category drinks
 	 * @throws SQLException
 	 */
 	public Category getDrinksCategory() 
@@ -304,10 +313,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * 
-	 * @param submitedPassword
-	 * @param foodCreator
-	 * @return
+	 * Check if the password of a food creator is correct or not
+	 * @param submitedPassword hash of password submited
+	 * @param foodCreator food creator entering the password
+	 * @return true if it is correct, false otherwise
 	 * @throws SQLException
 	 */
 	public boolean checkHash(final String submitedPassword, final FoodCreator foodCreator) 
@@ -338,9 +347,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * 
-	 * @param brandID
-	 * @param newWebsite
+	 * Updates brand website
+	 * @param brandID id of the brand
+	 * @param newWebsite new website to be updated
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -368,9 +377,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * 
-	 * @param brandID
-	 * @param newWebsite
+	 * Updates the location owner
+	 * @param locationID id of the location
+	 * @param brandID id of the new owner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -397,6 +406,13 @@ public class DataBaseController implements VisitorIDObtainer {
 	    }
 	}
 	
+	/**
+	 * Rates a brand
+	 * @param brandID id of the brand
+	 * @param rating rating given
+	 * @param userID user rater
+	 * @throws SQLException
+	 */
 	public final void rateBrand(final int brandID, final int rating, final int userID) 
 			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController rating brand");

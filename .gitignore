@@ -4,3 +4,6 @@
 
 # .class files
 */*.class
+
+# Checkstyle - will be added soon
+.checkstyle

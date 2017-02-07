@@ -35,15 +35,17 @@ public class Identifier {
 	}
 	
 	/**
-	 * 
-	 * @param newID
+	 * Sets the new ID for this object
+	 * @param newID new ID to be updated
 	 */
 	public void setID(int newID) {
 		this.ID = newID;
+		LOGGER.log(Level.INFO, "ID of identifier setted, new ID is: " + newID);
 	}
 	
 	/**
 	 * Obtains the ID from the DB
+	 * It is overrided
 	 */
 	public void obtainID(final DataBaseController dbController) 
 			throws ClassNotFoundException, SQLException {
