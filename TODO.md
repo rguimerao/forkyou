@@ -45,7 +45,7 @@ New features to add:
 	<li>special ingredients</li>
 	<li>a user can also buy food → long term</li>
 	<li>Chat</li>
-	<li>Rankings web page - new feature (json format)</li>
+	<li>Rankings web page (json format)</li>
 </ul>
 
 Note: the app is online, not local, therefore, a lot of functionality is made online, that is to say, not only a lot, but all of it is made online with concurrent db interaction. With that in mind, the functionality of the backend must be reviewed.
