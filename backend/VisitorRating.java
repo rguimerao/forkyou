@@ -10,8 +10,8 @@ import java.sql.SQLException;
  */
 public interface VisitorRating {
 
-	void rate(final Brand brand, final int rating, final int userID) throws ClassNotFoundException, SQLException;
-	void rate(final Location location, final int rating, final int userID);
-	void rate(final Recipe recipe, final int rating, final int userID);
-	void rate(final Food food, final int rating, final int userID);
+    void rate(final Brand brand, final int rating, final int userID) throws ClassNotFoundException, SQLException;
+    void rate(final Location location, final int rating, final int userID);
+    void rate(final Recipe recipe, final int rating, final int userID);
+    void rate(final Food food, final int rating, final int userID);
 }

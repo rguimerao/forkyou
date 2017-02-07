@@ -3,6 +3,7 @@ package DB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class DataBase{
 	
-	private static DataBase instance;
+    private static DataBase instance;
     private static Connection connection;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/fork_you_db";
     private static final String username = "root";
@@ -29,27 +30,27 @@ public class DataBase{
      * @throws ClassNotFoundException if the driver is not found
      */
     private DataBase() 
-    		throws SQLException, ClassNotFoundException {
+            throws SQLException, ClassNotFoundException {
     	
-    	try {
-    	    Class.forName("com.mysql.jdbc.Driver");
-    	    LOGGER.log(Level.INFO, "Driver com.mysql.jdbc.Driver loaded!");
-    	} catch (ClassNotFoundException e) {
-    	    throw new IllegalStateException("Cannot find the driver in the classpath!", e);
-    	}
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            LOGGER.log(Level.INFO, "Driver com.mysql.jdbc.Driver loaded!");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        }
     	
-    	try {
-    		connection = DriverManager.getConnection(url, username, password);
+        try {
+            connection = DriverManager.getConnection(url, username, password);
     		
-    		if (!isConnectionClosed()) {
-    			LOGGER.log(Level.INFO, "Connection to DB successful!");
-    		} else {
-    			LOGGER.log(Level.SEVERE, "ERROR! CONNECTION IS NULL");
-    		}
+            if (!isConnectionClosed()) {
+                LOGGER.log(Level.INFO, "Connection to DB successful!");
+            } else {
+                LOGGER.log(Level.SEVERE, "ERROR! CONNECTION IS NULL");
+            }
     		
-    	} catch (SQLException e) {
-    	    throw new IllegalStateException("Cannot connect the database!", e);
-    	}
+        } catch (SQLException e) {
+            throw new IllegalStateException("Cannot connect the database!", e);
+        }
     }
 
     /**
@@ -59,16 +60,16 @@ public class DataBase{
      * @throws ClassNotFoundException if the driver is not found
      */
     public final static DataBase getInstance() 
-    		throws SQLException, ClassNotFoundException {
+            throws SQLException, ClassNotFoundException {
     	
         if (instance == null) {
-        	LOGGER.log(Level.INFO, "Instance of DB is null, creating new one");
+            LOGGER.log(Level.INFO, "Instance of DB is null, creating new one");
             instance = new DataBase();
         } else if (instance.getConnection().isClosed()) {
-        	LOGGER.log(Level.INFO, "Connection is closed, creating new one");
+            LOGGER.log(Level.INFO, "Connection is closed, creating new one");
             instance = new DataBase();
         } else {
-        	LOGGER.log(Level.INFO, "Instance of DB is not null and it is opened, returning current instance");
+            LOGGER.log(Level.INFO, "Instance of DB is not null and it is opened, returning current instance");
         }
 
         return instance;
@@ -79,7 +80,7 @@ public class DataBase{
      * @return current connection
      */
     public final Connection getConnection() {
-    	LOGGER.log(Level.INFO, "Connection of DB returned");
+        LOGGER.log(Level.INFO, "Connection of DB returned");
         return connection;
     }
     
@@ -89,14 +90,14 @@ public class DataBase{
      * @throws SQLException if a database access error occurs
      */
     public final boolean isConnectionClosed() 
-    		throws SQLException {
+            throws SQLException {
     	
-    	try {
-    		LOGGER.log(Level.INFO, "Status of DB getted");
-			return connection.isClosed();
-		} catch (SQLException e) {
-			throw new SQLException("Database error access ocurred", e);
-		}
+        try {
+            LOGGER.log(Level.INFO, "Status of DB getted");
+            return connection.isClosed();
+        } catch (SQLException e) {
+            throw new SQLException("Database error access ocurred", e);
+        }
     }
     
     /**
@@ -104,13 +105,63 @@ public class DataBase{
      * @throws SQLException if a database access error occurs
      */
     public final void closeConnection() 
-    		throws SQLException {
+            throws SQLException {
     	
-    	try {
-			instance.getConnection().close();
-			LOGGER.log(Level.INFO, "DB connection closed");
-		} catch (SQLException e) {
-			throw new SQLException("Database error access ocurred", e);
-		}
+        try {
+            instance.getConnection().close();
+            LOGGER.log(Level.INFO, "DB connection closed");
+        } catch (SQLException e) {
+            throw new SQLException("Database error access ocurred", e);
+        }
+    }
+    
+    /**
+     * TODO
+     * @param query
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public final void executeInsert(final String query) 
+            throws ClassNotFoundException, SQLException {
+        LOGGER.log(Level.INFO, "Query received is:\n" + query);
+        Statement stmt = null;
+        if (!isConnectionClosed()) {
+            try {
+                stmt = getConnection().createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                closeConnection();
+            }
+        }
+    }
+    
+    /**
+     * TODO
+     * @param query
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public final void executeUpdate(final String query) 
+            throws ClassNotFoundException, SQLException {
+        LOGGER.log(Level.INFO, "Query received is:\n" + query);
+        Statement stmt = null;
+        if (!isConnectionClosed()) {
+            try {
+                stmt = getConnection().createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                closeConnection();
+            }
+        }
     }
 }

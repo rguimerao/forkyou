@@ -13,11 +13,10 @@ Backend:
 Database:
 <ul>
 	<li>inserts - selects - updates - deletes</li>
-	<li>update/insert/delete from db -> function query on db [refactor]</li>
 	<li>select -> the same with return [refactor]</li>
 	<li>[refactor] contact_info att (review .java)</li>
 	<li>Drinks cat -> to be already on db + func + insert script on sql ?</li>
-	<li>get ratings -> todo</li>
+	<li>get ratings</li>
 </ul>
 
 Controllers:
@@ -31,7 +30,7 @@ Testing and code cleaning:
 	<li>tests - test classes</li>
 	<li>design by contract</li>
 	<li>use cases + db uses + design app functionailty</li>
-	<li>Checkstyle - own rules</li>
+	<li>identations - food, foodcreator, contactinfo, recipe, user, brand, dish</li>
 	<li>logger + comments</li>
 	<li>license.md</li>
 	<li>sonarqube</li>

@@ -17,9 +17,9 @@ import DB.DataBase;
  */
 public class DataBaseController implements VisitorIDObtainer {
 
-	private static DataBaseController instance;
-	private static DataBase db = null;
-	private static final Logger LOGGER = Logger.getLogger("DataBaseController");
+    private static DataBaseController instance;
+    private static DataBase db = null;
+    private static final Logger LOGGER = Logger.getLogger("DataBaseController");
 	
 	/**
 	 * Constructor - Singleton
@@ -43,6 +43,7 @@ public class DataBaseController implements VisitorIDObtainer {
 		LOGGER.log(Level.INFO, "Get instance DBController");
 		if (instance == null) {
 			instance = new DataBaseController();
+			LOGGER.log(Level.INFO, "Instance was null, new created");
 		}
 		
 		return instance;
@@ -189,24 +190,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void createNewCategory(final Category newCategory) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new category");
-		
-		Statement stmt = null;
-	    String query   = "INSERT INTO `category`(`name`) VALUES ('" + newCategory.getName() + "')";
+	    String query = "INSERT INTO `category`(`name`) VALUES ('" + newCategory.getName() + "')";
 	    LOGGER.log(Level.INFO, query);
-	    
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        stmt.executeUpdate(query);
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-		        }
-		        db.closeConnection();
-		    }
-	    }
+	    db.executeInsert(query);
 	}
 	
 	/**
@@ -218,9 +204,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void createNewContactInfo(final ContactInfo newContactInfo) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new contact info");
-		
-		Statement stmt = null;
-	    String query   = 
+	    String query = 
 	    		"INSERT INTO "
 	    		+ "`contact_info`(`name`, `description`, `street`, `postal_code`, `city`, `country`, `phone_number`, `email`) "
 	    		+ "VALUES ('" + newContactInfo.getName() + "', '" + newContactInfo.getDescription() 
@@ -228,20 +212,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	    		+ "', '" + newContactInfo.getCity() + "', '" + newContactInfo.getCountry()
 	    		+ "', '" + newContactInfo.getPhoneNumber() + "', '" + newContactInfo.getEmail() + "')";
 	    LOGGER.log(Level.INFO, query);
-	    
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        stmt.executeUpdate(query);
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-		        }
-		        db.closeConnection();
-		    }
-	    }
+	    db.executeInsert(query);
 	}
 	
 	/**
@@ -253,27 +224,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void createNewLocation(final Location newLocation) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new location");
-		
-		Statement stmt = null;
-	    String query   = 
+	    String query = 
 	    		"INSERT INTO "
 	    		+ "`location`(`id`, `id_owner`) "
 	    		+ "VALUES ('" + newLocation.getID() + "', '" + newLocation.getOwner().getID() + "')";
 	    LOGGER.log(Level.INFO, query);
-	    
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        stmt.executeUpdate(query);
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-		        }
-		        db.closeConnection();
-		    }
-	    }
+	    db.executeInsert(query);
 	}
 	
 	/**
@@ -356,24 +312,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void updateBrandWebsite(final int brandID, final String newWebsite) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
-		
-		Statement stmt = null;
-	    String query   = "UPDATE `brand` SET `website`=\'" + newWebsite + "\' WHERE id=\'" + brandID + "\'";
+	    String query = "UPDATE `brand` SET `website`=\'" + newWebsite + "\' WHERE id=\'" + brandID + "\'";
 	    LOGGER.log(Level.INFO, query);
-	    
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        stmt.executeUpdate(query);
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-		        }
-		        db.closeConnection();
-		    }
-	    }
+	    db.executeUpdate(query);
 	}
 	
 	/**
@@ -386,24 +327,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void updateLocationOwner(final int locationID, final int brandID) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
-		
-		Statement stmt = null;
 	    String query   = "UPDATE `location` SET `id_owner`=\'" + brandID + "\' WHERE id=\'" + locationID + "\'";
 	    LOGGER.log(Level.INFO, query);
-	    
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        stmt.executeUpdate(query);
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-		        }
-		        db.closeConnection();
-		    }
-	    }
+	    db.executeUpdate(query);
 	}
 	
 	/**
@@ -412,29 +338,15 @@ public class DataBaseController implements VisitorIDObtainer {
 	 * @param rating rating given
 	 * @param userID user rater
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
 	public final void rateBrand(final int brandID, final int rating, final int userID) 
-			throws SQLException {
+			throws SQLException, ClassNotFoundException {
 		LOGGER.log(Level.INFO, "DataBaseController rating brand");
-		
-		Statement stmt = null;
-	    String query   = 
+	    String query = 
 	    		"INSERT INTO `User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
 	    		+ "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "')";
 	    LOGGER.log(Level.INFO, query);
-	    
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        stmt.executeUpdate(query);
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-		        }
-		        db.closeConnection();
-		    }
-	    }
+	    db.executeInsert(query);
 	}
 }

@@ -1,8 +1,8 @@
 package backend;
 
+import DB_controllers.DataBaseController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import DB_controllers.DataBaseController;
 
 /**
  * Class ingredient.
@@ -13,33 +13,33 @@ import DB_controllers.DataBaseController;
  */
 public class Ingredient extends Food {
 
-	private static final Logger LOGGER = Logger.getLogger("Ingredient");
+    private static final Logger LOGGER = Logger.getLogger("Ingredient");
 	
-	/**
-	 * Constructor of ingredient
-	 * @param name name of the ingredient
-	 * @param category category of the ingredient
-	 * @param forSell is this ingredient for sell?
-	 * @param price price of the ingredient
-	 * @param creator creator of the ingredient
-	 */
-	public Ingredient(
-		final String name, 
-		final Category category, 
-		final boolean forSell, 
-		final float price, 
-		final FoodCreator creator) {
+    /**
+     * Constructor of ingredient
+     * @param name name of the ingredient
+     * @param category category of the ingredient
+     * @param forSell is this ingredient for sell?
+     * @param price price of the ingredient
+     * @param creator creator of the ingredient
+     */
+    public Ingredient(
+            final String name, 
+            final Category category, 
+            final boolean forSell, 
+            final float price, 
+            final FoodCreator creator) {
 
-		super(name, category, forSell, price, creator);
-		LOGGER.log(Level.INFO, "A new ingredient with name: " + name + " has been created");
+        super(name, category, forSell, price, creator);
+        LOGGER.log(Level.INFO, "A new ingredient with name: " + name + " has been created");
 	}
 	
-	/**
-	 * Obtains the ID from the DB
-	 */
-	@Override
-	public void obtainID(final DataBaseController dbController) {
-		LOGGER.log(Level.INFO, "obtainID in Ingredient");
-		// TODO -> DB
-	}
+    /**
+     * Obtains the ID from the DB
+     */
+    @Override
+    public void obtainID(final DataBaseController dbController) {
+        LOGGER.log(Level.INFO, "obtainID in Ingredient");
+        // TODO -> DB
+    }
 }

@@ -1,10 +1,10 @@
 package backend;
 
+import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import DB_controllers.DataBaseController;
 
 /**
  * Class category.
@@ -14,60 +14,60 @@ import DB_controllers.DataBaseController;
  */
 public class Category extends Identifier {
 
-	private String name;
-	private ArrayList<Food> foods;
-	private static final Logger LOGGER = Logger.getLogger("Category");
+    private String name;
+    private ArrayList<Food> foods;
+    private static final Logger LOGGER = Logger.getLogger("Category");
 
-	/**
-	 * Constructor of category
-	 * @param name name of the category
-	 */
-	public Category(final String name) {
+    /**
+     * Constructor of category
+     * @param name name of the category
+     */
+    public Category(final String name) {
 
-		super();
-		this.name  = name;
-		this.foods = new ArrayList<Food>();
-		LOGGER.log(Level.INFO, "A new category has been created with name: " + name);
-	}
+        super();
+        this.name  = name;
+        this.foods = new ArrayList<Food>();
+        LOGGER.log(Level.INFO, "A new category has been created with name: " + name);
+    }
 
-	/**
-	 * Obtains the ID from the DB
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
-	@Override
-	public void obtainID(final DataBaseController dbController) 
-			throws ClassNotFoundException, SQLException {
+    /**
+     * Obtains the ID from the DB
+     * @throws SQLException 
+     * @throws ClassNotFoundException 
+     */
+    @Override
+    public void obtainID(final DataBaseController dbController) 
+            throws ClassNotFoundException, SQLException {
 		
-		this.ID = dbController.obtainID(this);
-		LOGGER.log(Level.INFO, "obtainID in Category with result: " + getID());
-	}
+        this.ID = dbController.obtainID(this);
+        LOGGER.log(Level.INFO, "obtainID in Category with result: " + getID());
+    }
 	
-	/**
-	 * Getter of name
-	 * @return name of the category
-	 */
-	public final String getName() {
-		LOGGER.log(Level.INFO, "Name of category has been requested");
-		return name;
-	}
+    /**
+     * Getter of name
+     * @return name of the category
+     */
+    public final String getName() {
+        LOGGER.log(Level.INFO, "Name of category has been requested");
+        return name;
+    }
 
-	/**
-	 * Getter of foods in category
-	 * @return array list with the foods in the category
-	 */
-	public final ArrayList<Food> getFoods() {
-		LOGGER.log(Level.INFO, "Array of foods in category has been requested");
-		return this.foods;
-	}
+    /**
+     * Getter of foods in category
+     * @return array list with the foods in the category
+     */
+    public final ArrayList<Food> getFoods() {
+        LOGGER.log(Level.INFO, "Array of foods in category has been requested");
+        return this.foods;
+    }
 
-	/**
-	 * Adds a food to the array of foods inside the category
-	 * @param foodToAdd food to add to the category
-	 */
-	public final void addFood(final Food foodToAdd) {
-		this.foods.add(foodToAdd);
-		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to a category");
-		// TODO -> DB
-	}
+    /**
+     * Adds a food to the array of foods inside the category
+     * @param foodToAdd food to add to the category
+     */
+    public final void addFood(final Food foodToAdd) {
+        this.foods.add(foodToAdd);
+        LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to a category");
+        // TODO -> DB
+    }
 }
