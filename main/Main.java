@@ -1,7 +1,6 @@
 package main;
 
 import java.sql.SQLException;
-
 import testing.*;
 
 public class Main {
