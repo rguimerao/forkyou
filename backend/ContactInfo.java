@@ -17,10 +17,10 @@ public class ContactInfo extends Identifier {
 	private String name;
 	private String description;
 	private String street;
-	private int postalCode;
+	private int postalCode; // area code
 	private String city;
 	private String country;
-	private int phoneNumber;
+	private int phoneNumber; // phone
 	private String email;
 	private static final Logger LOGGER = Logger.getLogger("ContactInfo");
 
