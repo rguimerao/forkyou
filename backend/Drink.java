@@ -2,6 +2,7 @@ package backend;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import DB_controllers.DataBaseController;
 
 /**
  * Class drink.
@@ -16,22 +17,32 @@ public class Drink extends Dish {
 	/**
 	 * Constructor of drink
 	 * @param name name of the drink
+	 * @param category category drinks
 	 * @param forSell is this drink for sell?
 	 * @param price price of the drink
 	 * @param creator creator of this drink
 	 */
 	public Drink(
 		final String name, 
-		final boolean forSell, 
+		final Category category,
+		final boolean forSell,
 		final float price, 
 		final FoodCreator creator) {
 		
 		// TODO -> controller get category drinks
-		super(name, new Category("drinks"), forSell, price, creator);
+		super(name, category, forSell, price, creator);
 		LOGGER.log(Level.INFO, "A drink has been created");
-		
 	}
 
+	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Drink");
+		// TODO -> DB
+	}
+	
 	/**
 	 * Adds an ingredient to the drink
 	 * If it is not an ingredient, it won't be added
@@ -45,16 +56,6 @@ public class Drink extends Dish {
 		} else {
 			LOGGER.log(Level.WARNING, "A non-ingredient food has tried to be added to a drink!");
 		}
-	}
-	
-	/**
-	 * Accepts a rate by telling the rater to rate myself
-	 * @param rater rater to execute the rate
-	 * @param rating rating given
-	 * @param userID userId rating
-	 */
-	public void acceptRate(final Rater rater, final int rating, final int userID) {
-		rater.rate(this, rating, userID);
-		LOGGER.log(Level.INFO, "A drink has accepted a rating");
+		// TODO -> DB
 	}
 }

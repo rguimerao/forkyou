@@ -2,6 +2,14 @@ package testing;
 
 import backend.*;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import DB.*;
+import DB_controllers.DataBaseController;
+
 /**
  * Class tester.
  * Used to test stuff around the project.
@@ -17,9 +25,7 @@ public class Tester {
 	public User createUser() {
 		return new User("John Silver", "I am a pirate", "Treasure Island, num 19", 0, "City", "Caribean", 0, "johnsilver@treasureisland.com");
 	}
-	/**
-	 * Remove item from wish list
-	 */
+	
 	public void userRemoveItemFromList() {
 		
 		System.out.println("Creating user");
@@ -71,5 +77,61 @@ public class Tester {
 		Food food         = new Food("Food Name", category, false, 0, user);
 		
 		System.out.println(category.getFoods().size());
+	}
+	
+	public void testDBConnection() 
+			throws SQLException, ClassNotFoundException {
+		
+		System.out.println("Testing DB connection");
+		DataBase db = null;
+		db = db.getInstance();
+		System.out.println("Success!!");
+	}
+	
+
+	public void testDBSelect() 
+			throws ClassNotFoundException, SQLException {
+		
+		DataBase db = null;
+		db = db.getInstance();
+		
+		Statement stmt = null;
+	    String query = "SELECT id FROM Contact_Info";
+	    
+	    if (!db.isConnectionClosed()) {
+	    	Connection con = db.getConnection();
+	    	try {
+		        stmt = con.createStatement();
+		        ResultSet rs = stmt.executeQuery(query);
+		        
+		        while (rs.next()) {
+		            String id = rs.getString("id");
+		            System.out.println(id);
+		        }
+		    } catch (SQLException e ) {
+		        e.printStackTrace();
+		    } finally {
+		        if (stmt != null) { stmt.close(); }
+		    }
+	    }
+	}
+
+	public void testDBInsertCategory() 
+			throws ClassNotFoundException, SQLException {
+		
+		User user = createUser();
+		DataBaseController dbController = null;
+		dbController = dbController.getInstance();
+		user.createCategory("Drinks", dbController);
+	}
+
+	public void testFullInsertCategory() 
+			throws ClassNotFoundException, SQLException {
+		User user = createUser();
+		
+		DataBaseController dbController = null;
+		dbController = dbController.getInstance();
+		
+		user.createCategory("Pizzas", dbController);
 	}
 }

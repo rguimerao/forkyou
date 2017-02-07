@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class dish.
  * A dish is food composed by more foods
@@ -37,6 +39,15 @@ public class Dish extends Food {
 	}
 
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in Dish");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Getter of recipe
 	 * @return recipe of the dish
 	 */
@@ -52,6 +63,7 @@ public class Dish extends Food {
 	public final void setRecipe(Recipe newRecipe) {
 		this.recipe = newRecipe;
 		LOGGER.log(Level.INFO, "Recipe of dish has been setted");
+		// TODO -> DB
 	}
 	
 	/**
@@ -61,6 +73,7 @@ public class Dish extends Food {
 	public final void updateRecipeName(String newName) {
 		this.recipe.updateName(newName);
 		LOGGER.log(Level.INFO, "Recipe's name of dish has been updated");
+		// TODO -> DB
 	}
 	
 	/**
@@ -70,6 +83,7 @@ public class Dish extends Food {
 	public final void updateRecipeDescription(String newDescription) {
 		this.recipe.updateDescription(newDescription);
 		LOGGER.log(Level.INFO, "Recipe's description of dish has been updated");
+		// TODO -> DB
 	}
 
 	/**
@@ -88,16 +102,6 @@ public class Dish extends Food {
 	public void addFood(final Food foodToAdd) {
 		this.composedFoods.add(foodToAdd);
 		LOGGER.log(Level.INFO, "A food has been added to the composed foods of dish");
-	}
-	
-	/**
-	 * Accepts a rate by telling the rater to rate myself
-	 * @param rater rater to execute the rate
-	 * @param rating rating given
-	 * @param userID userId rating
-	 */
-	public void acceptRate(final Rater rater, final int rating, final int userID) {
-		rater.rate(this, rating, userID);
-		LOGGER.log(Level.INFO, "A dish has accepted a rating");
+		// TODO -> DB
 	}
 }

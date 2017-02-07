@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DB_controllers.DataBaseController;
+
 /**
  * Class user.
  * A user is a food creator and the main actioner of the app.
@@ -44,6 +46,15 @@ public class User extends FoodCreator {
 		this.followingBrands = new ArrayList<Brand>();
 		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
 	}
+	
+	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) {
+		LOGGER.log(Level.INFO, "obtainID in User");
+		// TODO -> DB
+	}
 
 	/**
 	 * Getter of wish list
@@ -62,6 +73,7 @@ public class User extends FoodCreator {
 		this.foodWishlist.add(foodToAdd);
 		foodToAdd.addUserToUsersWantingMe(this);
 		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
+		// TODO -> DB
 	}
 
 	/**
@@ -72,6 +84,7 @@ public class User extends FoodCreator {
 		foodToRemove.removeUserFromUsersWantingMe(this);
 		this.foodWishlist.remove(foodToRemove);
 		LOGGER.log(Level.INFO, foodToRemove.getName() + " has been removed from user wishlist");
+		// TODO -> DB
 	}
 	
 	/**
@@ -95,6 +108,7 @@ public class User extends FoodCreator {
 		} else {
 			LOGGER.log(Level.WARNING, "ERROR addFollowing user tried to follow youself");
 		}
+		// TODO -> DB
 	}
 	
 	/**
@@ -105,6 +119,7 @@ public class User extends FoodCreator {
 		this.followingUsers.remove(userToRemove);
 		userToRemove.removeFollower(this);
 		LOGGER.log(Level.INFO, "User removed from following users");
+		// TODO -> DB
 	}
 	
 	/**
@@ -124,6 +139,7 @@ public class User extends FoodCreator {
 		this.followingBrands.add(brandToFollow);
 		brandToFollow.addFollower(this);
 		LOGGER.log(Level.INFO, "A brand has been followed");
+		// TODO -> DB
 	}
 	
 	/**
@@ -134,6 +150,7 @@ public class User extends FoodCreator {
 		this.followingBrands.remove(brandToUnfollow);
 		brandToUnfollow.removeFollower(this);
 		LOGGER.log(Level.INFO, "A brand has been unfollowed");
+		// TODO -> DB
 	}
 	
 	/**
@@ -170,6 +187,7 @@ public class User extends FoodCreator {
 						);
 		db controller -> add new brand */
 		// TODO -> LOGGER
+		// TODO -> DB
 		LOGGER.log(Level.INFO, "A user has created a brand");
 	}
 }

@@ -1,8 +1,11 @@
 package backend;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import DB_controllers.DataBaseController;
 
 /**
  * Class food creator
@@ -46,6 +49,16 @@ public class FoodCreator extends ContactInfo {
 	}
 
 	/**
+	 * Obtains the ID from the DB
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
+		LOGGER.log(Level.INFO, "obtainID in FoodCreator");
+		// TODO -> DB
+	}
+	
+	/**
 	 * Getter of foods created
 	 * @return foods created by the food creator
 	 */
@@ -61,6 +74,7 @@ public class FoodCreator extends ContactInfo {
 	private final void addFood(final Food foodToAdd) {
 		this.foodsCreated.add(foodToAdd);
 		LOGGER.log(Level.INFO, "Food added to foods created");
+		// TODO -> DB
 	}
 
 	/**
@@ -79,6 +93,7 @@ public class FoodCreator extends ContactInfo {
 	private final void addRecipe(final Recipe recipeToAdd) {
 		this.recipesCreated.add(recipeToAdd);
 		LOGGER.log(Level.INFO, "Recipe added to food creator");
+		// TODO -> DB
 	}
 
 	/**
@@ -91,12 +106,73 @@ public class FoodCreator extends ContactInfo {
 	public final void createFood(
 		final String name, 
 		final Category category, 
-		final boolean forSell, 
+		final boolean forSell,
 		final float price) {
 
 		// TODO -> needs DB + controller
 		Food newFood = new Food(name, category, forSell, price, this);
 		addFood(newFood);
+		LOGGER.log(Level.INFO, "Food created and added on food creator");
+	}
+	
+	/**
+	 * Creates a dish and adds it to the foods created array
+	 * @param name name of the dish
+	 * @param category category which the food belongs to
+	 * @param forSell is the dish for sell?
+	 * @param price price of the dish
+	 */
+	public final void createDish(
+		final String name, 
+		final Category category, 
+		final boolean forSell,
+		final float price) {
+
+		// TODO -> needs DB + controller
+		Dish newDish = new Dish(name, category, forSell, price, this);
+		addFood(newDish);
+		LOGGER.log(Level.INFO, "Food created and added on food creator");
+	}
+	
+	/**
+	 * Creates an ingredient and adds it to the foods created array
+	 * @param name name of the food
+	 * @param category category which the ingredient belongs to
+	 * @param forSell is the food for sell?
+	 * @param price price of the ingredient
+	 */
+	public final void createIngredient(
+		final String name, 
+		final Category category, 
+		final boolean forSell,
+		final float price) {
+
+		// TODO -> needs DB + controller
+		Ingredient newIngredient = new Ingredient(name, category, forSell, price, this);
+		addFood(newIngredient);
+		LOGGER.log(Level.INFO, "Food created and added on food creator");
+	}
+	
+	/**
+	 * Creates a drink and adds it to the foods created array
+	 * @param name name of the drink
+	 * @param forSell is the drink for sell?
+	 * @param price price of the drink
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public final void createDrink(
+		final String name, 
+		final Category category, 
+		final boolean forSell,
+		final float price) 
+				throws SQLException, ClassNotFoundException {
+
+		// TODO -> needs DB + controller
+		DataBaseController dbController = null;
+		dbController = dbController.getInstance();
+		Drink newDrink = new Drink(name, dbController.getDrinksCategory(), forSell, price, this);
+		addFood(newDrink);
 		LOGGER.log(Level.INFO, "Food created and added on food creator");
 	}
 
@@ -133,11 +209,15 @@ public class FoodCreator extends ContactInfo {
 	/**
 	 * Creates a category
 	 * @param name name of the new category
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void createCategory(final String name) {
+	public final void createCategory(final String name, final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
 
-		// TODO -> needs DB + controller
-		//Category newCategory = new Category(name);
+		Category newCategory = new Category(name);
+		dbController.createNewCategory(newCategory);
+		newCategory.obtainID(dbController);
 		LOGGER.log(Level.INFO, "Category created on food creator");
 	}
 
@@ -162,7 +242,8 @@ public class FoodCreator extends ContactInfo {
 		final String country,
 		final int phoneNumber,
 		final String email,
-		final Brand owner) {
+		final Brand owner) 
+				throws ClassNotFoundException, SQLException {
 
 		// TODO -> needs DB + controller
 		//Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, owner);
@@ -185,6 +266,7 @@ public class FoodCreator extends ContactInfo {
 	protected final void addFollower(final User followerUserToAdd) {
 		this.followers.add(followerUserToAdd);
 		LOGGER.log(Level.INFO, "A user is now following you");
+		// TODO -> DB
 	}
 	
 	/**
@@ -194,5 +276,14 @@ public class FoodCreator extends ContactInfo {
 	protected final void removeFollower(final User userToRemove) {
 		this.followers.remove(userToRemove);
 		LOGGER.log(Level.INFO, "A user has removed you from its following list");
+		// TODO -> DB
+	}
+	
+	public boolean checkPassword(final String password) 
+			throws ClassNotFoundException, SQLException {
+		
+		DataBaseController dbController = null;
+		dbController = dbController.getInstance();
+		return dbController.checkHash(password, this);
 	}
 }

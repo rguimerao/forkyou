@@ -1,8 +1,11 @@
 package backend;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import DB_controllers.DataBaseController;
 
 /**
  * Class category.
@@ -29,6 +32,19 @@ public class Category extends Identifier {
 	}
 
 	/**
+	 * Obtains the ID from the DB
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	@Override
+	public void obtainID(final DataBaseController dbController) 
+			throws ClassNotFoundException, SQLException {
+		
+		this.ID = dbController.obtainID(this);
+		LOGGER.log(Level.INFO, "obtainID in Category with result: " + getID());
+	}
+	
+	/**
 	 * Getter of name
 	 * @return name of the category
 	 */
@@ -53,5 +69,6 @@ public class Category extends Identifier {
 	public final void addFood(final Food foodToAdd) {
 		this.foods.add(foodToAdd);
 		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to a category");
+		// TODO -> DB
 	}
 }
