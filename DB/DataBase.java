@@ -2,6 +2,7 @@ package DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -163,5 +164,36 @@ public class DataBase{
                 closeConnection();
             }
         }
+    }
+    
+    /**
+     * TODO
+     * @param query
+     * @return
+     * @throws SQLException
+     */
+    public final int obtainID(final String query) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "Query received is:\n" + query);
+        int id = -1;
+        Statement stmt = null;
+        if (!isConnectionClosed()) {
+            try {
+                stmt = getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    id = rs.getInt("id");
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                closeConnection();
+            }
+        }
+        LOGGER.log(Level.INFO, "ID sent is:\n" + id);
+        return id;
     }
 }

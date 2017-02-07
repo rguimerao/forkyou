@@ -57,29 +57,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final Category category) 
 			throws SQLException, ClassNotFoundException {
-		
-		int id = -1;
-		
-		Statement stmt = null;
+	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query   = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1";
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        ResultSet rs = stmt.executeQuery(query);
-		        while (rs.next()) {
-		            id = rs.getInt("id");
-		        }
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-	        	}
-		        db.closeConnection();
-		    }
-	    } 
-	    
-	    return id;
+        LOGGER.log(Level.INFO, query);
+        return db.obtainID(query);
 	}
 	
 	/**
@@ -90,29 +71,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final Brand brand) 
 			throws SQLException, ClassNotFoundException {
-		
-		int id = -1;
-		
-		Statement stmt = null;
+	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query   = "SELECT id FROM `brand` ORDER BY 1 DESC LIMIT 1";
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        ResultSet rs = stmt.executeQuery(query);
-		        while (rs.next()) {
-		            id = rs.getInt("id");
-		        }
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-	        	}
-		        db.closeConnection();
-		    }
-	    } 
-	    
-	    return id;
+	    LOGGER.log(Level.INFO, query);
+        return db.obtainID(query);
 	}
 	
 	/**
@@ -123,29 +85,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final Location location) 
 			throws SQLException, ClassNotFoundException {
-		
-		int id = -1;
-		
-		Statement stmt = null;
+	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query   = "SELECT id FROM `location` ORDER BY 1 DESC LIMIT 1";
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        ResultSet rs = stmt.executeQuery(query);
-		        while (rs.next()) {
-		            id = rs.getInt("id");
-		        }
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-	        	}
-		        db.closeConnection();
-		    }
-	    } 
-	    
-	    return id;
+	    LOGGER.log(Level.INFO, query);
+        return db.obtainID(query);
 	}
 	
 	/**
@@ -156,29 +99,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final ContactInfo contactInfo) 
 			throws SQLException, ClassNotFoundException {
-		
-		int id = -1;
-		
-		Statement stmt = null;
+		LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query   = "SELECT id FROM `contact_info` ORDER BY 1 DESC LIMIT 1";
-	    if (!db.isConnectionClosed()) {
-	    	try {
-		        stmt = db.getConnection().createStatement();
-		        ResultSet rs = stmt.executeQuery(query);
-		        while (rs.next()) {
-		            id = rs.getInt("id");
-		        }
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) {
-		        	stmt.close();
-	        	}
-		        db.closeConnection();
-		    }
-	    } 
-	    
-	    return id;
+	    LOGGER.log(Level.INFO, query);
+	    return db.obtainID(query);
 	}
 	
 	/**
