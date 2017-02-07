@@ -1,12 +1,10 @@
 package testing;
 
-import backend.*;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import backend.*;
 import DB.*;
 import DB_controllers.DataBaseController;
 
@@ -19,11 +17,17 @@ import DB_controllers.DataBaseController;
  */
 public class Tester {
 
-	public Tester() {
-	}
+	public Tester() {}
 	
 	public User createUser() {
-		return new User("John Silver", "I am a pirate", "Treasure Island, num 19", 0, "City", "Caribean", 0, "johnsilver@treasureisland.com");
+		return new User("John Silver", 
+				"I am a pirate", 
+				"Treasure Island, num 19", 
+				0, 
+				"City", 
+				"Caribean", 
+				0, 
+				"johnsilver@treasureisland.com");
 	}
 	
 	public void userRemoveItemFromList() {
@@ -96,24 +100,24 @@ public class Tester {
 		db = db.getInstance();
 		
 		Statement stmt = null;
-	    String query = "SELECT id FROM Contact_Info";
+		String query = "SELECT id FROM Contact_Info";
 	    
-	    if (!db.isConnectionClosed()) {
-	    	Connection con = db.getConnection();
-	    	try {
-		        stmt = con.createStatement();
-		        ResultSet rs = stmt.executeQuery(query);
+		if (!db.isConnectionClosed()) {
+	 		Connection con = db.getConnection();
+	    		try {
+		        	stmt = con.createStatement();
+		        	ResultSet rs = stmt.executeQuery(query);
 		        
-		        while (rs.next()) {
-		            String id = rs.getString("id");
-		            System.out.println(id);
-		        }
-		    } catch (SQLException e ) {
-		        e.printStackTrace();
-		    } finally {
-		        if (stmt != null) { stmt.close(); }
-		    }
-	    }
+		        	while (rs.next()) {
+		            		String id = rs.getString("id");
+		           		System.out.println(id);
+		        	}
+		    	} catch (SQLException e ) {
+		        	e.printStackTrace();
+		    	} finally {
+		        	if (stmt != null) { stmt.close(); }
+		    	}
+	    	}
 	}
 
 	public void testDBInsertCategory() 
