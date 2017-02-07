@@ -1,12 +1,18 @@
 package DB_controllers;
 
+
+import DB.DataBase;
+import backend.Brand;
+import backend.Category;
+import backend.ContactInfo;
+import backend.FoodCreator;
+import backend.Location;
+import backend.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import backend.*; // TODO -> only necessary
-import DB.DataBase;
 
 /**
  * Class DataBaseController
@@ -58,7 +64,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public int obtainID(final Category category) 
 			throws SQLException, ClassNotFoundException {
 	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
-	    String query   = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1";
+	    String query = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1;";
         LOGGER.log(Level.INFO, query);
         return db.obtainID(query);
 	}
@@ -72,7 +78,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public int obtainID(final Brand brand) 
 			throws SQLException, ClassNotFoundException {
 	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
-	    String query   = "SELECT id FROM `brand` ORDER BY 1 DESC LIMIT 1";
+	    String query = "SELECT id FROM `brand` ORDER BY 1 DESC LIMIT 1;";
 	    LOGGER.log(Level.INFO, query);
         return db.obtainID(query);
 	}
@@ -86,7 +92,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public int obtainID(final Location location) 
 			throws SQLException, ClassNotFoundException {
 	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
-	    String query   = "SELECT id FROM `location` ORDER BY 1 DESC LIMIT 1";
+	    String query = "SELECT id FROM `location` ORDER BY 1 DESC LIMIT 1;";
 	    LOGGER.log(Level.INFO, query);
         return db.obtainID(query);
 	}
@@ -100,7 +106,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public int obtainID(final ContactInfo contactInfo) 
 			throws SQLException, ClassNotFoundException {
 		LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
-	    String query   = "SELECT id FROM `contact_info` ORDER BY 1 DESC LIMIT 1";
+	    String query = "SELECT id FROM `contact_info` ORDER BY 1 DESC LIMIT 1;";
 	    LOGGER.log(Level.INFO, query);
 	    return db.obtainID(query);
 	}
@@ -114,7 +120,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void createNewCategory(final Category newCategory) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new category");
-	    String query = "INSERT INTO `category`(`name`) VALUES ('" + newCategory.getName() + "')";
+	    String query = "INSERT INTO `category`(`name`) VALUES ('" + newCategory.getName() + "');";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeInsert(query);
 	}
@@ -132,9 +138,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	    		"INSERT INTO "
 	    		+ "`contact_info`(`name`, `description`, `street`, `postal_code`, `city`, `country`, `phone_number`, `email`) "
 	    		+ "VALUES ('" + newContactInfo.getName() + "', '" + newContactInfo.getDescription() 
-	    		+ "', '" + newContactInfo.getStreet() + "', '" + newContactInfo.getPostalCode()
+	    		+ "', '" + newContactInfo.getStreet() + "', '" + newContactInfo.getAreaCode()
 	    		+ "', '" + newContactInfo.getCity() + "', '" + newContactInfo.getCountry()
-	    		+ "', '" + newContactInfo.getPhoneNumber() + "', '" + newContactInfo.getEmail() + "')";
+	    		+ "', '" + newContactInfo.getPhone() + "', '" + newContactInfo.getEmail() + "');";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeInsert(query);
 	}
@@ -151,9 +157,38 @@ public class DataBaseController implements VisitorIDObtainer {
 	    String query = 
 	    		"INSERT INTO "
 	    		+ "`location`(`id`, `id_owner`) "
-	    		+ "VALUES ('" + newLocation.getID() + "', '" + newLocation.getOwner().getID() + "')";
+	    		+ "VALUES ('" + newLocation.getID() + "', '" + newLocation.getOwner().getID() + "');";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeInsert(query);
+	}
+	
+	/**
+	 * 
+	 * @param newFoodCreator
+	 * @param hashPassword
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public final void createNewFoodCreator(final FoodCreator newFoodCreator, final String hashPassword) 
+	        throws ClassNotFoundException, SQLException {
+	    String query = 
+	            "INSERT INTO `food_creator`(`id`, `password`) "
+	            + "VALUES ('" + newFoodCreator.getID() + "', '" + hashPassword + "');";
+	    db.executeInsert(query);
+	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public final void createNewUser(final User user) 
+	        throws ClassNotFoundException, SQLException {
+	    String query = 
+                "INSERT INTO `user`(`id`, `nickname`) "
+                + "VALUES ('" + user.getID() + "', '" + user.getNickName() + "');";
+        db.executeInsert(query);
 	}
 	
 	/**
@@ -168,7 +203,7 @@ public class DataBaseController implements VisitorIDObtainer {
 		String name = "";
 		
 		Statement stmt = null;
-	    String query   = "SELECT id, name FROM `category` WHERE name=\'Drinks\' ORDER BY 1 DESC LIMIT 1";
+	    String query   = "SELECT id, name FROM `category` WHERE name=\'Drinks\' ORDER BY 1 DESC LIMIT 1;";
 	    if (!db.isConnectionClosed()) {
 	    	try {
 		        stmt = db.getConnection().createStatement();
@@ -193,6 +228,58 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
+	 * 
+	 * @param nickname
+	 * @return
+	 * @throws SQLException
+	 */
+    public final User getUserByNickname(final String nickname) 
+            throws SQLException {
+        int id             = -1;
+        String name        = "";
+        String description = "";
+        String street      = "";
+        int areaCode       = -1;
+        String city        = "";
+        String country     = "";
+        int phone          = -1;
+        String email       = "";
+        
+        Statement stmt = null;
+        String query = 
+                "SELECT id, name, description, street, area_code, city, country, phone, email "
+                + "FROM Contact_Info, Food_Creator, User "
+                + "WHERE User.nickname = '" + nickname + "';";
+        if (!db.isConnectionClosed()) {
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    id          = rs.getInt("id");
+                    name        = rs.getString("password");
+                    description = rs.getString("description");
+                    street      = rs.getString("street");
+                    areaCode  = rs.getInt("postal_code");
+                    city        = rs.getString("city");
+                    country     = rs.getString("country");
+                    phone = rs.getInt("phone_number");
+                    email       = rs.getString("email");
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        }
+        User newUser = new User(name, description, street, areaCode, city, country, phone, email, nickname);
+        newUser.setID(id);
+        return newUser;
+    }
+    
+	/**
 	 * Check if the password of a food creator is correct or not
 	 * @param submitedPassword hash of password submited
 	 * @param foodCreator food creator entering the password
@@ -203,9 +290,11 @@ public class DataBaseController implements VisitorIDObtainer {
 			throws SQLException {
 		
 		String password = "";
-		
-		Statement stmt = null;
-	    String query   = "SELECT password FROM `Food_Creator` WHERE id=\'" + foodCreator.getID() + "\' ORDER BY 1 DESC LIMIT 1";
+		Statement stmt  = null;
+	    String query = 
+	            "SELECT password "
+	            + "FROM `Food_Creator` "
+	            + "WHERE id=\'" + foodCreator.getID() + "\' ORDER BY 1 DESC LIMIT 1;";
 	    if (!db.isConnectionClosed()) {
 	    	try {
 		        stmt = db.getConnection().createStatement();
@@ -236,7 +325,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void updateBrandWebsite(final int brandID, final String newWebsite) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
-	    String query = "UPDATE `brand` SET `website`=\'" + newWebsite + "\' WHERE id=\'" + brandID + "\'";
+	    String query = "UPDATE `brand` SET `website`=\'" + newWebsite + "\' WHERE id=\'" + brandID + "\';";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeUpdate(query);
 	}
@@ -251,7 +340,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	public final void updateLocationOwner(final int locationID, final int brandID) 
 			throws ClassNotFoundException, SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
-	    String query   = "UPDATE `location` SET `id_owner`=\'" + brandID + "\' WHERE id=\'" + locationID + "\'";
+	    String query = "UPDATE `location` SET `id_owner`=\'" + brandID + "\' WHERE id=\'" + locationID + "\';";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeUpdate(query);
 	}
@@ -269,7 +358,7 @@ public class DataBaseController implements VisitorIDObtainer {
 		LOGGER.log(Level.INFO, "DataBaseController rating brand");
 	    String query = 
 	    		"INSERT INTO `User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
-	    		+ "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "')";
+	    		+ "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "');";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeInsert(query);
 	}

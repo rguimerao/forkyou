@@ -16,6 +16,7 @@ public class User extends FoodCreator {
     private ArrayList<Food> foodWishlist;
     private ArrayList<User> followingUsers;
     private ArrayList<Brand> followingBrands;
+    private String nickname;
     private static final Logger LOGGER = Logger.getLogger("User");
     
     /**
@@ -37,13 +38,23 @@ public class User extends FoodCreator {
 		final String city,
 		final String country,
 		final int phoneNumber,
-		final String email) {
+		final String email,
+		final String nickname) {
 	
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.foodWishlist    = new ArrayList<Food>();
 		this.followingUsers  = new ArrayList<User>();
 		this.followingBrands = new ArrayList<Brand>();
+		this.nickname        = nickname;
 		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
+	}
+	
+	public String getNickName() {
+	    return this.nickname;
+	}
+	
+	public void setNickName(final String newNickName) {
+	    this.nickname = newNickName;
 	}
 	
 	/**

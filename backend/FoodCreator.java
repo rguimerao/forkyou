@@ -277,8 +277,15 @@ public class FoodCreator extends ContactInfo {
 		LOGGER.log(Level.INFO, "A user has removed you from its following list");
 		// TODO -> DB
 	}
-	
-	public boolean checkPassword(final String password) 
+
+	/**
+	 * TODO
+	 * @param password
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public final boolean checkPassword(final String password) 
 			throws ClassNotFoundException, SQLException {
 		
 		DataBaseController dbController = null;

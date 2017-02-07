@@ -1,0 +1,27 @@
+Use cases
+
+User:
+Create food - page of create food (with types)
+Create Recipe - page of create a recipe
+Create Location - page of create a location
+Create Brand - page of create brand
+Create Category - page of create category
+
+View Food from follwing - main page -> see foods from following users
+view foods in category (page category) - select category -> views latest foods there
+view top brands (10, 25, 50, 100) -> ordered by best rating
+view top foods (10, 25, 50, 100) -> ordered by best rating
+view top locations (10, 25, 50, 100) -> ordered by best rating
+view top recipes (10, 25, 50, 100) -> ordered by best rating
+
+page of list of categories
+page of brand - list of locations + foods from brand - ratings
+page of food - recipe, locations, ratings
+page of location - ratings, food
+page of user (profile)- creations + rating
+
+register page
+
+
+
+Brand:

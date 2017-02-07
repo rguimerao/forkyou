@@ -16,10 +16,10 @@ public class ContactInfo extends Identifier {
 	private String name;
 	private String description;
 	private String street;
-	private int postalCode; // area code
+	private int areaCode;
 	private String city;
 	private String country;
-	private int phoneNumber; // phone
+	private int phone;
 	private String email;
 	private static final Logger LOGGER = Logger.getLogger("ContactInfo");
 
@@ -38,20 +38,20 @@ public class ContactInfo extends Identifier {
 		final String name,
 		final String description,
 		final String street,
-		final int postalCode,
+		final int areaCode,
 		final String city,
 		final String country,
-		final int phoneNumber,
+		final int phone,
 		final String email) {
 
 		super();
 		this.name        = name;
 		this.description = description;
 		this.street      = street;
-		this.postalCode  = postalCode;
+		this.areaCode    = areaCode;
 		this.city        = city;
 		this.country     = country;
-		this.phoneNumber = phoneNumber;
+		this.phone       = phone;
 		this.email       = email;
 		LOGGER.log(Level.INFO, "A new contact info has been created");
 	}
@@ -127,17 +127,17 @@ public class ContactInfo extends Identifier {
 	 * Getter of postal code
 	 * @return postal code of the contact
 	 */
-	public final int getPostalCode() {
+	public final int getAreaCode() {
 		LOGGER.log(Level.INFO, "Postal code of contact info has been getted");
-		return this.postalCode;
+		return this.areaCode;
 	}
 
 	/**
 	 * Setter of postal code
 	 * @param newPostalCode new postal code the contact will have
 	 */
-	public final void setPostalCode(final int newPostalCode) {
-		this.postalCode = newPostalCode;
+	public final void setAreaCode(final int newAreaCode) {
+		this.areaCode = newAreaCode;
 		LOGGER.log(Level.INFO, "Postal code of contact info has been setted");
 		// TODO -> DB
 	}
@@ -184,17 +184,17 @@ public class ContactInfo extends Identifier {
 	 * Getter of phone number
 	 * @return phone number of the contact
 	 */
-	public final int getPhoneNumber() {
+	public final int getPhone() {
 		LOGGER.log(Level.INFO, "Phone number of contact info has been getted");
-		return this.phoneNumber;
+		return this.phone;
 	}
 
 	/**
 	 * Setter of phone number
 	 * @param newPhoneNumber new phone number the contact will have
 	 */
-	public final void setPhoneNumber(final int newPhoneNumber) {
-		this.phoneNumber = newPhoneNumber;
+	public final void setPhone(final int newPhone) {
+		this.phone = newPhone;
 		LOGGER.log(Level.INFO, "Phone number of contact info has been setted");
 		// TODO -> DB
 	}
