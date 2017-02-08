@@ -1,6 +1,5 @@
 package DB_controllers;
 
-
 import DB.DataBase;
 import backend.Brand;
 import backend.Category;
@@ -29,40 +28,42 @@ public class DataBaseController implements VisitorIDObtainer {
 	
 	/**
 	 * Constructor - Singleton
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * Obtains the instance of the DB
+	 * @throws SQLException if the connection cannot be done
+	 * @throws ClassNotFoundException if the driver is not found
 	 */
 	private DataBaseController() 
 			throws ClassNotFoundException, SQLException {
-		db = db.getInstance();
+		db = DataBase.getInstance();
 		LOGGER.log(Level.INFO, "DataBaseController created");
 	}
 	
 	/**
-	 * Returns an object of itself
-	 * @return instance of the class
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * Returns the instance of itself
+	 * @return instance of this object
 	 */
-	public final static DataBaseController getInstance() 
-			throws ClassNotFoundException, SQLException {
+	public final static DataBaseController getInstance()  {
 		LOGGER.log(Level.INFO, "Get instance DBController");
 		if (instance == null) {
-			instance = new DataBaseController();
+			try {
+                instance = new DataBaseController();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 			LOGGER.log(Level.INFO, "Instance was null, new created");
 		}
-		
 		return instance;
 	}
 
 	/**
 	 * Obtains the ID of the given category
 	 * @param category category to be given the ID
-	 * @throws SQLEception
-	 * @throws ClassNotFoundException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public int obtainID(final Category category) 
-			throws SQLException, ClassNotFoundException {
+			throws SQLException {
 	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1;";
         LOGGER.log(Level.INFO, query);
@@ -72,11 +73,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Obtains the ID of the given brand
 	 * @param brand brand to be given the ID
-	 * @throws SQLEception
-	 * @throws ClassNotFoundException
+	 * @throws SQLEception if a DB error occurs
 	 */
 	public int obtainID(final Brand brand) 
-			throws SQLException, ClassNotFoundException {
+			throws SQLException {
 	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `brand` ORDER BY 1 DESC LIMIT 1;";
 	    LOGGER.log(Level.INFO, query);
@@ -86,11 +86,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Obtains the ID of the given location
 	 * @param location location to be given the ID
-	 * @throws SQLEception
-	 * @throws ClassNotFoundException
+	 * @throws SQLEception if a DB error occurs
 	 */
 	public int obtainID(final Location location) 
-			throws SQLException, ClassNotFoundException {
+			throws SQLException {
 	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `location` ORDER BY 1 DESC LIMIT 1;";
 	    LOGGER.log(Level.INFO, query);
@@ -100,11 +99,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Obtains the ID of the given Contact Info
 	 * @param contactInfo contact info to be given the ID
-	 * @throws SQLEception
-	 * @throws ClassNotFoundException
+	 * @throws SQLEception if a DB error occurs
 	 */
 	public int obtainID(final ContactInfo contactInfo) 
-			throws SQLException, ClassNotFoundException {
+			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `contact_info` ORDER BY 1 DESC LIMIT 1;";
 	    LOGGER.log(Level.INFO, query);
@@ -114,13 +112,15 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Inserts a new category into the DB
 	 * @param newCategory category to be inserted
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void createNewCategory(final Category newCategory) 
-			throws ClassNotFoundException, SQLException {
+			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new category");
-	    String query = "INSERT INTO `category`(`name`) VALUES ('" + newCategory.getName() + "');";
+	    String query = 
+	            "INSERT INTO "
+	            + "`category`(`name`) "
+	            + "VALUES ('" + newCategory.getName() + "');";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeInsert(query);
 	}
@@ -128,11 +128,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Inserts a new contact info into the DB
 	 * @param newContactInfo new contact info to be inserted
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void createNewContactInfo(final ContactInfo newContactInfo) 
-			throws ClassNotFoundException, SQLException {
+			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new contact info");
 	    String query = 
 	    		"INSERT INTO "
@@ -148,11 +147,10 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Inserts a new location into the DB
 	 * @param newLocation new location to be inserted
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void createNewLocation(final Location newLocation) 
-			throws ClassNotFoundException, SQLException {
+			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController creating new location");
 	    String query = 
 	    		"INSERT INTO "
@@ -163,30 +161,30 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * 
-	 * @param newFoodCreator
-	 * @param hashPassword
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * Inserts a new Food Creator into the DB
+	 * @param newFoodCreator food creator to be inserted
+	 * @param hashPassword hash of the food creator password
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void createNewFoodCreator(final FoodCreator newFoodCreator, final String hashPassword) 
-	        throws ClassNotFoundException, SQLException {
+	        throws SQLException {
 	    String query = 
-	            "INSERT INTO `food_creator`(`id`, `password`) "
+	            "INSERT INTO "
+	            + "`food_creator`(`id`, `password`) "
 	            + "VALUES ('" + newFoodCreator.getID() + "', '" + hashPassword + "');";
 	    db.executeInsert(query);
 	}
 	
 	/**
-	 * 
-	 * @param user
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * Inserts a new User into de DB
+	 * @param user new user to be inserted
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void createNewUser(final User user) 
-	        throws ClassNotFoundException, SQLException {
+	        throws SQLException {
 	    String query = 
-                "INSERT INTO `user`(`id`, `nickname`) "
+                "INSERT INTO "
+                + "`user`(`id`, `nickname`) "
                 + "VALUES ('" + user.getID() + "', '" + user.getNickName() + "');";
         db.executeInsert(query);
 	}
@@ -194,7 +192,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	/**
 	 * Gets the drink category for drink objects
 	 * @return Category drinks
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public Category getDrinksCategory() 
 			throws SQLException {
@@ -203,13 +201,16 @@ public class DataBaseController implements VisitorIDObtainer {
 		String name = "";
 		
 		Statement stmt = null;
-	    String query   = "SELECT id, name FROM `category` WHERE name=\'Drinks\' ORDER BY 1 DESC LIMIT 1;";
+	    String query   = 
+	            "SELECT id, name "
+	            + "FROM `category` "
+	            + "WHERE name=\'Drinks\' ORDER BY 1 DESC LIMIT 1;";
 	    if (!db.isConnectionClosed()) {
 	    	try {
 		        stmt = db.getConnection().createStatement();
 		        ResultSet rs = stmt.executeQuery(query);
 		        while (rs.next()) {
-		            id = rs.getInt("id");
+		            id   = rs.getInt("id");
 		            name = rs.getString("name");
 		        }
 		    } catch (SQLException e ) {
@@ -224,14 +225,15 @@ public class DataBaseController implements VisitorIDObtainer {
 	    
 	    Category drinks = new Category(name);
 	    drinks.setID(id);
+	    
 	    return drinks;
 	}
 	
 	/**
-	 * 
-	 * @param nickname
-	 * @return
-	 * @throws SQLException
+	 * Gets a user by its nickname/username
+	 * @param nickname nickname of the user to search
+	 * @return User user found
+	 * @throws SQLException if a DB error occurs
 	 */
     public final User getUserByNickname(final String nickname) 
             throws SQLException {
@@ -246,10 +248,10 @@ public class DataBaseController implements VisitorIDObtainer {
         String email       = "";
         
         Statement stmt = null;
-        String query = 
+        String query   = 
                 "SELECT id, name, description, street, area_code, city, country, phone, email "
                 + "FROM Contact_Info, Food_Creator, User "
-                + "WHERE User.nickname = '" + nickname + "';";
+                + "WHERE User.nickname = '" + nickname + "' LIMIT 1;";
         if (!db.isConnectionClosed()) {
             try {
                 stmt = db.getConnection().createStatement();
@@ -259,10 +261,10 @@ public class DataBaseController implements VisitorIDObtainer {
                     name        = rs.getString("password");
                     description = rs.getString("description");
                     street      = rs.getString("street");
-                    areaCode  = rs.getInt("postal_code");
+                    areaCode    = rs.getInt("postal_code");
                     city        = rs.getString("city");
                     country     = rs.getString("country");
-                    phone = rs.getInt("phone_number");
+                    phone       = rs.getInt("phone_number");
                     email       = rs.getString("email");
                 }
             } catch (SQLException e ) {
@@ -274,8 +276,10 @@ public class DataBaseController implements VisitorIDObtainer {
                 db.closeConnection();
             }
         }
+        
         User newUser = new User(name, description, street, areaCode, city, country, phone, email, nickname);
         newUser.setID(id);
+        
         return newUser;
     }
     
@@ -284,14 +288,14 @@ public class DataBaseController implements VisitorIDObtainer {
 	 * @param submitedPassword hash of password submited
 	 * @param foodCreator food creator entering the password
 	 * @return true if it is correct, false otherwise
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public boolean checkHash(final String submitedPassword, final FoodCreator foodCreator) 
 			throws SQLException {
 		
 		String password = "";
 		Statement stmt  = null;
-	    String query = 
+	    String query    = 
 	            "SELECT password "
 	            + "FROM `Food_Creator` "
 	            + "WHERE id=\'" + foodCreator.getID() + "\' ORDER BY 1 DESC LIMIT 1;";
@@ -319,13 +323,15 @@ public class DataBaseController implements VisitorIDObtainer {
 	 * Updates brand website
 	 * @param brandID id of the brand
 	 * @param newWebsite new website to be updated
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void updateBrandWebsite(final int brandID, final String newWebsite) 
-			throws ClassNotFoundException, SQLException {
+			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
-	    String query = "UPDATE `brand` SET `website`=\'" + newWebsite + "\' WHERE id=\'" + brandID + "\';";
+	    String query = 
+	            "UPDATE `brand` "
+	            + "SET `website`=\'" + newWebsite + "\' "
+	            + "WHERE id=\'" + brandID + "\';";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeUpdate(query);
 	}
@@ -334,13 +340,15 @@ public class DataBaseController implements VisitorIDObtainer {
 	 * Updates the location owner
 	 * @param locationID id of the location
 	 * @param brandID id of the new owner
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void updateLocationOwner(final int locationID, final int brandID) 
-			throws ClassNotFoundException, SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
-	    String query = "UPDATE `location` SET `id_owner`=\'" + brandID + "\' WHERE id=\'" + locationID + "\';";
+			throws SQLException {
+		LOGGER.log(Level.INFO, "DataBaseController updating brand website");
+	    String query = 
+	            "UPDATE `location` "
+	            + "SET `id_owner`=\'" + brandID + "\' "
+	            + "WHERE id=\'" + locationID + "\';";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeUpdate(query);
 	}
@@ -350,16 +358,152 @@ public class DataBaseController implements VisitorIDObtainer {
 	 * @param brandID id of the brand
 	 * @param rating rating given
 	 * @param userID user rater
-	 * @throws SQLException
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void rateBrand(final int brandID, final int rating, final int userID) 
-			throws SQLException, ClassNotFoundException {
+			throws SQLException {
 		LOGGER.log(Level.INFO, "DataBaseController rating brand");
 	    String query = 
-	    		"INSERT INTO `User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
+	    		"INSERT INTO "
+	    		+ "`User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
 	    		+ "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "');";
 	    LOGGER.log(Level.INFO, query);
 	    db.executeInsert(query);
 	}
+	
+	/**
+	 * Updates the name of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newName new name to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateNameContactInfo(final int contactInfoID, final String newName) 
+	        throws SQLException {
+	    LOGGER.log(Level.INFO, "DataBaseController updating contact info name");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `name`=\'" + newName + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+	}
+	
+	/**
+	 * Updates the description of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newDescription new description to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateDescriptionContactInfo(final int contactInfoID, final String newDescription) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info description");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `description`=\'" + newDescription + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
+	
+	/**
+	 * Updates the street of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newStreet new street to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateStreetContactInfo(final int contactInfoID, final String newStreet) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info street");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `street`=\'" + newStreet + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
+	
+	/**
+	 * Updates the area code of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newAreaCode new area code to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateAreaCodeContactInfo(final int contactInfoID, final int newAreaCode) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info area code");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `area_code`=\'" + newAreaCode + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
+	
+	/**
+	 * Updates the city of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newCity new city to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateCityContactInfo(final int contactInfoID, final String newCity) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info city");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `city`=\'" + newCity + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
+	
+	/**
+	 * Updates the country of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newCountry new country to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateCountryContactInfo(final int contactInfoID, final String newCountry) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info country");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `country`=\'" + newCountry + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
+	
+	/**
+	 * Updates the phone of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newPhone new phone to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updatePhoneContactInfo(final int contactInfoID, final int newPhone) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info phone");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `phone`=\'" + newPhone + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
+	
+	/**
+	 * Updates the email of a contact info
+	 * @param contactInfoID ID of the contact info
+	 * @param newEmail new email to be set
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateEmailContactInfo(final int contactInfoID, final String newEmail) 
+            throws SQLException {
+        LOGGER.log(Level.INFO, "DataBaseController updating contact info email");
+        String query = 
+                "UPDATE `contact_info` "
+                + "SET `email`=\'" + newEmail + "\' "
+                + "WHERE id=\'" + contactInfoID + "\';";
+        LOGGER.log(Level.INFO, query);
+        db.executeUpdate(query);
+    }
 }

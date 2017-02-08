@@ -51,7 +51,7 @@ public class Location extends ContactInfo {
      * Obtains the ID from the DB
      */
     @Override
-    public void obtainID(final DataBaseController dbController) {
+    public void obtainID() {
         LOGGER.log(Level.INFO, "obtainID in Location");
         // TODO -> DB
     }
@@ -94,9 +94,8 @@ public class Location extends ContactInfo {
             throws ClassNotFoundException, SQLException {
         this.owner = newOwner;
         LOGGER.log(Level.INFO, "New owner from location setted");
-        DataBaseController dbController = null;
-        dbController = dbController.getInstance();
-        dbController.updateLocationOwner(this.ID, newOwner.getID());
+        //DataBaseController dbController = ;
+        DataBaseController.getInstance().updateLocationOwner(getID(), newOwner.getID());
     }
 	
     /**

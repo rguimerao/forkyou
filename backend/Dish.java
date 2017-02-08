@@ -41,7 +41,7 @@ public class Dish extends Food {
      * Obtains the ID from the DB
      */
     @Override
-    public void obtainID(final DataBaseController dbController) {
+    public void obtainID() {
         LOGGER.log(Level.INFO, "obtainID in Dish");
         // TODO -> DB
     }

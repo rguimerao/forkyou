@@ -59,7 +59,7 @@ public class Food extends Identifier {
 	 * Obtains the ID from the DB
 	 */
 	@Override
-	public void obtainID(final DataBaseController dbController) {
+	public void obtainID() {
 		LOGGER.log(Level.INFO, "obtainID in Food");
 		// TODO -> DB
 	}

@@ -16,6 +16,7 @@ Database:
 	<li>Drinks cat -> to be already on db + func + insert script on sql ?</li>
 	<li>get ratings</li>
 	<li>Concurrent db interaction</li>
+	<li>order db controller</li>
 </ul>
 
 Controllers:
@@ -30,7 +31,7 @@ Testing and code cleaning:
 	<li>identations - food, foodcreator, contactinfo, recipe, user, brand, appcontroller</li>
 	<li>logger + comments</li>
 	<li>sonarqube</li>
-	<li>throws vs try catch</li>
+	<li>throws vs try catch - review, who should handle it?</li>
 	<li>http://marketplace.eclipse.org/content/findbugs-eclipse-plugin</li>
 	<li>http://marketplace.eclipse.org/content/pmd-eclipse</li>
 </ul>

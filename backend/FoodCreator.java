@@ -51,8 +51,7 @@ public class FoodCreator extends ContactInfo {
 	 * Obtains the ID from the DB
 	 */
 	@Override
-	public void obtainID(final DataBaseController dbController) 
-			throws ClassNotFoundException, SQLException {
+	public void obtainID() {
 		LOGGER.log(Level.INFO, "obtainID in FoodCreator");
 		// TODO -> DB
 	}
@@ -108,7 +107,7 @@ public class FoodCreator extends ContactInfo {
 		final boolean forSell,
 		final float price) {
 
-		// TODO -> needs DB + controller
+		// TODO -> remove this
 		Food newFood = new Food(name, category, forSell, price, this);
 		addFood(newFood);
 		LOGGER.log(Level.INFO, "Food created and added on food creator");
@@ -168,8 +167,7 @@ public class FoodCreator extends ContactInfo {
 				throws SQLException, ClassNotFoundException {
 
 		// TODO -> needs DB + controller
-		DataBaseController dbController = null;
-		dbController = dbController.getInstance();
+		DataBaseController dbController = DataBaseController.getInstance();
 		Drink newDrink = new Drink(name, dbController.getDrinksCategory(), forSell, price, this);
 		addFood(newDrink);
 		LOGGER.log(Level.INFO, "Food created and added on food creator");
@@ -209,14 +207,13 @@ public class FoodCreator extends ContactInfo {
 	 * Creates a category
 	 * @param name name of the new category
 	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
 	 */
-	public final void createCategory(final String name, final DataBaseController dbController) 
-			throws ClassNotFoundException, SQLException {
+	public final void createCategory(final String name) 
+			throws SQLException {
 
 		Category newCategory = new Category(name);
-		dbController.createNewCategory(newCategory);
-		newCategory.obtainID(dbController);
+		DataBaseController.getInstance().createNewCategory(newCategory);
+		newCategory.obtainID();
 		LOGGER.log(Level.INFO, "Category created on food creator");
 	}
 
@@ -287,9 +284,6 @@ public class FoodCreator extends ContactInfo {
 	 */
 	public final boolean checkPassword(final String password) 
 			throws ClassNotFoundException, SQLException {
-		
-		DataBaseController dbController = null;
-		dbController = dbController.getInstance();
-		return dbController.checkHash(password, this);
+		return DataBaseController.getInstance().checkHash(password, this);
 	}
 }

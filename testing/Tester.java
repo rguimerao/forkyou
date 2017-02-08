@@ -20,7 +20,16 @@ public class Tester {
     public Tester() {}
 	
     public User createUser() {
-        return new User("John Silver", "I am a pirate", "Treasure Island, num 19", 0, "City", "Caribean", 0, "johnsilver@treasureisland.com");
+        return new User(
+                "John Silver", 
+                "I am a pirate", 
+                "Treasure Island, num 19", 
+                0, 
+                "City", 
+                "Caribean", 
+                0, 
+                "johnsilver@treasureisland.com",
+                "thepirate");
     }
 	
     public void userRemoveItemFromList() {
@@ -53,7 +62,7 @@ public class Tester {
                 );
 		
         System.out.println("showing ingredients name");
-        for(Food food : user.getWishlist()) {
+        for (Food food : user.getWishlist()) {
             System.out.println(food.getName());
         }
 		
@@ -61,7 +70,7 @@ public class Tester {
         user.removeFoodFromWishlist(ingredientTwo);
 		
         System.out.println("showing ingredients again");
-        for(Food food : user.getWishlist()) {	
+        for (Food food : user.getWishlist()) {	
             System.out.println(food.getName());
         }
     }
@@ -78,16 +87,14 @@ public class Tester {
 	        throws SQLException, ClassNotFoundException {
 		
 	    System.out.println("Testing DB connection");
-	    DataBase db = null;
-	    db = db.getInstance();
+	    DataBase.getInstance();
 	    System.out.println("Success!!");
 	}
 	
 	public void testDBSelect() 
 			throws ClassNotFoundException, SQLException {
 		
-	    DataBase db = null;
-	    db = db.getInstance();
+	    DataBase db = DataBase.getInstance();
 		
 	    Statement stmt = null;
 	    String query = "SELECT id FROM Contact_Info";
@@ -114,16 +121,12 @@ public class Tester {
 			throws ClassNotFoundException, SQLException {
 		
 	    User user = createUser();
-	    DataBaseController dbController = null;
-	    dbController = dbController.getInstance();
-	    user.createCategory("Drinks", dbController);
+	    user.createCategory("Drinks");
 	}
 
 	public void testFullInsertCategory() 
 			throws ClassNotFoundException, SQLException {
 	    User user = createUser();
-	    DataBaseController dbController = null;
-	    dbController = dbController.getInstance();
-	    user.createCategory("Pizzas", dbController);
+	    user.createCategory("Pizzas");
 	}
 }

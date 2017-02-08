@@ -1,9 +1,9 @@
 package backend;
 
+import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import DB_controllers.DataBaseController;
 
 /**
  * Class contact info.
@@ -60,10 +60,13 @@ public class ContactInfo extends Identifier {
 	 * Obtains the ID from the DB
 	 */
 	@Override
-	public void obtainID(final DataBaseController dbController) 
-			throws ClassNotFoundException, SQLException {
+	public void obtainID() {
 		LOGGER.log(Level.INFO, "obtainID in ContactInfo");
-		// TODO -> DB
+		try {
+            setID(DataBaseController.getInstance().obtainID(this));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 
 	/**
@@ -78,11 +81,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of name
 	 * @param newName new name the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setName(final String newName) {
+	public final void setName(final String newName) 
+	        throws SQLException {
 		this.name = newName;
 		LOGGER.log(Level.INFO, "Name of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateNameContactInfo(getID(), newName);
 	}
 
 	/**
@@ -97,11 +103,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of description
 	 * @param newDescription new description the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setDescription(final String newDescription) {
+	public final void setDescription(final String newDescription) 
+	        throws SQLException {
 		this.description = newDescription;
 		LOGGER.log(Level.INFO, "Description of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateDescriptionContactInfo(getID(), newDescription);
 	}
 
 	/**
@@ -116,11 +125,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of street
 	 * @param newStreet new street the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setStreet(final String newStreet) {
+	public final void setStreet(final String newStreet) 
+	        throws SQLException {
 		this.street = newStreet;
 		LOGGER.log(Level.INFO, "Street of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateStreetContactInfo(getID(), newStreet);
 	}
 
 	/**
@@ -135,11 +147,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of postal code
 	 * @param newPostalCode new postal code the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setAreaCode(final int newAreaCode) {
+	public final void setAreaCode(final int newAreaCode) 
+	        throws SQLException {
 		this.areaCode = newAreaCode;
 		LOGGER.log(Level.INFO, "Postal code of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateAreaCodeContactInfo(getID(), newAreaCode);
 	}
 
 	/**
@@ -154,11 +169,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of city
 	 * @param newCity new city the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setCity(final String newCity) {
+	public final void setCity(final String newCity) 
+	        throws SQLException {
 		this.city = newCity;
 		LOGGER.log(Level.INFO, "City of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateCityContactInfo(getID(), newCity);
 	}
 
 	/**
@@ -173,11 +191,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of country
 	 * @param newCountry new country of the contact
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setCountry(final String newCountry) {
+	public final void setCountry(final String newCountry) 
+	        throws SQLException {
 		this.city = newCountry;
 		LOGGER.log(Level.INFO, "Country of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateCountryContactInfo(getID(), newCountry);
 	}
 
 	/**
@@ -192,11 +213,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of phone number
 	 * @param newPhoneNumber new phone number the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setPhone(final int newPhone) {
+	public final void setPhone(final int newPhone) 
+	        throws SQLException {
 		this.phone = newPhone;
 		LOGGER.log(Level.INFO, "Phone number of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updatePhoneContactInfo(getID(), newPhone);
 	}
 
 	/**
@@ -211,11 +235,14 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of email
 	 * @param newEmail new email the contact will have
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public final void setEmail(final String newEmail) {
+	public final void setEmail(final String newEmail)
+	        throws SQLException {
 		this.email = newEmail;
 		LOGGER.log(Level.INFO, "Email of contact info has been setted");
-		// TODO -> DB
+		DataBaseController.getInstance().updateEmailContactInfo(getID(), newEmail);
 	}
 
 }

@@ -43,7 +43,7 @@ public class Brand extends FoodCreator {
 
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.sellLocations = new ArrayList<Location>();
-		this.website  = website;
+		this.website       = website;
 		LOGGER.log(Level.INFO, "A new brand has been created with name: " + name);
 	}
 	
@@ -56,8 +56,7 @@ public class Brand extends FoodCreator {
 			throws ClassNotFoundException, SQLException {
 		
 		LOGGER.log(Level.INFO, "obtainID in Brand");
-		dbController = dbController.getInstance();
-		this.ID = dbController.obtainID(this);
+		setID(dbController.obtainID(this));
 	}
 	
 	/**
@@ -79,9 +78,7 @@ public class Brand extends FoodCreator {
 			throws ClassNotFoundException, SQLException {
 		this.website = newWebsite;
 		LOGGER.log(Level.INFO, "Website of brand setted");
-		DataBaseController dbController = null;
-		dbController = dbController.getInstance();
-		dbController.updateBrandWebsite(ID, newWebsite);
+		DataBaseController.getInstance().updateBrandWebsite(getID(), newWebsite);
 	}
 
 	/**
@@ -146,8 +143,7 @@ public class Brand extends FoodCreator {
 						email, 
 						this);
 		
-		DataBaseController dbController = null;
-		dbController = dbController.getInstance();
+		DataBaseController dbController = DataBaseController.getInstance();
 		dbController.createNewContactInfo(newLocation);
 		newLocation.setID(dbController.obtainID(newLocation));
 		dbController.createNewLocation((Location) newLocation);

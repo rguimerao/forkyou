@@ -14,8 +14,7 @@ import DB_controllers.DataBaseController;
 public class User extends FoodCreator {
 
     private ArrayList<Food> foodWishlist;
-    private ArrayList<User> followingUsers;
-    private ArrayList<Brand> followingBrands;
+    private ArrayList<FoodCreator> following;
     private String nickname;
     private static final Logger LOGGER = Logger.getLogger("User");
     
@@ -42,10 +41,9 @@ public class User extends FoodCreator {
 		final String nickname) {
 	
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
-		this.foodWishlist    = new ArrayList<Food>();
-		this.followingUsers  = new ArrayList<User>();
-		this.followingBrands = new ArrayList<Brand>();
-		this.nickname        = nickname;
+		this.foodWishlist = new ArrayList<Food>();
+		this.following    = new ArrayList<FoodCreator>();
+		this.nickname     = nickname;
 		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
 	}
 	
@@ -61,7 +59,7 @@ public class User extends FoodCreator {
 	 * Obtains the ID from the DB
 	 */
 	@Override
-	public void obtainID(final DataBaseController dbController) {
+	public void obtainID() {
 		LOGGER.log(Level.INFO, "obtainID in User");
 		// TODO -> DB
 	}
@@ -101,19 +99,19 @@ public class User extends FoodCreator {
 	 * Getter of following users
 	 * @return array of following users
 	 */
-	public final ArrayList<User> getFollowingUsers() {
+	public final ArrayList<FoodCreator> getFollowing() {
 		LOGGER.log(Level.INFO, "Followig users of users getted");
-		return this.followingUsers;
+		return this.following;
 	}
 	
 	/**
 	 * Adds a user to the following list only if its different than itself
 	 * @param userToAdd user to add to the following list
 	 */
-	public final void followUser(final User userToAdd) {
-		if (userToAdd != this) { // TODO by id?
-			this.followingUsers.add(userToAdd);
-			userToAdd.addFollower(this);
+	public final void followFoodCreator(final FoodCreator foodCreatorToAdd) {
+		if (foodCreatorToAdd != this) { // TODO by id?
+			this.following.add(foodCreatorToAdd);
+			foodCreatorToAdd.addFollower(this);
 			LOGGER.log(Level.INFO, "User added to following users");
 		} else {
 			LOGGER.log(Level.WARNING, "ERROR addFollowing user tried to follow youself");
@@ -125,41 +123,10 @@ public class User extends FoodCreator {
 	 * Removes user from the following list
 	 * @param userToRemove user to remove from the following list
 	 */
-	public final void removeFollowingUser(final User userToRemove) {
-		this.followingUsers.remove(userToRemove);
-		userToRemove.removeFollower(this);
+	public final void removeFollowing(final FoodCreator foodCreatorToRemove) {
+		this.following.remove(foodCreatorToRemove);
+		foodCreatorToRemove.removeFollower(this);
 		LOGGER.log(Level.INFO, "User removed from following users");
-		// TODO -> DB
-	}
-	
-	/**
-	 * Gets an array list with all the brands this user follows
-	 * @return array list of type brand
-	 */
-	public final ArrayList<Brand> getFollowingBrands() {
-		LOGGER.log(Level.INFO, "Following brands of users getted");
-		return this.followingBrands;
-	}
-	
-	/**
-	 * Adds a brand to the following brands array
-	 * @param brandToFollow brand to follow
-	 */
-	public final void followBrand(final Brand brandToFollow) {
-		this.followingBrands.add(brandToFollow);
-		brandToFollow.addFollower(this);
-		LOGGER.log(Level.INFO, "A brand has been followed");
-		// TODO -> DB
-	}
-	
-	/**
-	 * Removes a brand from the following list
-	 * @param brandToUnfollow brand to be removed
-	 */
-	public final void removeFollowingBrand(final Brand brandToUnfollow) {
-		this.followingBrands.remove(brandToUnfollow);
-		brandToUnfollow.removeFollower(this);
-		LOGGER.log(Level.INFO, "A brand has been unfollowed");
 		// TODO -> DB
 	}
 	

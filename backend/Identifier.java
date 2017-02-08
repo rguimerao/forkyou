@@ -1,7 +1,5 @@
 package backend;
 
-import DB_controllers.DataBaseController;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +10,7 @@ import java.util.logging.Logger;
  */
 public class Identifier {
 
-    protected int ID;
+    private int ID;
     private static final Logger LOGGER = Logger.getLogger("Identifier");
 
     /**
@@ -45,10 +43,9 @@ public class Identifier {
 	
     /**
      * Obtains the ID from the DB
-     * It is overrided
+     * It is overridden
      */
-    public void obtainID(final DataBaseController dbController) 
-            throws ClassNotFoundException, SQLException {
+    public void obtainID() {
         LOGGER.log(Level.SEVERE, "obtainID in Identifier");
     }
 }

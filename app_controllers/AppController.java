@@ -1,8 +1,13 @@
 package app_controllers;
 
-import backend.ContactInfo;
+import backend.Category;
+import backend.Food;
+import backend.FoodCreator;
 import backend.User;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import DB_controllers.DataBaseController;
 
 public class AppController {
@@ -13,7 +18,7 @@ public class AppController {
     
     private AppController() 
             throws ClassNotFoundException, SQLException {
-        dbController = dbController.getInstance();
+        dbController = DataBaseController.getInstance();
     }
     
     public final static AppController getInstance() 
@@ -25,7 +30,7 @@ public class AppController {
         return instance;
     }
     
-    public void registerUser(
+    public final void registerUser(
             final String name,
             final String description,
             final String street,
@@ -55,7 +60,7 @@ public class AppController {
         dbController.createNewUser(newUser);
     }
     
-    public boolean logInUser(final String nickname, final String password) 
+    public final boolean logInUser(final String nickname, final String password) 
             throws SQLException {
         // TODO -> hash password
         User volatileUser = dbController.getUserByNickname(nickname);
@@ -67,5 +72,26 @@ public class AppController {
         }
         
         return result;
+    }
+    
+    public final User getCurrentUser() {
+        return currentUser;
+    }
+    
+    public final ArrayList<Food> getFoodFromFollowing() {
+        
+        // TODO -> order by date
+        ArrayList<Food> foodFromFollowing = new ArrayList<Food>();
+        for (FoodCreator following : currentUser.getFollowing()) {
+            for (Food foodCreated : following.getFoodsCreated()) {
+                foodFromFollowing.add(foodCreated);
+            }
+        }
+        Collections.reverse(foodFromFollowing);
+        return (foodFromFollowing);
+    }
+    
+    public final ArrayList<Food> getFoodFromCategory(final Category category) {
+        return category.getFoods();
     }
 }

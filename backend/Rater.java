@@ -25,7 +25,7 @@ public class Rater implements VisitorRating {
     public Rater() 
             throws ClassNotFoundException, SQLException {
 
-        dbController = dbController.getInstance();
+        dbController = DataBaseController.getInstance();
         LOGGER.log(Level.INFO, "A rater has been created");
     }
 

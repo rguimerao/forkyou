@@ -1,6 +1,5 @@
 package backend;
 
-import DB_controllers.DataBaseController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +37,7 @@ public class Ingredient extends Food {
      * Obtains the ID from the DB
      */
     @Override
-    public void obtainID(final DataBaseController dbController) {
+    public void obtainID() {
         LOGGER.log(Level.INFO, "obtainID in Ingredient");
         // TODO -> DB
     }

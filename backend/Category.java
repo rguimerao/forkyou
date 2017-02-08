@@ -32,14 +32,14 @@ public class Category extends Identifier {
 
     /**
      * Obtains the ID from the DB
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
      */
     @Override
-    public void obtainID(final DataBaseController dbController) 
-            throws ClassNotFoundException, SQLException {
-		
-        this.ID = dbController.obtainID(this);
+    public void obtainID() {
+        try {
+            setID(DataBaseController.getInstance().obtainID(this));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         LOGGER.log(Level.INFO, "obtainID in Category with result: " + getID());
     }
 	

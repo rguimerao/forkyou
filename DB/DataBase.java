@@ -42,15 +42,15 @@ public class DataBase{
     	
         try {
             connection = DriverManager.getConnection(url, username, password);
-    		
+            
             if (!isConnectionClosed()) {
                 LOGGER.log(Level.INFO, "Connection to DB successful!");
             } else {
-                LOGGER.log(Level.SEVERE, "ERROR! CONNECTION IS NULL");
+                LOGGER.log(Level.SEVERE, "ERROR! CONNECTION IS CLOSED");
             }
-    		
+            
         } catch (SQLException e) {
-            throw new IllegalStateException("Cannot connect the database!", e);
+            throw new IllegalStateException("Cannot connect to the database!", e);
         }
     }
 
@@ -92,7 +92,6 @@ public class DataBase{
      */
     public final boolean isConnectionClosed() 
             throws SQLException {
-    	
         try {
             LOGGER.log(Level.INFO, "Status of DB getted");
             return connection.isClosed();
@@ -107,7 +106,6 @@ public class DataBase{
      */
     public final void closeConnection() 
             throws SQLException {
-    	
         try {
             instance.getConnection().close();
             LOGGER.log(Level.INFO, "DB connection closed");
@@ -115,15 +113,14 @@ public class DataBase{
             throw new SQLException("Database error access ocurred", e);
         }
     }
-    
+
     /**
-     * TODO
-     * @param query
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * Executes and INSERT query
+     * @param query INSERT query to be executed
+     * @throws SQLException if a DB error occurs
      */
     public final void executeInsert(final String query) 
-            throws ClassNotFoundException, SQLException {
+            throws SQLException {
         LOGGER.log(Level.INFO, "Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
@@ -142,13 +139,12 @@ public class DataBase{
     }
     
     /**
-     * TODO
-     * @param query
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * Executes an UPDATE query
+     * @param query UPDATE query to be executed
+     * @throws SQLException if a DB error occurs
      */
     public final void executeUpdate(final String query) 
-            throws ClassNotFoundException, SQLException {
+            throws SQLException {
         LOGGER.log(Level.INFO, "Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
@@ -167,13 +163,13 @@ public class DataBase{
     }
     
     /**
-     * TODO
-     * @param query
-     * @return
-     * @throws SQLException
+     * Executes a SELECT query for only the ID param
+     * @param query SELECT query to be executed, only for ID
+     * @return ID obtained
+     * @throws SQLException if a DB error occurs
      */
     public final int obtainID(final String query) 
-            throws SQLException {
+            throws SQLException  {
         LOGGER.log(Level.INFO, "Query received is:\n" + query);
         int id = -1;
         Statement stmt = null;
@@ -193,7 +189,7 @@ public class DataBase{
                 closeConnection();
             }
         }
-        LOGGER.log(Level.INFO, "ID sent is:\n" + id);
+        LOGGER.log(Level.INFO, "ID sent is: " + id);
         return id;
     }
 }
