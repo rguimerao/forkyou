@@ -6,7 +6,6 @@ Backend:
 	<li>Date type obsolete? - format</li>
 	<li>Food - food is in dishes</li>
 	<li>frontend controller checks food price >= 0 and not food - creating food</li>
-	<li>review nickname user typing</li>
 </ul>
 
 Database:
@@ -32,8 +31,7 @@ Testing and code cleaning:
 	<li>logger + comments</li>
 	<li>sonarqube</li>
 	<li>throws vs try catch - review, who should handle it?</li>
-	<li>http://marketplace.eclipse.org/content/findbugs-eclipse-plugin</li>
-	<li>http://marketplace.eclipse.org/content/pmd-eclipse</li>
+	<li>do i have a decorator? - food</li>
 </ul>
 
 New features to add:

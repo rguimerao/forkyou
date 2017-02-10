@@ -62,12 +62,20 @@ public class Category extends Identifier {
     /**
      * Adds a food to the array of foods inside the category
      * @param foodToAdd food to add to the category
-     * @throws SQLException if a DB error occurs
      */
-    public final void addFood(final Food foodToAdd) 
-            throws SQLException {
+    protected final void addFood(final Food foodToAdd) {
         this.foods.add(foodToAdd);
         myLogger.getInstance().info("A food with name: " + foodToAdd.getName() + " has been added to a category");
-        DataBaseController.getInstance().updateFoodCategory(foodToAdd.getID(), getID());
+    }
+    
+    /**
+     * Removes a food from this category
+     * @param foodToRemove food to remove from the category
+     * @throws SQLException if a DB error occurs
+     */
+    protected final void removeFood(final Food foodToRemove) 
+            throws SQLException {
+        this.foods.remove(foodToRemove);
+        myLogger.getInstance().info("A food with name: " + foodToRemove.getName() + " has been removed to a category");
     }
 }

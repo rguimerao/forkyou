@@ -101,5 +101,6 @@ public class Dish extends Food {
         this.composedFoods.add(foodToAdd);
         myLogger.getInstance().info("A food has been added to the composed foods of dish");
         // TODO -> DB
+        // TODO -> update price
     }
 }

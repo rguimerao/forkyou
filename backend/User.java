@@ -1,6 +1,7 @@
 package backend;
 
 import testing.myLogger;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -81,23 +82,25 @@ public class User extends FoodCreator {
 	/**
 	 * Adds food to the user's wish list
 	 * @param foodToAdd food to add
+	 * @throws SQLException 
 	 */
-	public final void addFoodToWishlist(final Food foodToAdd) {
+	public final void addFoodToWishlist(final Food foodToAdd) 
+	        throws SQLException {
 		this.foodWishlist.add(foodToAdd);
 		foodToAdd.addUserToUsersWantingMe(this);
 		myLogger.getInstance().info("A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
-		// TODO -> DB
 	}
 
 	/**
 	 * Removes food from wish list
 	 * @param foodToRemove food to remove
+	 * @throws SQLException 
 	 */
-	public final void removeFoodFromWishlist(final Food foodToRemove) {
+	public final void removeFoodFromWishlist(final Food foodToRemove) 
+	        throws SQLException {
 		foodToRemove.removeUserFromUsersWantingMe(this);
 		this.foodWishlist.remove(foodToRemove);
 		myLogger.getInstance().info(foodToRemove.getName() + " has been removed from user wishlist");
-		// TODO -> DB
 	}
 	
 	/**

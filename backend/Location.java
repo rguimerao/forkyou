@@ -41,7 +41,7 @@ public class Location extends ContactInfo {
 
         super(name, description, street, postalCode, city, country, phoneNumber, email);
         this.foodsSelling = new ArrayList<Food>();
-        this.owner = owner;
+        this.owner        = owner;
         myLogger.getInstance().info("A new location has been created");
     }
 	
@@ -67,10 +67,9 @@ public class Location extends ContactInfo {
      * Adds a food to the selling foods array
      * @param foodToAdd food to add
      */
-    public final void addFood(final Food foodToAdd) {
+    protected final void addFood(final Food foodToAdd) {
         this.foodsSelling.add(foodToAdd);
         myLogger.getInstance().info("A new food has been added to foods selling in this location");
-        // TODO -> DB
     }
 	
     /**

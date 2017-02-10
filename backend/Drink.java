@@ -55,5 +55,6 @@ public class Drink extends Dish {
             myLogger.getInstance().warning("A non-ingredient food has tried to be added to a drink!");
         }
         // TODO -> DB
+        // TODO -> update price
     }
 }

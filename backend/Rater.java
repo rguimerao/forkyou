@@ -39,9 +39,8 @@ public class Rater implements VisitorRating {
      * Rates a brand
      * @param brand brand to be rated
      * @param rating rating given to the brand
-     * @param userID userID rating
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
+     * @param userID id of the user rating
+     * @throws SQLException if a DB error occurs
      */
     public void rate(final Brand brand, final int rating, final int userID) 
             throws SQLException {
@@ -53,7 +52,7 @@ public class Rater implements VisitorRating {
      * Rates a location
      * @param location location to be rated
      * @param rating rating given to the location
-     * @param userID userID rating
+     * @param userID id of the user rating
      */
     public void rate(final Location location, final int rating, final int userID) {
         // TODO
@@ -64,7 +63,7 @@ public class Rater implements VisitorRating {
      * Rates a recipe
      * @param recipe recipe to be rated
      * @param rating rating given to the recipe
-     * @param userID userID rating
+     * @param userID id of the user rating
      */
     public void rate(final Recipe recipe, final int rating, final int userID) {
         // TODO
@@ -72,13 +71,15 @@ public class Rater implements VisitorRating {
     }
 	
     /**
-     * Rates a dish
-     * @param dish dish to be rated
-     * @param rating rating given to the drink
-     * @param userID userID rating
+     * Rates a food
+     * @param food food to be rated
+     * @param rating rating given to the food
+     * @param userID id of the user rating
+     * @throws SQLException if a DB error occurs
      */
-    public void rate(final Food food, final int rating, final int userID) {
-        // TODO -> visitor id obtainer obtain food id
+    public void rate(final Food food, final int rating, final int userID) 
+            throws SQLException {
+        DataBaseController.getInstance().rateFood(food.getID(), rating, userID);
         myLogger.getInstance().info("A food has been rated");
     }
 }

@@ -113,7 +113,7 @@ public class DataBase{
     }
 
     /**
-     * Executes and INSERT query
+     * Executes an INSERT query
      * @param query INSERT query to be executed
      * @throws SQLException if a DB error occurs
      */
@@ -142,6 +142,30 @@ public class DataBase{
      * @throws SQLException if a DB error occurs
      */
     public final void executeUpdate(final String query) 
+            throws SQLException {
+        myLogger.getInstance().info("Query received is:\n" + query);
+        Statement stmt = null;
+        if (!isConnectionClosed()) {
+            try {
+                stmt = getConnection().createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                closeConnection();
+            }
+        }
+    }
+    
+    /**
+     * Executes a DELETE query
+     * @param query INSERT query to be executed
+     * @throws SQLException if a DB error occurs
+     */
+    public final void executeDelete(final String query) 
             throws SQLException {
         myLogger.getInstance().info("Query received is:\n" + query);
         Statement stmt = null;

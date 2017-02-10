@@ -4,6 +4,7 @@ import DB.DataBase;
 import backend.Brand;
 import backend.Category;
 import backend.ContactInfo;
+import backend.Food;
 import backend.FoodCreator;
 import backend.Location;
 import backend.User;
@@ -22,7 +23,7 @@ import java.sql.Statement;
 public class DataBaseController implements VisitorIDObtainer {
 
     private static DataBaseController instance;
-    private static DataBase db = null;
+    private static DataBase db = null; // TODO -> could give error
 	
 	/**
 	 * Constructor - Singleton
@@ -115,7 +116,20 @@ public class DataBaseController implements VisitorIDObtainer {
     public int obtainID(final FoodCreator foodCreator) 
             throws SQLException {
         myLogger.getInstance().info("DataBaseController obtaining ID");
-        String query = "SELECT id FROM `food_creator` ORDER BY 1 DESC LIMIT 1;";
+        String query = "SELECT id FROM `food` ORDER BY 1 DESC LIMIT 1;";
+        myLogger.getInstance().info(query);
+        return db.obtainID(query);
+    }
+    
+    /**
+     * Obtains the ID of the given food
+     * @param food food to be given the ID
+     * @throws SQLException if a DB error occurs
+     */
+    public int obtainID(final Food food) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController obtaining ID");
+        String query = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1;";
         myLogger.getInstance().info(query);
         return db.obtainID(query);
     }
@@ -347,6 +361,24 @@ public class DataBaseController implements VisitorIDObtainer {
         myLogger.getInstance().info(query);
         db.executeInsert(query);
     }
+    
+    /**
+     * Rates a brand
+     * @param brandID id of the brand
+     * @param rating rating given
+     * @param userID user rater
+     * @throws SQLException if a DB error occurs
+     */
+    public final void rateFood(final int foodID, final int rating, final int userID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController rating food");
+        String query = 
+                "INSERT INTO "
+                + "`User_rates_Food`(`id_user`, `id_food`, `rating`) "
+                + "VALUES ('" + userID + "', '" + foodID + "', '" + rating + "');";
+        myLogger.getInstance().info(query);
+        db.executeInsert(query);
+    }
 	
 	/**
 	 * Updates brand website
@@ -534,4 +566,105 @@ public class DataBaseController implements VisitorIDObtainer {
         myLogger.getInstance().info(query);
         db.executeUpdate(query);
 	}
+	
+	/**
+	 * Updates a food's name
+	 * @param foodID id of the food to be updated
+	 * @param newName new name to set
+	 * @throws SQLException if a DB error occurs
+	 */
+    public final void updateFoodName(final int foodID, final String newName) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController updating name of food");
+        String query = 
+                "UPDATE `food` "
+                + "SET `name`=\'" + newName + "\' "
+                + "WHERE id=\'" + foodID + "\';";
+        myLogger.getInstance().info(query);
+        db.executeUpdate(query);
+    }
+    
+    /**
+     * Inserts a food id and location id into the table Location_sells_food
+     * @param foodID id of the food to add
+     * @param locationID id of the location to add
+     * @throws SQLException if a DB error occurs
+     */
+    public final void addFoodToLocation(final int foodID, final int locationID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController rating brand");
+        String query = 
+                "INSERT INTO "
+                + "`Location_sells_Food`(`id_location`, `id_food`) "
+                + "VALUES ('" + locationID + "', '" + foodID + "');";
+        myLogger.getInstance().info(query);
+        db.executeInsert(query);
+    }
+    
+    /**
+     * Updates if a food is for sell or not
+     * @param foodID ID of the food to update
+     * @param isForSell boolean where true means this food is for sell
+     * @throws SQLException if a DB error occurs
+     */
+    public final void updateFoodForSell(final int foodID, final boolean isForSell) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController updating for_sell of food");
+        String query = 
+                "UPDATE `food` "
+                + "SET `for_sell`=\'" + (isForSell ? 1 : 0) + "\' "
+                + "WHERE id=\'" + foodID + "\';";
+        myLogger.getInstance().info(query);
+        db.executeUpdate(query);
+    }
+    
+    /**
+     * Updates the price of a food
+     * @param foodID ID of the food to update
+     * @param newPrice new price to be set
+     * @throws SQLException if a DB error occurs
+     */
+    public final void updateFoodPrice(final int foodID, final float newPrice) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController updating for_sell of food");
+        String query = 
+                "UPDATE `food` "
+                + "SET `price`=\'" + newPrice + "\' "
+                + "WHERE id=\'" + foodID + "\';";
+        myLogger.getInstance().info(query);
+        db.executeUpdate(query);
+    }
+    
+    /**
+     * Inserts a food id and user id to the wishlist of user
+     * @param foodID id of the food to add
+     * @param userID id of the user to add
+     * @throws SQLException if a DB error occurs
+     */
+    public final void addUserWantingFood(final int foodID, final int userID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController rating brand");
+        String query = 
+                "INSERT INTO "
+                + "`User_Wishlist`(`id_food`, `id_user`) "
+                + "VALUES ('" + foodID + "', '" + userID + "');";
+        myLogger.getInstance().info(query);
+        db.executeInsert(query);
+    }
+    
+    /**
+     * Deletes a user and food from the wishlist
+     * @param foodID id of the food to remove
+     * @param userID id of the user to remove
+     * @throws SQLException if a DB error occurs
+     */
+    public final void deleteUserWantingFood(final int foodID, final int userID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController rating brand");
+        String query = 
+                "DELETE FROM User_Wishlist"
+                + "WHERE id_food=\'" + foodID + " AND id_user=\'" + userID;
+        myLogger.getInstance().info(query);
+        db.executeDelete(query);
+    }
 }
