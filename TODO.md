@@ -14,21 +14,21 @@ Database:
 	<li>inserts - selects - updates - deletes</li>
 	<li>select -> the same with return [refactor]</li>
 	<li>Drinks cat -> to be already on db + func + insert script on sql ?</li>
-	<li>get ratings</li>
+	<li>get ratings - backend as well</li>
 	<li>Concurrent db interaction</li>
-	<li>order db controller</li>
+	<li>[review] creator of food and addFood on category can break program</li>
 </ul>
 
 Controllers:
 <ul>
-	<li>ratings done by frontend controller</li>
+	<li>ratings done by app controller</li>
 </ul>
 
 Testing and code cleaning:
 <ul>
 	<li>tests - test classes</li>
 	<li>design by contract</li>
-	<li>identations - food, foodcreator, contactinfo, recipe, user, brand, appcontroller</li>
+	<li>identations - food, contactinfo, recipe, user, brand, appcontroller</li>
 	<li>logger + comments</li>
 	<li>sonarqube</li>
 	<li>throws vs try catch - review, who should handle it?</li>
@@ -43,6 +43,10 @@ New features to add:
 	<li>A user can also buy food → long term</li>
 	<li>Chat</li>
 	<li>Rankings web page (json format)</li>
+	<li>Rating has review</li>
+	<li>food has photo</li>
+	<li>brand has logo</li>
+	<li>brand has slogan</li>
 </ul>
 
 Note: the app is online, not local, therefore, a lot of functionality is made online, that is to say, not only a lot, but all of it is made online with concurrent db interaction. With that in mind, the functionality of the backend must be reviewed.

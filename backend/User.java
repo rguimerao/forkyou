@@ -1,9 +1,7 @@
 package backend;
 
+import testing.myLogger;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import DB_controllers.DataBaseController;
 
 /**
  * Class user.
@@ -16,7 +14,6 @@ public class User extends FoodCreator {
     private ArrayList<Food> foodWishlist;
     private ArrayList<FoodCreator> following;
     private String nickname;
-    private static final Logger LOGGER = Logger.getLogger("User");
     
     /**
      * Constructor of user
@@ -44,13 +41,21 @@ public class User extends FoodCreator {
 		this.foodWishlist = new ArrayList<Food>();
 		this.following    = new ArrayList<FoodCreator>();
 		this.nickname     = nickname;
-		LOGGER.log(Level.INFO, "A new user has been created with name: " + name);
+		myLogger.getInstance().info("A new user has been created with name: " + name);
 	}
 	
+	/**
+	 * Gets the nickname of this user
+	 * @return nickname of the user
+	 */
 	public String getNickName() {
 	    return this.nickname;
 	}
 	
+	/**
+	 * Sets the new nickname of the user
+	 * @param newNickName new nickname the user will have
+	 */
 	public void setNickName(final String newNickName) {
 	    this.nickname = newNickName;
 	}
@@ -60,7 +65,7 @@ public class User extends FoodCreator {
 	 */
 	@Override
 	public void obtainID() {
-		LOGGER.log(Level.INFO, "obtainID in User");
+	    myLogger.getInstance().info("obtainID in User");
 		// TODO -> DB
 	}
 
@@ -69,7 +74,7 @@ public class User extends FoodCreator {
 	 * @return array of foods
 	 */
 	public final ArrayList<Food> getWishlist() {
-		LOGGER.log(Level.INFO, "Food wishlist getted");
+	    myLogger.getInstance().info("Food wishlist getted");
 		return this.foodWishlist;
 	}
 	
@@ -80,7 +85,7 @@ public class User extends FoodCreator {
 	public final void addFoodToWishlist(final Food foodToAdd) {
 		this.foodWishlist.add(foodToAdd);
 		foodToAdd.addUserToUsersWantingMe(this);
-		LOGGER.log(Level.INFO, "A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
+		myLogger.getInstance().info("A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
 		// TODO -> DB
 	}
 
@@ -91,7 +96,7 @@ public class User extends FoodCreator {
 	public final void removeFoodFromWishlist(final Food foodToRemove) {
 		foodToRemove.removeUserFromUsersWantingMe(this);
 		this.foodWishlist.remove(foodToRemove);
-		LOGGER.log(Level.INFO, foodToRemove.getName() + " has been removed from user wishlist");
+		myLogger.getInstance().info(foodToRemove.getName() + " has been removed from user wishlist");
 		// TODO -> DB
 	}
 	
@@ -100,7 +105,7 @@ public class User extends FoodCreator {
 	 * @return array of following users
 	 */
 	public final ArrayList<FoodCreator> getFollowing() {
-		LOGGER.log(Level.INFO, "Followig users of users getted");
+	    myLogger.getInstance().info("Followig users of users getted");
 		return this.following;
 	}
 	
@@ -112,9 +117,9 @@ public class User extends FoodCreator {
 		if (foodCreatorToAdd != this) { // TODO by id?
 			this.following.add(foodCreatorToAdd);
 			foodCreatorToAdd.addFollower(this);
-			LOGGER.log(Level.INFO, "User added to following users");
+			myLogger.getInstance().info("User added to following users");
 		} else {
-			LOGGER.log(Level.WARNING, "ERROR addFollowing user tried to follow youself");
+		    myLogger.getInstance().warning("ERROR addFollowing user tried to follow youself");
 		}
 		// TODO -> DB
 	}
@@ -126,7 +131,7 @@ public class User extends FoodCreator {
 	public final void removeFollowing(final FoodCreator foodCreatorToRemove) {
 		this.following.remove(foodCreatorToRemove);
 		foodCreatorToRemove.removeFollower(this);
-		LOGGER.log(Level.INFO, "User removed from following users");
+		myLogger.getInstance().info("User removed from following users");
 		// TODO -> DB
 	}
 	
@@ -165,6 +170,6 @@ public class User extends FoodCreator {
 		db controller -> add new brand */
 		// TODO -> LOGGER
 		// TODO -> DB
-		LOGGER.log(Level.INFO, "A user has created a brand");
+	    myLogger.getInstance().info("A user has created a brand");
 	}
 }

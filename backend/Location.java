@@ -1,10 +1,9 @@
 package backend;
 
 import DB_controllers.DataBaseController;
+import testing.myLogger;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class location.
@@ -16,7 +15,6 @@ public class Location extends ContactInfo {
 
     private ArrayList<Food> foodsSelling;
     private Brand owner;
-    private static final Logger LOGGER = Logger.getLogger("Location");
 	
     /**
      * Constructor of location
@@ -44,7 +42,7 @@ public class Location extends ContactInfo {
         super(name, description, street, postalCode, city, country, phoneNumber, email);
         this.foodsSelling = new ArrayList<Food>();
         this.owner = owner;
-        LOGGER.log(Level.INFO, "A new location has been created");
+        myLogger.getInstance().info("A new location has been created");
     }
 	
     /**
@@ -52,7 +50,7 @@ public class Location extends ContactInfo {
      */
     @Override
     public void obtainID() {
-        LOGGER.log(Level.INFO, "obtainID in Location");
+        myLogger.getInstance().info("obtainID in Location");
         // TODO -> DB
     }
 	
@@ -61,7 +59,7 @@ public class Location extends ContactInfo {
      * @return array of the foods being sold in this location
      */
     public final ArrayList<Food> getFoodsSelling() {
-        LOGGER.log(Level.INFO, "Foods selling in this location getted");
+        myLogger.getInstance().info("Foods selling in this location getted");
         return this.foodsSelling;
     }
 	
@@ -71,7 +69,7 @@ public class Location extends ContactInfo {
      */
     public final void addFood(final Food foodToAdd) {
         this.foodsSelling.add(foodToAdd);
-        LOGGER.log(Level.INFO, "A new food has been added to foods selling in this location");
+        myLogger.getInstance().info("A new food has been added to foods selling in this location");
         // TODO -> DB
     }
 	
@@ -80,7 +78,7 @@ public class Location extends ContactInfo {
      * @return brand owner of this location
      */
     public final Brand getOwner() {
-        LOGGER.log(Level.INFO, "Owner from location getted");
+        myLogger.getInstance().info("Owner from location getted");
         return this.owner;
     }
 	
@@ -93,7 +91,7 @@ public class Location extends ContactInfo {
     public final void setOwner(final Brand newOwner) 
             throws ClassNotFoundException, SQLException {
         this.owner = newOwner;
-        LOGGER.log(Level.INFO, "New owner from location setted");
+        myLogger.getInstance().info("New owner from location setted");
         //DataBaseController dbController = ;
         DataBaseController.getInstance().updateLocationOwner(getID(), newOwner.getID());
     }
@@ -106,7 +104,7 @@ public class Location extends ContactInfo {
      */
     public void acceptRate(final Rater rater, final int rating, final int userID) {
         rater.rate(this, rating, userID);
-        LOGGER.log(Level.INFO, "A location has accepted a rating");
+        myLogger.getInstance().info("A location has accepted a rating");
         // TODO -> DB
     }
 }

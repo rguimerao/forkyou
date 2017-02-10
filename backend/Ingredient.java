@@ -1,7 +1,7 @@
 package backend;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import testing.myLogger;
+import java.sql.SQLException;
 
 /**
  * Class ingredient.
@@ -11,8 +11,6 @@ import java.util.logging.Logger;
  *
  */
 public class Ingredient extends Food {
-
-    private static final Logger LOGGER = Logger.getLogger("Ingredient");
 	
     /**
      * Constructor of ingredient
@@ -21,16 +19,17 @@ public class Ingredient extends Food {
      * @param forSell is this ingredient for sell?
      * @param price price of the ingredient
      * @param creator creator of the ingredient
+     * @throws SQLException 
      */
     public Ingredient(
             final String name, 
             final Category category, 
             final boolean forSell, 
             final float price, 
-            final FoodCreator creator) {
+            final FoodCreator creator) throws SQLException {
 
         super(name, category, forSell, price, creator);
-        LOGGER.log(Level.INFO, "A new ingredient with name: " + name + " has been created");
+        myLogger.getInstance().info("A new ingredient with name: " + name + " has been created");
 	}
 	
     /**
@@ -38,7 +37,7 @@ public class Ingredient extends Food {
      */
     @Override
     public void obtainID() {
-        LOGGER.log(Level.INFO, "obtainID in Ingredient");
+        myLogger.getInstance().info("obtainID in Ingredient");
         // TODO -> DB
     }
 }

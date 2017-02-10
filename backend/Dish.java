@@ -1,9 +1,8 @@
 package backend;
 
-import DB_controllers.DataBaseController;
+import testing.myLogger;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class dish.
@@ -15,7 +14,6 @@ public class Dish extends Food {
 
     private Recipe recipe;
     protected ArrayList<Food> composedFoods;
-    private static final Logger LOGGER = Logger.getLogger("Dish");
 
     /**
      * Constructor of dish
@@ -24,17 +22,18 @@ public class Dish extends Food {
      * @param forSell is this dish for sell?
      * @param price price of the dish
      * @param creator creator of the dish
+     * @throws SQLException 
      */
     public Dish(
             final String name, 
             final Category category, 
             final boolean forSell, 
             final float price, 
-            final FoodCreator creator) {
+            final FoodCreator creator) throws SQLException {
 
         super(name, category, forSell, price, creator);
         this.composedFoods = new ArrayList<Food>();
-        LOGGER.log(Level.INFO, "A dish has been created");
+        myLogger.getInstance().info("A dish has been created");
     }
 
     /**
@@ -42,7 +41,7 @@ public class Dish extends Food {
      */
     @Override
     public void obtainID() {
-        LOGGER.log(Level.INFO, "obtainID in Dish");
+        myLogger.getInstance().info("obtainID in Dish");
         // TODO -> DB
     }
 	
@@ -51,7 +50,7 @@ public class Dish extends Food {
      * @return recipe of the dish
      */
     public final Recipe getRecipe() {
-        LOGGER.log(Level.INFO, "Recipe of dish has been getted");
+        myLogger.getInstance().info("Recipe of dish has been getted");
         return this.recipe;
     }
 
@@ -61,7 +60,7 @@ public class Dish extends Food {
      */
     public final void setRecipe(Recipe newRecipe) {
         this.recipe = newRecipe;
-        LOGGER.log(Level.INFO, "Recipe of dish has been setted");
+        myLogger.getInstance().info("Recipe of dish has been setted");
         // TODO -> DB
     }
 	
@@ -71,7 +70,7 @@ public class Dish extends Food {
      */
     public final void updateRecipeName(String newName) {
         this.recipe.updateName(newName);
-        LOGGER.log(Level.INFO, "Recipe's name of dish has been updated");
+        myLogger.getInstance().info("Recipe's name of dish has been updated");
         // TODO -> DB
     }
 	
@@ -81,7 +80,7 @@ public class Dish extends Food {
      */
     public final void updateRecipeDescription(String newDescription) {
         this.recipe.updateDescription(newDescription);
-        LOGGER.log(Level.INFO, "Recipe's description of dish has been updated");
+        myLogger.getInstance().info("Recipe's description of dish has been updated");
         // TODO -> DB
     }
 
@@ -90,7 +89,7 @@ public class Dish extends Food {
      * @return array list containing the foods the dish is made of
      */
     public final ArrayList<Food> getComposedFoods() {
-        LOGGER.log(Level.INFO, "ComposedFoods of dish has been getted");
+        myLogger.getInstance().info("ComposedFoods of dish has been getted");
         return this.composedFoods;
     }
 
@@ -100,7 +99,7 @@ public class Dish extends Food {
      */
     public void addFood(final Food foodToAdd) {
         this.composedFoods.add(foodToAdd);
-        LOGGER.log(Level.INFO, "A food has been added to the composed foods of dish");
+        myLogger.getInstance().info("A food has been added to the composed foods of dish");
         // TODO -> DB
     }
 }

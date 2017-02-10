@@ -1,12 +1,11 @@
 package DB;
 
+import testing.myLogger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class DataBase
@@ -23,7 +22,6 @@ public class DataBase{
     private static final String url = "jdbc:mysql://127.0.0.1:3306/fork_you_db";
     private static final String username = "root";
     private static final String password = "";
-    private static final Logger LOGGER = Logger.getLogger("DataBase");
     
     /**
      * Constructor of DataBase - singleton
@@ -35,7 +33,7 @@ public class DataBase{
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            LOGGER.log(Level.INFO, "Driver com.mysql.jdbc.Driver loaded!");
+            myLogger.getInstance().info("Driver com.mysql.jdbc.Driver loaded!");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("Cannot find the driver in the classpath!", e);
         }
@@ -44,9 +42,9 @@ public class DataBase{
             connection = DriverManager.getConnection(url, username, password);
             
             if (!isConnectionClosed()) {
-                LOGGER.log(Level.INFO, "Connection to DB successful!");
+                myLogger.getInstance().info("Connection to DB successful!");
             } else {
-                LOGGER.log(Level.SEVERE, "ERROR! CONNECTION IS CLOSED");
+                myLogger.getInstance().severe("ERROR! CONNECTION IS CLOSED");
             }
             
         } catch (SQLException e) {
@@ -64,13 +62,13 @@ public class DataBase{
             throws SQLException, ClassNotFoundException {
     	
         if (instance == null) {
-            LOGGER.log(Level.INFO, "Instance of DB is null, creating new one");
+            myLogger.getInstance().info("Instance of DB is null, creating new one");
             instance = new DataBase();
         } else if (instance.getConnection().isClosed()) {
-            LOGGER.log(Level.INFO, "Connection is closed, creating new one");
+            myLogger.getInstance().info("Connection is closed, creating new one");
             instance = new DataBase();
         } else {
-            LOGGER.log(Level.INFO, "Instance of DB is not null and it is opened, returning current instance");
+            myLogger.getInstance().info("Instance of DB is not null and it is opened, returning current instance");
         }
 
         return instance;
@@ -81,7 +79,7 @@ public class DataBase{
      * @return current connection
      */
     public final Connection getConnection() {
-        LOGGER.log(Level.INFO, "Connection of DB returned");
+        myLogger.getInstance().info("Connection of DB returned");
         return connection;
     }
     
@@ -93,7 +91,7 @@ public class DataBase{
     public final boolean isConnectionClosed() 
             throws SQLException {
         try {
-            LOGGER.log(Level.INFO, "Status of DB getted");
+            myLogger.getInstance().info("Status of DB getted");
             return connection.isClosed();
         } catch (SQLException e) {
             throw new SQLException("Database error access ocurred", e);
@@ -108,7 +106,7 @@ public class DataBase{
             throws SQLException {
         try {
             instance.getConnection().close();
-            LOGGER.log(Level.INFO, "DB connection closed");
+            myLogger.getInstance().info("DB connection closed");
         } catch (SQLException e) {
             throw new SQLException("Database error access ocurred", e);
         }
@@ -121,7 +119,7 @@ public class DataBase{
      */
     public final void executeInsert(final String query) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "Query received is:\n" + query);
+        myLogger.getInstance().info("Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
             try {
@@ -145,7 +143,7 @@ public class DataBase{
      */
     public final void executeUpdate(final String query) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "Query received is:\n" + query);
+        myLogger.getInstance().info("Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
             try {
@@ -170,7 +168,7 @@ public class DataBase{
      */
     public final int obtainID(final String query) 
             throws SQLException  {
-        LOGGER.log(Level.INFO, "Query received is:\n" + query);
+        myLogger.getInstance().info("Query received is:\n" + query);
         int id = -1;
         Statement stmt = null;
         if (!isConnectionClosed()) {
@@ -189,7 +187,7 @@ public class DataBase{
                 closeConnection();
             }
         }
-        LOGGER.log(Level.INFO, "ID sent is: " + id);
+        myLogger.getInstance().info("ID sent is: " + id);
         return id;
     }
 }

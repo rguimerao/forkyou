@@ -2,7 +2,6 @@ package testing;
 
 import backend.*;
 import DB.*;
-import DB_controllers.DataBaseController;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +31,7 @@ public class Tester {
                 "thepirate");
     }
 	
-    public void userRemoveItemFromList() {
+    public void userRemoveItemFromList() throws SQLException {
 		
         System.out.println("Creating user");
         User user = createUser();
@@ -75,7 +74,8 @@ public class Tester {
         }
     }
 	
-	public void foodAddedToCategoryInFoodCreator() {
+	public void foodAddedToCategoryInFoodCreator() 
+	        throws SQLException {
 	    User user         = createUser();
 	    Category category = new Category("category num 1");
 	    Food food         = new Food("Food Name", category, false, 0, user);

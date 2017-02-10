@@ -1,9 +1,8 @@
 package backend;
 
 import DB_controllers.DataBaseController;
+import testing.myLogger;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class rater
@@ -15,20 +14,20 @@ import java.util.logging.Logger;
 public class Rater implements VisitorRating {
 
     private static DataBaseController dbController = null;
-    private static final Logger LOGGER = Logger.getLogger("Rater");
 
     /**
      * Constructor of Rater
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
+     * @throws SQLException if a DB error occurs
      */
     public Rater() 
-            throws ClassNotFoundException, SQLException {
+            throws SQLException {
 
         dbController = DataBaseController.getInstance();
-        LOGGER.log(Level.INFO, "A rater has been created");
+        myLogger.getInstance().info("A rater has been created");
     }
 
+    // TODO -> rater should be singleton
+    // TODO -> rater.getdbcontrllerinstance and not param
     /**
      * Rates a brand
      * @param brand brand to be rated
@@ -38,10 +37,10 @@ public class Rater implements VisitorRating {
      * @throws ClassNotFoundException 
      */
     public void rate(final Brand brand, final int rating, final int userID) 
-            throws ClassNotFoundException, SQLException {
+            throws SQLException {
         //dbController = dbController.getInstance();
         dbController.rateBrand(brand.getID(), rating, userID);
-        LOGGER.log(Level.INFO, "A brand has been rated");
+        myLogger.getInstance().info("A brand has been rated");
     }
 
     /**
@@ -52,7 +51,7 @@ public class Rater implements VisitorRating {
      */
     public void rate(final Location location, final int rating, final int userID) {
         // TODO
-        LOGGER.log(Level.INFO, "A location has been rated");
+        myLogger.getInstance().info("A location has been rated");
     }
 
     /**
@@ -63,7 +62,7 @@ public class Rater implements VisitorRating {
      */
     public void rate(final Recipe recipe, final int rating, final int userID) {
         // TODO
-        LOGGER.log(Level.INFO, "A recipe has been rated");
+        myLogger.getInstance().info("A recipe has been rated");
     }
 	
     /**
@@ -74,6 +73,6 @@ public class Rater implements VisitorRating {
      */
     public void rate(final Food food, final int rating, final int userID) {
         // TODO -> visitor id obtainer obtain food id
-        LOGGER.log(Level.INFO, "A food has been rated");
+        myLogger.getInstance().info("A food has been rated");
     }
 }

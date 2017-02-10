@@ -7,11 +7,10 @@ import backend.ContactInfo;
 import backend.FoodCreator;
 import backend.Location;
 import backend.User;
+import testing.myLogger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class DataBaseController
@@ -24,7 +23,6 @@ public class DataBaseController implements VisitorIDObtainer {
 
     private static DataBaseController instance;
     private static DataBase db = null;
-    private static final Logger LOGGER = Logger.getLogger("DataBaseController");
 	
 	/**
 	 * Constructor - Singleton
@@ -35,7 +33,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	private DataBaseController() 
 			throws ClassNotFoundException, SQLException {
 		db = DataBase.getInstance();
-		LOGGER.log(Level.INFO, "DataBaseController created");
+		myLogger.getInstance().info("DataBaseController created");
 	}
 	
 	/**
@@ -43,7 +41,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	 * @return instance of this object
 	 */
 	public final static DataBaseController getInstance()  {
-		LOGGER.log(Level.INFO, "Get instance DBController");
+	    myLogger.getInstance().info("Get instance DBController");
 		if (instance == null) {
 			try {
                 instance = new DataBaseController();
@@ -52,7 +50,7 @@ public class DataBaseController implements VisitorIDObtainer {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-			LOGGER.log(Level.INFO, "Instance was null, new created");
+			myLogger.getInstance().info("Instance was null, new created");
 		}
 		return instance;
 	}
@@ -64,9 +62,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final Category category) 
 			throws SQLException {
-	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
+	    myLogger.getInstance().info("DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1;";
-        LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
         return db.obtainID(query);
 	}
 	
@@ -77,9 +75,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final Brand brand) 
 			throws SQLException {
-	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
+	    myLogger.getInstance().info("DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `brand` ORDER BY 1 DESC LIMIT 1;";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
         return db.obtainID(query);
 	}
 	
@@ -90,9 +88,9 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final Location location) 
 			throws SQLException {
-	    LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
+	    myLogger.getInstance().info("DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `location` ORDER BY 1 DESC LIMIT 1;";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
         return db.obtainID(query);
 	}
 	
@@ -103,11 +101,24 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public int obtainID(final ContactInfo contactInfo) 
 			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController obtaining ID");
+	    myLogger.getInstance().info("DataBaseController obtaining ID");
 	    String query = "SELECT id FROM `contact_info` ORDER BY 1 DESC LIMIT 1;";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
 	    return db.obtainID(query);
 	}
+	
+	/**
+     * Obtains the ID of the given Contact Info
+     * @param contactInfo contact info to be given the ID
+     * @throws SQLEception if a DB error occurs
+     */
+    public int obtainID(final FoodCreator foodCreator) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController obtaining ID");
+        String query = "SELECT id FROM `food_creator` ORDER BY 1 DESC LIMIT 1;";
+        myLogger.getInstance().info(query);
+        return db.obtainID(query);
+    }
 	
 	/**
 	 * Inserts a new category into the DB
@@ -116,12 +127,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void createNewCategory(final Category newCategory) 
 			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController creating new category");
+	    myLogger.getInstance().info("DataBaseController creating new category");
 	    String query = 
 	            "INSERT INTO "
 	            + "`category`(`name`) "
 	            + "VALUES ('" + newCategory.getName() + "');";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
 	    db.executeInsert(query);
 	}
 	
@@ -132,7 +143,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void createNewContactInfo(final ContactInfo newContactInfo) 
 			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController creating new contact info");
+	    myLogger.getInstance().info("DataBaseController creating new contact info");
 	    String query = 
 	    		"INSERT INTO "
 	    		+ "`contact_info`(`name`, `description`, `street`, `postal_code`, `city`, `country`, `phone_number`, `email`) "
@@ -140,7 +151,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	    		+ "', '" + newContactInfo.getStreet() + "', '" + newContactInfo.getAreaCode()
 	    		+ "', '" + newContactInfo.getCity() + "', '" + newContactInfo.getCountry()
 	    		+ "', '" + newContactInfo.getPhone() + "', '" + newContactInfo.getEmail() + "');";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
 	    db.executeInsert(query);
 	}
 	
@@ -151,12 +162,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void createNewLocation(final Location newLocation) 
 			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController creating new location");
+	    myLogger.getInstance().info("DataBaseController creating new location");
 	    String query = 
 	    		"INSERT INTO "
 	    		+ "`location`(`id`, `id_owner`) "
 	    		+ "VALUES ('" + newLocation.getID() + "', '" + newLocation.getOwner().getID() + "');";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
 	    db.executeInsert(query);
 	}
 	
@@ -320,6 +331,24 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
+     * Rates a brand
+     * @param brandID id of the brand
+     * @param rating rating given
+     * @param userID user rater
+     * @throws SQLException if a DB error occurs
+     */
+    public final void rateBrand(final int brandID, final int rating, final int userID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController rating brand");
+        String query = 
+                "INSERT INTO "
+                + "`User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
+                + "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "');";
+        myLogger.getInstance().info(query);
+        db.executeInsert(query);
+    }
+	
+	/**
 	 * Updates brand website
 	 * @param brandID id of the brand
 	 * @param newWebsite new website to be updated
@@ -327,12 +356,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateBrandWebsite(final int brandID, final String newWebsite) 
 			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController updateing brand website");
+	    myLogger.getInstance().info("DataBaseController updateing brand website");
 	    String query = 
 	            "UPDATE `brand` "
 	            + "SET `website`=\'" + newWebsite + "\' "
 	            + "WHERE id=\'" + brandID + "\';";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
 	    db.executeUpdate(query);
 	}
 	
@@ -344,31 +373,13 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateLocationOwner(final int locationID, final int brandID) 
 			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController updating brand website");
+	    myLogger.getInstance().info("DataBaseController updating brand website");
 	    String query = 
 	            "UPDATE `location` "
 	            + "SET `id_owner`=\'" + brandID + "\' "
 	            + "WHERE id=\'" + locationID + "\';";
-	    LOGGER.log(Level.INFO, query);
+	    myLogger.getInstance().info(query);
 	    db.executeUpdate(query);
-	}
-	
-	/**
-	 * Rates a brand
-	 * @param brandID id of the brand
-	 * @param rating rating given
-	 * @param userID user rater
-	 * @throws SQLException if a DB error occurs
-	 */
-	public final void rateBrand(final int brandID, final int rating, final int userID) 
-			throws SQLException {
-		LOGGER.log(Level.INFO, "DataBaseController rating brand");
-	    String query = 
-	    		"INSERT INTO "
-	    		+ "`User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
-	    		+ "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "');";
-	    LOGGER.log(Level.INFO, query);
-	    db.executeInsert(query);
 	}
 	
 	/**
@@ -379,12 +390,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateNameContactInfo(final int contactInfoID, final String newName) 
 	        throws SQLException {
-	    LOGGER.log(Level.INFO, "DataBaseController updating contact info name");
+	    myLogger.getInstance().info("DataBaseController updating contact info name");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `name`=\'" + newName + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
 	}
 	
@@ -396,12 +407,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateDescriptionContactInfo(final int contactInfoID, final String newDescription) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info description");
+	    myLogger.getInstance().info("DataBaseController updating contact info description");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `description`=\'" + newDescription + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
 	
@@ -413,12 +424,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateStreetContactInfo(final int contactInfoID, final String newStreet) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info street");
+	    myLogger.getInstance().info("DataBaseController updating contact info street");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `street`=\'" + newStreet + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
 	
@@ -430,12 +441,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateAreaCodeContactInfo(final int contactInfoID, final int newAreaCode) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info area code");
+	    myLogger.getInstance().info("DataBaseController updating contact info area code");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `area_code`=\'" + newAreaCode + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
 	
@@ -447,12 +458,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateCityContactInfo(final int contactInfoID, final String newCity) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info city");
+	    myLogger.getInstance().info("DataBaseController updating contact info city");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `city`=\'" + newCity + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
 	
@@ -464,12 +475,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateCountryContactInfo(final int contactInfoID, final String newCountry) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info country");
+	    myLogger.getInstance().info("DataBaseController updating contact info country");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `country`=\'" + newCountry + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
 	
@@ -481,12 +492,12 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updatePhoneContactInfo(final int contactInfoID, final int newPhone) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info phone");
+	    myLogger.getInstance().info("DataBaseController updating contact info phone");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `phone`=\'" + newPhone + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
 	
@@ -498,12 +509,29 @@ public class DataBaseController implements VisitorIDObtainer {
 	 */
 	public final void updateEmailContactInfo(final int contactInfoID, final String newEmail) 
             throws SQLException {
-        LOGGER.log(Level.INFO, "DataBaseController updating contact info email");
+	    myLogger.getInstance().info("DataBaseController updating contact info email");
         String query = 
                 "UPDATE `contact_info` "
                 + "SET `email`=\'" + newEmail + "\' "
                 + "WHERE id=\'" + contactInfoID + "\';";
-        LOGGER.log(Level.INFO, query);
+        myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
+	
+	/**
+	 * Updates the category of a food
+	 * @param foodID ID of the food to update
+	 * @param categoryID ID of the new category
+	 * @throws SQLException if a DB error occurs
+	 */
+	public final void updateFoodCategory(final int foodID, final int categoryID) 
+	        throws SQLException {
+	    myLogger.getInstance().info("DataBaseController updating category of food");
+        String query = 
+                "UPDATE `food` "
+                + "SET `id_category`=\'" + categoryID + "\' "
+                + "WHERE id=\'" + foodID + "\';";
+        myLogger.getInstance().info(query);
+        db.executeUpdate(query);
+	}
 }

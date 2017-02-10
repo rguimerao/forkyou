@@ -1,11 +1,9 @@
 package backend;
 
 import DB_controllers.DataBaseController;
+import testing.myLogger;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  * Class brand
@@ -17,7 +15,6 @@ public class Brand extends FoodCreator {
 
 	private ArrayList<Location> sellLocations;
 	private String website;
-	private static final Logger LOGGER = Logger.getLogger("Brand");
 
 	/**
 	 * Constructor of brand.
@@ -44,7 +41,7 @@ public class Brand extends FoodCreator {
 		super(name, description, street, postalCode, city, country, phoneNumber, email);
 		this.sellLocations = new ArrayList<Location>();
 		this.website       = website;
-		LOGGER.log(Level.INFO, "A new brand has been created with name: " + name);
+		myLogger.getInstance().info("A new brand has been created with name: " + name);
 	}
 	
 	/**
@@ -55,7 +52,7 @@ public class Brand extends FoodCreator {
 	public void obtainID(DataBaseController dbController) 
 			throws ClassNotFoundException, SQLException {
 		
-		LOGGER.log(Level.INFO, "obtainID in Brand");
+	    myLogger.getInstance().info("obtainID in Brand");
 		setID(dbController.obtainID(this));
 	}
 	
@@ -64,7 +61,7 @@ public class Brand extends FoodCreator {
 	 * @return website of the brand
 	 */
 	public final String getWebsite() {
-		LOGGER.log(Level.INFO, "Website of brand getted");
+	    myLogger.getInstance().info("Website of brand getted");
 		return this.website;
 	}
 	
@@ -77,7 +74,7 @@ public class Brand extends FoodCreator {
 	public final void setWebsite(final String newWebsite) 
 			throws ClassNotFoundException, SQLException {
 		this.website = newWebsite;
-		LOGGER.log(Level.INFO, "Website of brand setted");
+		myLogger.getInstance().info("Website of brand setted");
 		DataBaseController.getInstance().updateBrandWebsite(getID(), newWebsite);
 	}
 
@@ -86,7 +83,7 @@ public class Brand extends FoodCreator {
 	 * @return location where the brand sells food
 	 */
 	public final ArrayList<Location> getSellLocations() {
-		LOGGER.log(Level.INFO, "Sell locations from brand: " + getName() + " has been getted");
+	    myLogger.getInstance().info("Sell locations from brand: " + getName() + " has been getted");
 		return this.sellLocations;
 	}
 
@@ -102,7 +99,7 @@ public class Brand extends FoodCreator {
 		if (newLocation.getOwner() != this) {
 			newLocation.setOwner(this);
 		}
-		LOGGER.log(Level.INFO, "A new location has been added to the brand");
+		myLogger.getInstance().info("A new location has been added to the brand");
 	}
 	
 	/**
@@ -129,7 +126,7 @@ public class Brand extends FoodCreator {
 		final int phoneNumber,
 		final String email,
 		final Brand owner) 
-				throws ClassNotFoundException, SQLException {
+				throws SQLException {
 		
 		ContactInfo newLocation = 
 				new Location(
@@ -148,7 +145,7 @@ public class Brand extends FoodCreator {
 		newLocation.setID(dbController.obtainID(newLocation));
 		dbController.createNewLocation((Location) newLocation);
 		
-		LOGGER.log(Level.INFO, "Location created on brand");
+		myLogger.getInstance().info("Location created on brand");
 	}
 	
 	/**
@@ -162,6 +159,6 @@ public class Brand extends FoodCreator {
 	public final void acceptRate(final Rater rater, final int rating, final int userID) 
 			throws ClassNotFoundException, SQLException {
 		rater.rate(this, rating, userID);
-		LOGGER.log(Level.INFO, "A brand has accepted a rating");
+		myLogger.getInstance().info("A brand has accepted a rating");
 	}
 }

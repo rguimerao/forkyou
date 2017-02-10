@@ -1,8 +1,8 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import testing.myLogger;
+import java.sql.SQLException;
 
 /**
  * Class drink.
@@ -12,8 +12,6 @@ import java.util.logging.Logger;
  */
 public class Drink extends Dish {
 	
-    private static final Logger LOGGER = Logger.getLogger("Drink");
-	
     /**
      * Constructor of drink
      * @param name name of the drink
@@ -21,17 +19,17 @@ public class Drink extends Dish {
      * @param forSell is this drink for sell?
      * @param price price of the drink
      * @param creator creator of this drink
+     * @throws SQLException 
      */
     public Drink(
             final String name, 
             final Category category,
             final boolean forSell,
             final float price, 
-            final FoodCreator creator) {
+            final FoodCreator creator) throws SQLException {
 		
-        // TODO -> controller get category drinks
-        super(name, category, forSell, price, creator);
-        LOGGER.log(Level.INFO, "A drink has been created");
+        super(name, DataBaseController.getInstance().getDrinksCategory(), forSell, price, creator);
+        myLogger.getInstance().info("A drink has been created");
     }
 
     /**
@@ -39,7 +37,7 @@ public class Drink extends Dish {
      */
     @Override
     public void obtainID() {
-        LOGGER.log(Level.INFO, "obtainID in Drink");
+        myLogger.getInstance().info("obtainID in Drink");
         // TODO -> DB
     }
 	
@@ -52,9 +50,9 @@ public class Drink extends Dish {
     public final void addFood(final Food ingredientToAdd) {
         if (ingredientToAdd instanceof Ingredient) {
             this.composedFoods.add(ingredientToAdd);
-            LOGGER.log(Level.INFO, "An ingredient has been added to a drink");
+            myLogger.getInstance().info("An ingredient has been added to a drink");
         } else {
-            LOGGER.log(Level.WARNING, "A non-ingredient food has tried to be added to a drink!");
+            myLogger.getInstance().warning("A non-ingredient food has tried to be added to a drink!");
         }
         // TODO -> DB
     }

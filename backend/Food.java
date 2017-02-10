@@ -1,9 +1,8 @@
 package backend;
 
+import testing.myLogger;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import DB_controllers.DataBaseController;
 
 /**
  * Class food
@@ -19,7 +18,6 @@ public class Food extends Identifier {
 	private float price;
 	private FoodCreator creator;
 	private ArrayList<User> usersWantingMe;
-	private static final Logger LOGGER = Logger.getLogger("Food");
 
 	/**
 	 * Constructor of food
@@ -28,13 +26,15 @@ public class Food extends Identifier {
 	 * @param forSell is this food for sell?
 	 * @param price price of the food
 	 * @param creator creator of the food
+	 * @throws SQLException if a DB error occurs when adding this food to the category
 	 */
 	public Food(
 		final String name, 
 		final Category category, 
 		final boolean forSell, 
 		final float price, 
-		final FoodCreator creator) {
+		final FoodCreator creator) 
+		        throws SQLException {
 
 		super();
 		this.name     = name;
@@ -46,13 +46,13 @@ public class Food extends Identifier {
 			this.price = price;
 		} else {
 			this.price = -1;
-			LOGGER.log(Level.WARNING, "Price of new food is negative!");
+			myLogger.getInstance().warning("Price of new food is negative!");
 		}
 
 		this.usersWantingMe    = new ArrayList<User>();
 		this.purchaseLocations = new ArrayList<Location>();
 		this.category.addFood(this);
-		LOGGER.log(Level.INFO, "A new food with name: " + name + " has been created");
+		myLogger.getInstance().info("A new food with name: " + name + " has been created");
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class Food extends Identifier {
 	 */
 	@Override
 	public void obtainID() {
-		LOGGER.log(Level.INFO, "obtainID in Food");
+	    myLogger.getInstance().info("obtainID in Food");
 		// TODO -> DB
 	}
 
@@ -69,7 +69,7 @@ public class Food extends Identifier {
 	 * @return name of the food
 	 */
 	public final String getName() {
-		LOGGER.log(Level.INFO, "Name of food has been requested");
+	    myLogger.getInstance().info("Name of food has been requested");
 		return this.name;
 	}
 
@@ -79,7 +79,7 @@ public class Food extends Identifier {
 	 */
 	public final void setName(final String newName) {
 		this.name = newName;
-		LOGGER.log(Level.INFO, "Name of food setted");
+		myLogger.getInstance().info("Name of food setted");
 		// TODO -> DB
 	}
 
@@ -88,7 +88,7 @@ public class Food extends Identifier {
 	 * @return category the food is in
 	 */
 	public final Category getCategory() {
-		LOGGER.log(Level.INFO, "Category of food getted");
+	    myLogger.getInstance().info("Category of food getted");
 		return this.category;
 	}
 
@@ -98,7 +98,7 @@ public class Food extends Identifier {
 	 */
 	public final void setCategory(final Category newCategory) {
 		this.category = newCategory;
-		LOGGER.log(Level.INFO, "Category of food setted");
+		myLogger.getInstance().info("Category of food setted");
 		// TODO -> DB
 	}
 
@@ -107,7 +107,7 @@ public class Food extends Identifier {
 	 * @return array of location containing the locations where this food can be bought
 	 */
 	public final ArrayList<Location> getPurchaseLocations() {
-		LOGGER.log(Level.INFO, "Purchase locations of food getted");
+	    myLogger.getInstance().info("Purchase locations of food getted");
 		return this.purchaseLocations;
 	}
 
@@ -117,11 +117,11 @@ public class Food extends Identifier {
 	 */
 	public final void addPurchaseLocation(final Location purchaseLocationToAdd) {
 		if(forSell) {
-			LOGGER.log(Level.INFO, "Purchase location added to food");
+		    myLogger.getInstance().info("Purchase location added to food");
 			this.purchaseLocations.add(purchaseLocationToAdd);
 			purchaseLocationToAdd.addFood(this);
 		} else {
-			LOGGER.log(Level.WARNING, "A purchase location has tried to be added to a not for sell food!");
+		    myLogger.getInstance().warning("A purchase location has tried to be added to a not for sell food!");
 		}
 		// TODO -> DB
 	}
@@ -131,7 +131,7 @@ public class Food extends Identifier {
 	 * @return true is the food is for sell, false otherwise
 	 */
 	public final boolean isForSell() {
-		LOGGER.log(Level.INFO, "isForSell of food getted");
+	    myLogger.getInstance().info("isForSell of food getted");
 		return this.forSell;
 	}
 
@@ -141,7 +141,7 @@ public class Food extends Identifier {
 	 */
 	public final void invertForSell() {
 		this.forSell = !this.forSell;
-		LOGGER.log(Level.INFO, "isForSell of food inverted. Now it is: " + this.forSell);
+		myLogger.getInstance().info("isForSell of food inverted. Now it is: " + this.forSell);
 		// TODO -> DB
 	}
 
@@ -150,7 +150,7 @@ public class Food extends Identifier {
 	 * @return price the food has
 	 */
 	public final float getPrice() {
-		LOGGER.log(Level.INFO, "Price of food getted");
+	    myLogger.getInstance().info("Price of food getted");
 		return this.price;
 	}
 
@@ -160,7 +160,7 @@ public class Food extends Identifier {
 	 */
 	public final void setPrice(final float newPrice) {
 		this.price = newPrice;
-		LOGGER.log(Level.INFO, "Price of food setted");
+		myLogger.getInstance().info("Price of food setted");
 		// TODO -> DB
 	}
 
@@ -169,7 +169,7 @@ public class Food extends Identifier {
 	 * @return creator of this food
 	 */
 	public final FoodCreator getCreator() {
-		LOGGER.log(Level.INFO, "Creator of food getted");
+	    myLogger.getInstance().info("Creator of food getted");
 		return this.creator;
 	}
 	
@@ -178,7 +178,7 @@ public class Food extends Identifier {
 	 * @return array list of users wanting this food
 	 */
 	public final ArrayList<User> getUsersWantingMe() {
-		LOGGER.log(Level.INFO, "Users wanting food of food getted");
+	    myLogger.getInstance().info("Users wanting food of food getted");
 		return this.usersWantingMe;
 	}
 	
@@ -188,7 +188,7 @@ public class Food extends Identifier {
 	 */
 	public final void addUserToUsersWantingMe(final User userToAdd) {
 		this.usersWantingMe.add(userToAdd);
-		LOGGER.log(Level.INFO, "User added to list of users wanting this food");
+		myLogger.getInstance().info("User added to list of users wanting this food");
 		// TODO -> DB
 	}
 	
@@ -198,7 +198,7 @@ public class Food extends Identifier {
 	 */
 	public final void removeUserFromUsersWantingMe(final User userToRemove) {
 		this.usersWantingMe.remove(userToRemove);
-		LOGGER.log(Level.INFO, "User removed from user wanting this food");
+		myLogger.getInstance().info("User removed from user wanting this food");
 		// TODO -> DB
 	}
 	
@@ -210,7 +210,7 @@ public class Food extends Identifier {
 	 */
 	public void acceptRate(final Rater rater, final int rating, final int userID) {
 		rater.rate(this, rating, userID);
-		LOGGER.log(Level.INFO, "A food has accepted a rating");
+		myLogger.getInstance().info("A food has accepted a rating");
 		// TODO -> DB
 	}
 }
