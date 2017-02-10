@@ -51,7 +51,7 @@ public class Food extends Identifier {
 
 		this.usersWantingMe    = new ArrayList<User>();
 		this.purchaseLocations = new ArrayList<Location>();
-		this.category.addFood(this);
+		this.category.addFood(this); // TODO -> THIS SHOULD BE CALLED AFTER THE FOOD HAS RECEIVED ITS ID
 		myLogger.getInstance().info("A new food with name: " + name + " has been created");
 	}
 	
@@ -208,8 +208,8 @@ public class Food extends Identifier {
 	 * @param rating rating given
 	 * @param userID userId rating
 	 */
-	public void acceptRate(final Rater rater, final int rating, final int userID) {
-		rater.rate(this, rating, userID);
+	public void acceptRate(final int rating, final int userID) {
+		Rater.getInstance().rate(this, rating, userID);
 		myLogger.getInstance().info("A food has accepted a rating");
 		// TODO -> DB
 	}

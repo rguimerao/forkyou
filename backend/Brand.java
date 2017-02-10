@@ -153,12 +153,11 @@ public class Brand extends FoodCreator {
 	 * @param rater rater to execute the rate
 	 * @param rating rating given
 	 * @param userID userId rating
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
-	public final void acceptRate(final Rater rater, final int rating, final int userID) 
-			throws ClassNotFoundException, SQLException {
-		rater.rate(this, rating, userID);
+	public final void acceptRate(final int rating, final int userID) 
+			throws SQLException {
+		Rater.getInstance().rate(this, rating, userID);
 		myLogger.getInstance().info("A brand has accepted a rating");
 	}
 }

@@ -5,29 +5,36 @@ import testing.myLogger;
 import java.sql.SQLException;
 
 /**
- * Class rater
+ * Class rater - Singleton
  * Rater implements VisitorRating
- * A rater rates an object given an object to rate, rating and user ID
+ * A rater rates an object, given the object to rate, the rating and the user ID
  * @author rguimerao
  *
  */
 public class Rater implements VisitorRating {
 
-    private static DataBaseController dbController = null;
-
+    private static Rater instance;
+    
     /**
      * Constructor of Rater
-     * @throws SQLException if a DB error occurs
      */
-    public Rater() 
-            throws SQLException {
-
-        dbController = DataBaseController.getInstance();
-        myLogger.getInstance().info("A rater has been created");
+    private Rater() {
+        myLogger.getInstance().info("A new rater has been created");
+    }
+    
+    /**
+     * Get instace of type Rater
+     * @return instance of Rater
+     */
+    public final static Rater getInstance() {
+        if (instance == null) {
+            myLogger.getInstance().info("Instance of rater was null, creating new one");
+            instance = new Rater();
+        }
+        
+        return instance;
     }
 
-    // TODO -> rater should be singleton
-    // TODO -> rater.getdbcontrllerinstance and not param
     /**
      * Rates a brand
      * @param brand brand to be rated
@@ -38,8 +45,7 @@ public class Rater implements VisitorRating {
      */
     public void rate(final Brand brand, final int rating, final int userID) 
             throws SQLException {
-        //dbController = dbController.getInstance();
-        dbController.rateBrand(brand.getID(), rating, userID);
+        DataBaseController.getInstance().rateBrand(brand.getID(), rating, userID);
         myLogger.getInstance().info("A brand has been rated");
     }
 
