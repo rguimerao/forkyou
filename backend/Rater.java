@@ -53,9 +53,11 @@ public class Rater implements VisitorRating {
      * @param location location to be rated
      * @param rating rating given to the location
      * @param userID id of the user rating
+     * @throws SQLException if a DB error occurs
      */
-    public void rate(final Location location, final int rating, final int userID) {
-        // TODO
+    public void rate(final Location location, final int rating, final int userID) 
+            throws SQLException {
+        DataBaseController.getInstance().rateLocation(location.getID(), rating, userID);
         myLogger.getInstance().info("A location has been rated");
     }
 

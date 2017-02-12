@@ -23,22 +23,12 @@ public class Drink extends Dish {
      */
     public Drink(
             final String name, 
-            final Category category,
             final boolean forSell,
             final float price, 
             final FoodCreator creator) throws SQLException {
 		
         super(name, DataBaseController.getInstance().getDrinksCategory(), forSell, price, creator);
         myLogger.getInstance().info("A drink has been created");
-    }
-
-    /**
-     * Obtains the ID from the DB
-     */
-    @Override
-    public void obtainID() {
-        myLogger.getInstance().info("obtainID in Drink");
-        // TODO -> DB
     }
 	
     /**

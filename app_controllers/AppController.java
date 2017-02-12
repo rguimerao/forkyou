@@ -55,7 +55,7 @@ public class AppController {
                         email, 
                         nickname);
         dbController.createNewContactInfo(newUser);
-        newUser.setID(dbController.obtainID(newUser));
+        newUser.obtainID();
         dbController.createNewFoodCreator(newUser, password);
         dbController.createNewUser(newUser);
     }

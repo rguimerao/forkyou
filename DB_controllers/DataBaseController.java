@@ -1,12 +1,15 @@
 package DB_controllers;
 
 import DB.DataBase;
-import backend.Brand;
 import backend.Category;
 import backend.ContactInfo;
+import backend.Dish;
+import backend.Drink;
 import backend.Food;
 import backend.FoodCreator;
+import backend.Ingredient;
 import backend.Location;
+import backend.Recipe;
 import backend.User;
 import testing.myLogger;
 import java.sql.ResultSet;
@@ -23,7 +26,7 @@ import java.sql.Statement;
 public class DataBaseController implements VisitorIDObtainer {
 
     private static DataBaseController instance;
-    private static DataBase db = null; // TODO -> could give error
+    private static DataBase db = null;
 	
 	/**
 	 * Constructor - Singleton
@@ -70,32 +73,6 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * Obtains the ID of the given brand
-	 * @param brand brand to be given the ID
-	 * @throws SQLEception if a DB error occurs
-	 */
-	public int obtainID(final Brand brand) 
-			throws SQLException {
-	    myLogger.getInstance().info("DataBaseController obtaining ID");
-	    String query = "SELECT id FROM `brand` ORDER BY 1 DESC LIMIT 1;";
-	    myLogger.getInstance().info(query);
-        return db.obtainID(query);
-	}
-	
-	/**
-	 * Obtains the ID of the given location
-	 * @param location location to be given the ID
-	 * @throws SQLEception if a DB error occurs
-	 */
-	public int obtainID(final Location location) 
-			throws SQLException {
-	    myLogger.getInstance().info("DataBaseController obtaining ID");
-	    String query = "SELECT id FROM `location` ORDER BY 1 DESC LIMIT 1;";
-	    myLogger.getInstance().info(query);
-        return db.obtainID(query);
-	}
-	
-	/**
 	 * Obtains the ID of the given Contact Info
 	 * @param contactInfo contact info to be given the ID
 	 * @throws SQLEception if a DB error occurs
@@ -107,19 +84,6 @@ public class DataBaseController implements VisitorIDObtainer {
 	    myLogger.getInstance().info(query);
 	    return db.obtainID(query);
 	}
-	
-	/**
-     * Obtains the ID of the given Contact Info
-     * @param contactInfo contact info to be given the ID
-     * @throws SQLEception if a DB error occurs
-     */
-    public int obtainID(final FoodCreator foodCreator) 
-            throws SQLException {
-        myLogger.getInstance().info("DataBaseController obtaining ID");
-        String query = "SELECT id FROM `food` ORDER BY 1 DESC LIMIT 1;";
-        myLogger.getInstance().info(query);
-        return db.obtainID(query);
-    }
     
     /**
      * Obtains the ID of the given food
@@ -129,7 +93,20 @@ public class DataBaseController implements VisitorIDObtainer {
     public int obtainID(final Food food) 
             throws SQLException {
         myLogger.getInstance().info("DataBaseController obtaining ID");
-        String query = "SELECT id FROM `category` ORDER BY 1 DESC LIMIT 1;";
+        String query = "SELECT id FROM `food` ORDER BY 1 DESC LIMIT 1;";
+        myLogger.getInstance().info(query);
+        return db.obtainID(query);
+    }
+    
+    /**
+     * Obtains the ID of the given recipe
+     * @param recipe recipe to be given the ID
+     * @throws SQLException if a DB error occurs
+     */
+    public int obtainID(final Recipe recipe) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController obtaining ID");
+        String query = "SELECT id FROM `recipe` ORDER BY 1 DESC LIMIT 1;";
         myLogger.getInstance().info(query);
         return db.obtainID(query);
     }
@@ -160,7 +137,7 @@ public class DataBaseController implements VisitorIDObtainer {
 	    myLogger.getInstance().info("DataBaseController creating new contact info");
 	    String query = 
 	    		"INSERT INTO "
-	    		+ "`contact_info`(`name`, `description`, `street`, `postal_code`, `city`, `country`, `phone_number`, `email`) "
+	    		+ "`contact_info`(`name`, `description`, `street`, `area_code`, `city`, `country`, `phone`, `email`) "
 	    		+ "VALUES ('" + newContactInfo.getName() + "', '" + newContactInfo.getDescription() 
 	    		+ "', '" + newContactInfo.getStreet() + "', '" + newContactInfo.getAreaCode()
 	    		+ "', '" + newContactInfo.getCity() + "', '" + newContactInfo.getCountry()
@@ -201,19 +178,95 @@ public class DataBaseController implements VisitorIDObtainer {
 	}
 	
 	/**
-	 * Inserts a new User into de DB
-	 * @param user new user to be inserted
-	 * @throws SQLException if a DB error occurs
-	 */
-	public final void createNewUser(final User user) 
-	        throws SQLException {
-	    String query = 
+     * Inserts a new User into de DB
+     * @param user new user to be inserted
+     * @throws SQLException if a DB error occurs
+     */
+    public final void createNewUser(final User user) 
+            throws SQLException {
+        String query = 
                 "INSERT INTO "
                 + "`user`(`id`, `nickname`) "
                 + "VALUES ('" + user.getID() + "', '" + user.getNickName() + "');";
         db.executeInsert(query);
-	}
+    }
+    
+	/**
+	 * Inserts a new food into the DB
+	 * @param newFood new food to insert
+	 * @throws SQLException if a DB error occurs
+	 */
+    public final void createNewFood(final Food newFood) 
+            throws SQLException {
+        String query = 
+                "INSERT INTO "
+                + "`food`(`name`, `for_sell`, `price`, `id_creator`, `id_category`) "
+                + "VALUES ('" + newFood.getName() + "', '" + (newFood.isForSell() ? 1 : 0) + "'"
+                + ", '" + newFood.getPrice() + "', '" + newFood.getCreator().getID() +"'"
+                + ", '" + newFood.getCategory().getID() + "');";
+        db.executeInsert(query);
+    }
+    
+    /**
+     * Inserts a new ingredient into the DB
+     * @param newIngredient new ingredient to insert
+     * @throws SQLException if a DB error occurs
+     */
+    public final void createNewIngredient(final Ingredient newIngredient) 
+            throws SQLException {
+        String query = 
+                "INSERT INTO "
+                + "`ingredient`(`id`) "
+                + "VALUES ('" + newIngredient.getID() + "');";
+        db.executeInsert(query);
+    }
 	
+    /**
+     * Inserts a new dish into the DB
+     * @param newDish new dish to insert
+     * @throws SQLException if a DB error occurs
+     */
+    public final void createNewDish(final Dish newDish) 
+            throws SQLException {
+        
+        String query = 
+                "INSERT INTO "
+                + "`dish`(`id`, `id_recipe`) "
+                + "VALUES ('" + newDish.getID() + "', '" 
+                + ((newDish.getRecipe() == null) ? -1 : newDish.getRecipe().getID()) + "');";
+        db.executeInsert(query);
+    }
+    
+    /**
+     * Inserts a new drink into the DB
+     * @param newDrink new drink to insert
+     * @throws SQLException if a DB error occurs
+     */
+    public final void createNewDrink(final Drink newDrink) 
+            throws SQLException {
+        String query = 
+                "INSERT INTO "
+                + "`dish`(`id`) "
+                + "VALUES ('" + newDrink.getID() + "');";
+        db.executeInsert(query);
+    }
+    
+    /**
+     * Inserts a new recipe into the DB
+     * @param newRecipe new recipe to insert
+     * @throws SQLException if a DB error occurs
+     */
+    public final void createNewRecipe(final Recipe newRecipe) 
+            throws SQLException {
+        String query = 
+                "INSERT INTO "
+                + "`recipe`(`name`, `description`, `last_update`, `id_creator`, `id_dish`) "
+                + "VALUES ('" + newRecipe.getName() + "', '" + newRecipe.getDescription() + "', "
+                + "'" + newRecipe.getLastUpdate() + "', '" + newRecipe.getFoodCreator().getID() + "', "
+                + "'" + newRecipe.getDish().getID() + "');";
+        db.executeInsert(query);
+    }
+    
 	/**
 	 * Gets the drink category for drink objects
 	 * @return Category drinks
@@ -286,10 +339,10 @@ public class DataBaseController implements VisitorIDObtainer {
                     name        = rs.getString("password");
                     description = rs.getString("description");
                     street      = rs.getString("street");
-                    areaCode    = rs.getInt("postal_code");
+                    areaCode    = rs.getInt("area_code");
                     city        = rs.getString("city");
                     country     = rs.getString("country");
-                    phone       = rs.getInt("phone_number");
+                    phone       = rs.getInt("phone");
                     email       = rs.getString("email");
                 }
             } catch (SQLException e ) {
@@ -376,6 +429,24 @@ public class DataBaseController implements VisitorIDObtainer {
                 "INSERT INTO "
                 + "`User_rates_Food`(`id_user`, `id_food`, `rating`) "
                 + "VALUES ('" + userID + "', '" + foodID + "', '" + rating + "');";
+        myLogger.getInstance().info(query);
+        db.executeInsert(query);
+    }
+    
+    /**
+     * Rates a location
+     * @param locationID id of the location
+     * @param rating rating given
+     * @param userID user rater
+     * @throws SQLException if a DB error occurs
+     */
+    public final void rateLocation(final int locationID, final int rating, final int userID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController rating brand");
+        String query = 
+                "INSERT INTO "
+                + "`User_rates_Location`(`id_user`, `id_location`, `rating`) "
+                + "VALUES ('" + userID + "', '" + locationID + "', '" + rating + "');";
         myLogger.getInstance().info(query);
         db.executeInsert(query);
     }
@@ -626,11 +697,28 @@ public class DataBaseController implements VisitorIDObtainer {
      */
     public final void updateFoodPrice(final int foodID, final float newPrice) 
             throws SQLException {
-        myLogger.getInstance().info("DataBaseController updating for_sell of food");
+        myLogger.getInstance().info("DataBaseController updating price of food");
         String query = 
                 "UPDATE `food` "
                 + "SET `price`=\'" + newPrice + "\' "
                 + "WHERE id=\'" + foodID + "\';";
+        myLogger.getInstance().info(query);
+        db.executeUpdate(query);
+    }
+    
+    /**
+     * Updates the price of a food
+     * @param foodID ID of the food to update
+     * @param newPrice new price to be set
+     * @throws SQLException if a DB error occurs
+     */
+    public final void updateDishRecipe(final int dishID, final float recipeID) 
+            throws SQLException {
+        myLogger.getInstance().info("DataBaseController updating recipe of dish");
+        String query = 
+                "UPDATE `dish` "
+                + "SET `id_recipe`=\'" + recipeID + "\' "
+                + "WHERE id=\'" + dishID + "\';";
         myLogger.getInstance().info(query);
         db.executeUpdate(query);
     }
@@ -646,8 +734,8 @@ public class DataBaseController implements VisitorIDObtainer {
         myLogger.getInstance().info("DataBaseController rating brand");
         String query = 
                 "INSERT INTO "
-                + "`User_Wishlist`(`id_food`, `id_user`) "
-                + "VALUES ('" + foodID + "', '" + userID + "');";
+                + "`User_Wishlist`(`id_user`, `id_food`) "
+                + "VALUES ('" + userID + "', '" + foodID + "');";
         myLogger.getInstance().info(query);
         db.executeInsert(query);
     }

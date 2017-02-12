@@ -1,11 +1,9 @@
 package DB_controllers;
 
-import backend.Brand;
 import backend.Category;
 import backend.ContactInfo;
 import backend.Food;
-import backend.FoodCreator;
-import backend.Location;
+import backend.Recipe;
 import java.sql.SQLException;
 
 /**
@@ -17,9 +15,7 @@ import java.sql.SQLException;
 public interface VisitorIDObtainer {
 
     int obtainID(final Category category) throws SQLException;
-    int obtainID(final Brand brand) throws SQLException;
-    int obtainID(final Location location) throws SQLException;
     int obtainID(final ContactInfo contactInfo) throws SQLException;
-    int obtainID(final FoodCreator foodCreator) throws SQLException;
     int obtainID(final Food food) throws SQLException;
+    int obtainID(final Recipe recipe) throws SQLException;
 }

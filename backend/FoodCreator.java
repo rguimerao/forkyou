@@ -22,41 +22,27 @@ public class FoodCreator extends ContactInfo {
      * @param name Name of the food creator
      * @param description description of the food creator
      * @param street street of the food creator
-     * @param postalCode postal code of the food creator
+     * @param areaCode area code of the food creator
      * @param city city of the food creator
      * @param country country of the food creator
-     * @param phoneNumber phone number of the food creator
+     * @param phone phone number of the food creator
      * @param email email of the food creator
      */
     public FoodCreator(
             final String name,
             final String description,
             final String street,
-            final int postalCode,
+            final int areaCode,
             final String city, 
             final String country,
-            final int phoneNumber,
+            final int phone,
             final String email) {
 
-        super(name, description, street, postalCode, city, country, phoneNumber, email);
+        super(name, description, street, areaCode, city, country, phone, email);
         this.foodsCreated   = new ArrayList<Food>();
         this.recipesCreated = new ArrayList<Recipe>();
         this.followers      = new ArrayList<User>();
         myLogger.getInstance().info("A food creator has been created");
-    }
-
-    /**
-     * Obtains the ID from the DB
-     * @throws SQLException 
-     */
-    @Override
-    public void obtainID() {
-        myLogger.getInstance().info("obtainID in FoodCreator");
-        try {
-            setID(DataBaseController.getInstance().obtainID(this));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 	
     /**
@@ -75,7 +61,6 @@ public class FoodCreator extends ContactInfo {
     private final void addFood(final Food foodToAdd) {
         this.foodsCreated.add(foodToAdd);
         myLogger.getInstance().info("Food added to foods created");
-        // TODO -> DB
     }
 
     /**
@@ -94,7 +79,6 @@ public class FoodCreator extends ContactInfo {
     private final void addRecipe(final Recipe recipeToAdd) {
         this.recipesCreated.add(recipeToAdd);
         myLogger.getInstance().info("Recipe added to food creator");
-        // TODO -> DB
     }
 	
     /**
@@ -103,18 +87,21 @@ public class FoodCreator extends ContactInfo {
      * @param category category which the ingredient belongs to
      * @param forSell is the food for sell?
      * @param price price of the ingredient
-     * @throws SQLException 
+     * @throws SQLException if a DB error occurs
      */
     public final void createIngredient(
             final String name, 
             final Category category, 
             final boolean forSell,
-            final float price) throws SQLException {
-
-        // TODO -> needs DB + controller
+            final float price) 
+                    throws SQLException {
+        
         Ingredient newIngredient = new Ingredient(name, category, forSell, price, this);
+        DataBaseController.getInstance().createNewFood(newIngredient);
+        newIngredient.obtainID();
+        DataBaseController.getInstance().createNewIngredient(newIngredient);
         addFood(newIngredient);
-        myLogger.getInstance().info("Food created and added on food creator");
+        myLogger.getInstance().info("Ingredient created and added on food creator");
     }
     
     /**
@@ -123,18 +110,21 @@ public class FoodCreator extends ContactInfo {
      * @param category category which the food belongs to
      * @param forSell is the dish for sell?
      * @param price price of the dish
-     * @throws SQLException 
+     * @throws SQLException if a DB error occurs
      */
     public final void createDish(
             final String name, 
             final Category category, 
             final boolean forSell,
-            final float price) throws SQLException {
-
-        // TODO -> needs DB + controller
+            final float price) 
+                    throws SQLException {
+        
         Dish newDish = new Dish(name, category, forSell, price, this);
+        DataBaseController.getInstance().createNewFood(newDish);
+        newDish.obtainID();
+        DataBaseController.getInstance().createNewDish(newDish);
         addFood(newDish);
-        myLogger.getInstance().info("Food created and added on food creator");
+        myLogger.getInstance().info("Dish created and added on food creator");
     }
 	
     /**
@@ -150,13 +140,15 @@ public class FoodCreator extends ContactInfo {
             final Category category, 
             final boolean forSell,
             final float price) 
-                    throws SQLException, ClassNotFoundException {
+                    throws SQLException {
 
-        // TODO -> needs DB + controller
-        DataBaseController dbController = DataBaseController.getInstance();
-        Drink newDrink = new Drink(name, dbController.getDrinksCategory(), forSell, price, this);
+        Drink newDrink = new Drink(name, forSell, price, this);
+        DataBaseController.getInstance().createNewFood(newDrink);
+        newDrink.obtainID();
+        DataBaseController.getInstance().createNewDish(newDrink);
+        DataBaseController.getInstance().createNewDrink(newDrink);
         addFood(newDrink);
-        myLogger.getInstance().info("Food created and added on food creator");
+        myLogger.getInstance().info("Drink created and added on food creator");
     }
 
     /**
@@ -167,7 +159,7 @@ public class FoodCreator extends ContactInfo {
      */
     public final void addFoodToDish(final Dish dish, final Food foodToAdd) {
 
-        // TODO -> needs DB + controller
+        // TODO -> review dish
         dish.addFood(foodToAdd);
         myLogger.getInstance().info("Food added to dish on food creator");
     }
@@ -177,14 +169,18 @@ public class FoodCreator extends ContactInfo {
      * @param name name of the recipe
      * @param description description and steps of the recipe
      * @param dish dish this new recipe will create
+     * @throws SQLException 
      */
     public final void createRecipe(
             final String name, 
             final String description, 
-            final Dish dish) {
+            final Dish dish) 
+                    throws SQLException {
 
-        // TODO -> needs DB + controller
         Recipe newRecipe = new Recipe(name, description, this, dish);
+        DataBaseController.getInstance().createNewRecipe(newRecipe);
+        newRecipe.obtainID();
+        newRecipe.getDish().setRecipe(newRecipe);
         addRecipe(newRecipe);
         myLogger.getInstance().info("Recipe created and added on food creator");
     }
@@ -204,31 +200,45 @@ public class FoodCreator extends ContactInfo {
     }
 
     /**
-     * Creates a new location where food is bought and sold
+     * Creates a new location
      * @param name name of the location
-     * @param description description of the location
-     * @param street street of the location
-     * @param postalCode postal code of the location
+     * @param description a little description of it
+     * @param street the street of the location
+     * @param areaCode area code of the location
      * @param city city of the location
      * @param country country of the location
-     * @param phoneNumber phone number of the location
+     * @param phone phone of the location
      * @param email email of the location
      * @param owner brand owner of the location
+     * @throws SQLException if a DB error occurs
      */
     public void createLocation(
             final String name,
             final String description,
             final String street,
-            final int postalCode,
+            final int areaCode,
             final String city,
             final String country,
-            final int phoneNumber,
+            final int phone,
             final String email,
             final Brand owner) 
                     throws SQLException {
 
-        // TODO -> needs DB + controller
-        //Location newLocation = new Location(name, description, street, postalCode, city, country, phoneNumber, email, owner);
+        Location newLocation = 
+                new Location(
+                        name, 
+                        description, 
+                        street, 
+                        areaCode, 
+                        city, 
+                        country, 
+                        phone, 
+                        email, 
+                        owner);
+        
+        DataBaseController.getInstance().createNewContactInfo(newLocation);
+        newLocation.obtainID();
+        DataBaseController.getInstance().createNewLocation(newLocation);
         myLogger.getInstance().info("Location created on food creator");
     }
 	
@@ -248,7 +258,7 @@ public class FoodCreator extends ContactInfo {
     protected final void addFollower(final User followerUserToAdd) {
         this.followers.add(followerUserToAdd);
         myLogger.getInstance().info("A user is now following you");
-        // TODO -> DB
+        // TODO -> review from user
     }
 	
     /**
@@ -258,7 +268,7 @@ public class FoodCreator extends ContactInfo {
     protected final void removeFollower(final User userToRemove) {
         this.followers.remove(userToRemove);
         myLogger.getInstance().info("A user has removed you from its following list");
-        // TODO -> DB
+        // TODO -> review from user
     }
 
     /**

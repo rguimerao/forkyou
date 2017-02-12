@@ -3,35 +3,44 @@ List of TODO things inside the project
 
 Backend:
 <ul>
-	<li>Date type obsolete? - format</li>
-	<li>Food - food is in dishes</li>
-	<li>frontend controller checks food price >= 0 and not food - creating food</li>
+	<li>get ratings</li>
+	<li>finish → dish, drink, ratings, recipe, user</li>
 </ul>
 
 Database:
 <ul>
-	<li>inserts - selects - updates - deletes</li>
-	<li>select -> the same with return [refactor]</li>
-	<li>Drinks cat -> to be already on db + func + insert script on sql ?</li>
-	<li>get ratings - backend as well</li>
+	<li>Drinks cat → to be already on db + func + insert script on sql ?</li>
+	<li>separate db controller (inserter, updater, selector, deleter + [refactor]</li>
+	<li>select from where - function</li>
+</ul>
+
+To review:
+<ul>
+	<li>create dish + recipe (from food creator as well)</li>
+	<li>interactions between classes + DB (use cases) + permisions of classes</li>
+	<li>dish.addfood → updates price</li>
+	<li>food is decorator? or to decorator?</li>
 	<li>Concurrent db interaction</li>
-	<li>[review] creator of food and addFood on category can break program</li>
+	<li>recipe/dish share id</li>
+	<li>Date type obsolete? - format</li>
+	<li>Food → food is in dishes</li>
 </ul>
 
 Controllers:
 <ul>
 	<li>ratings done by app controller</li>
+	<li>frontend controller checks food price >= 0 and not food - creating food</li>
 </ul>
 
 Testing and code cleaning:
 <ul>
 	<li>tests - test classes</li>
 	<li>design by contract</li>
+	<li>don't talk to strangers pattern</li>
 	<li>identations - food, contactinfo, recipe, user, brand, appcontroller</li>
 	<li>logger + comments</li>
 	<li>sonarqube</li>
 	<li>throws vs try catch - review, who should handle it?</li>
-	<li>do i have a decorator? - food</li>
 </ul>
 
 New features to add:
@@ -46,5 +55,3 @@ New features to add:
 	<li>brand has logo</li>
 	<li>brand has slogan</li>
 </ul>
-
-Note: the app is online, not local, therefore, a lot of functionality is made online, that is to say, not only a lot, but all of it is made online with concurrent db interaction. With that in mind, the functionality of the backend must be reviewed.

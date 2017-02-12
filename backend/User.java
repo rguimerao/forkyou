@@ -21,24 +21,24 @@ public class User extends FoodCreator {
      * @param name name of the user
      * @param description description of the user
      * @param street street of the user
-     * @param postalCode postal code of the user
+     * @param areaCode area code of the user
      * @param city city of the user
      * @param country country of the user
-     * @param phoneNumber phone number of the user
+     * @param phone phone number of the user
      * @param email email of the user
      */
 	public User(
 		final String name,
 		final String description,
 		final String street,
-		final int postalCode,
+		final int areaCode,
 		final String city,
 		final String country,
-		final int phoneNumber,
+		final int phone,
 		final String email,
 		final String nickname) {
 	
-		super(name, description, street, postalCode, city, country, phoneNumber, email);
+		super(name, description, street, areaCode, city, country, phone, email);
 		this.foodWishlist = new ArrayList<Food>();
 		this.following    = new ArrayList<FoodCreator>();
 		this.nickname     = nickname;
@@ -59,15 +59,6 @@ public class User extends FoodCreator {
 	 */
 	public void setNickName(final String newNickName) {
 	    this.nickname = newNickName;
-	}
-	
-	/**
-	 * Obtains the ID from the DB
-	 */
-	@Override
-	public void obtainID() {
-	    myLogger.getInstance().info("obtainID in User");
-		// TODO -> DB
 	}
 
 	/**
@@ -143,20 +134,20 @@ public class User extends FoodCreator {
 	 * @param name name of the new brand
 	 * @param description description of the new brand
 	 * @param street street of the new brand
-	 * @param postalCode postal code of the new brand
+	 * @param areaCode area code of the new brand
 	 * @param city city of the new brand
 	 * @param country country of the new brand
-	 * @param phoneNumber phone number  of the new brand
+	 * @param phone phone number  of the new brand
 	 * @param email email of the new brand
 	 */
 	public final void createBrand(
 		final String name,
 		final String description,
 		final String street,
-		final int postalCode,
+		final int areaCode,
 		final String city,
 		final String country,
-		final int phoneNumber,
+		final int phone,
 		final String email) {
 		
 		/* Brand newBrand = 
@@ -164,10 +155,10 @@ public class User extends FoodCreator {
 						name, 
 						description, 
 						street, 
-						postalCode, 
+						areaCode, 
 						city, 
 						country, 
-						phoneNumber, 
+						phone, 
 						email
 						);
 		db controller -> add new brand */

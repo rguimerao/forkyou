@@ -21,39 +21,27 @@ public class Brand extends FoodCreator {
 	 * @param name name of the brand
 	 * @param description description of the brand
 	 * @param street street of the brand
-	 * @param postalCode postal code of the brand
+	 * @param areaCode area code of the brand
 	 * @param city city of the brand
 	 * @param country country of the brand
-	 * @param phoneNumber phone number of the brand
+	 * @param phone phone number of the brand
 	 * @param email email of the brand
 	 */
 	public Brand(
 		final String name,
         final String description,
         final String street,
-        final int postalCode,
+        final int areaCode,
         final String city,
         final String country,
-        final int phoneNumber,
+        final int phone,
         final String email,
         final String website) {
 
-		super(name, description, street, postalCode, city, country, phoneNumber, email);
+		super(name, description, street, areaCode, city, country, phone, email);
 		this.sellLocations = new ArrayList<Location>();
 		this.website       = website;
 		myLogger.getInstance().info("A new brand has been created with name: " + name);
-	}
-	
-	/**
-	 * Obtains the ID from the DB
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
-	public void obtainID(DataBaseController dbController) 
-			throws ClassNotFoundException, SQLException {
-		
-	    myLogger.getInstance().info("obtainID in Brand");
-		setID(dbController.obtainID(this));
 	}
 	
 	/**
@@ -94,7 +82,7 @@ public class Brand extends FoodCreator {
 	 * @throws ClassNotFoundException 
 	 */
 	public final void addSellLocation(final Location newLocation) 
-			throws ClassNotFoundException, SQLException {
+			throws SQLException, ClassNotFoundException {
 		this.sellLocations.add(newLocation);
 		if (newLocation.getOwner() != this) {
 			newLocation.setOwner(this);
@@ -107,44 +95,41 @@ public class Brand extends FoodCreator {
 	 * @param name name of the location
 	 * @param description description of the location
 	 * @param street street of the location
-	 * @param postalCode postal code of the location
+	 * @param areaCode area code of the location
 	 * @param city city of the location
 	 * @param country country of the location
-	 * @param phoneNumber phone number of the location
+	 * @param phone phone number of the location
 	 * @param email email of the location
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	@Override
 	public final void createLocation(
 		final String name,
 		final String description,
 		final String street,
-		final int postalCode,
+		final int areaCode,
 		final String city,
 		final String country,
-		final int phoneNumber,
+		final int phone,
 		final String email,
 		final Brand owner) 
 				throws SQLException {
 		
-		ContactInfo newLocation = 
+		Location newLocation = 
 				new Location(
 						name, 
 						description, 
 						street, 
-						postalCode, 
+						areaCode, 
 						city, 
 						country, 
-						phoneNumber, 
+						phone, 
 						email, 
 						this);
 		
-		DataBaseController dbController = DataBaseController.getInstance();
-		dbController.createNewContactInfo(newLocation);
-		newLocation.setID(dbController.obtainID(newLocation));
-		dbController.createNewLocation((Location) newLocation);
-		
+		DataBaseController.getInstance().createNewContactInfo(newLocation);
+		newLocation.obtainID();
+		DataBaseController.getInstance().createNewLocation(newLocation);
 		myLogger.getInstance().info("Location created on brand");
 	}
 	

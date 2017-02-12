@@ -31,13 +31,4 @@ public class Ingredient extends Food {
         super(name, category, forSell, price, creator);
         myLogger.getInstance().info("A new ingredient with name: " + name + " has been created");
 	}
-	
-    /**
-     * Obtains the ID from the DB
-     */
-    @Override
-    public void obtainID() {
-        myLogger.getInstance().info("obtainID in Ingredient");
-        // TODO -> DB
-    }
 }

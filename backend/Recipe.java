@@ -1,6 +1,8 @@
 package backend;
 
 import testing.myLogger;
+import DB_controllers.DataBaseController;
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -45,7 +47,11 @@ public class Recipe extends Identifier {
 	@Override
 	public void obtainID() {
 	    myLogger.getInstance().info("obtainID in Recipe");
-		// TODO -> DB
+		try {
+            setID(DataBaseController.getInstance().obtainID(this));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 
 	/**

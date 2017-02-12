@@ -1,6 +1,7 @@
 package backend;
 
 import testing.myLogger;
+import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -35,15 +36,6 @@ public class Dish extends Food {
         this.composedFoods = new ArrayList<Food>();
         myLogger.getInstance().info("A dish has been created");
     }
-
-    /**
-     * Obtains the ID from the DB
-     */
-    @Override
-    public void obtainID() {
-        myLogger.getInstance().info("obtainID in Dish");
-        // TODO -> DB
-    }
 	
     /**
      * Getter of recipe
@@ -55,20 +47,22 @@ public class Dish extends Food {
     }
 
     /**
-     * Setter of recipe
+     * TODO
      * @param newRecipe new recipe the dish will have
+     * @throws SQLException 
      */
-    public final void setRecipe(Recipe newRecipe) {
+    public final void setRecipe(final Recipe newRecipe) 
+            throws SQLException {
         this.recipe = newRecipe;
         myLogger.getInstance().info("Recipe of dish has been setted");
-        // TODO -> DB
+        DataBaseController.getInstance().updateDishRecipe(getID(), newRecipe.getID());
     }
 	
     /**
      * Updates dish recipe's name
      * @param newName new name dish recipe will have
      */
-    public final void updateRecipeName(String newName) {
+    public final void updateRecipeName(final String newName) {
         this.recipe.updateName(newName);
         myLogger.getInstance().info("Recipe's name of dish has been updated");
         // TODO -> DB
@@ -78,10 +72,10 @@ public class Dish extends Food {
      * Updates dish recipe's description
      * @param newDescription new description dish recipe will have
      */
-    public final void updateRecipeDescription(String newDescription) {
+    public final void updateRecipeDescription(final String newDescription) {
         this.recipe.updateDescription(newDescription);
         myLogger.getInstance().info("Recipe's description of dish has been updated");
-        // TODO -> DB
+        // TODO -> review
     }
 
     /**

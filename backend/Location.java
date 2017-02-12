@@ -21,10 +21,10 @@ public class Location extends ContactInfo {
      * @param name name of the location
      * @param description description of the location
      * @param street street of the location
-     * @param postalCode postal code of the location
+     * @param areaCode area code of the location
      * @param city city of the location
      * @param country country of the location
-     * @param phoneNumber phone number of the location
+     * @param phone phone number of the location
      * @param email email of the location
      * @param owner brand owner of this location
      */
@@ -32,26 +32,17 @@ public class Location extends ContactInfo {
             final String name,
             final String description,
             final String street,
-            final int postalCode,
+            final int areaCode,
             final String city,
             final String country,
-            final int phoneNumber,
+            final int phone,
             final String email,
             final Brand owner) {
 
-        super(name, description, street, postalCode, city, country, phoneNumber, email);
+        super(name, description, street, areaCode, city, country, phone, email);
         this.foodsSelling = new ArrayList<Food>();
         this.owner        = owner;
         myLogger.getInstance().info("A new location has been created");
-    }
-	
-    /**
-     * Obtains the ID from the DB
-     */
-    @Override
-    public void obtainID() {
-        myLogger.getInstance().info("obtainID in Location");
-        // TODO -> DB
     }
 	
     /**
@@ -91,7 +82,6 @@ public class Location extends ContactInfo {
             throws ClassNotFoundException, SQLException {
         this.owner = newOwner;
         myLogger.getInstance().info("New owner from location setted");
-        //DataBaseController dbController = ;
         DataBaseController.getInstance().updateLocationOwner(getID(), newOwner.getID());
     }
 	
@@ -100,10 +90,11 @@ public class Location extends ContactInfo {
      * @param rater rater to execute the rate
      * @param rating rating given
      * @param userID userId rating
+     * @throws SQLException if a DB error occurs
      */
-    public void acceptRate(final int rating, final int userID) {
+    public void acceptRate(final int rating, final int userID) 
+            throws SQLException {
         Rater.getInstance().rate(this, rating, userID);
         myLogger.getInstance().info("A location has accepted a rating");
-        // TODO -> DB
     }
 }

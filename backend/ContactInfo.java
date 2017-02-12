@@ -26,10 +26,10 @@ public class ContactInfo extends Identifier {
 	 * @param name Name of the contact
 	 * @param description Description of the contact
 	 * @param street Street where the contact lives
-	 * @param postalCode Postal code of the street
+	 * @param areaCode Area code of the street
 	 * @param city City of the contact
 	 * @param country Country of the contact
-	 * @param phoneNumber Phone number of the contact
+	 * @param phone Phone number of the contact
 	 * @param email Email of the contact
 	 */
 	public ContactInfo(
@@ -79,8 +79,7 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of name
 	 * @param newName new name the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setName(final String newName) 
 	        throws SQLException {
@@ -101,8 +100,7 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of description
 	 * @param newDescription new description the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setDescription(final String newDescription) 
 	        throws SQLException {
@@ -123,8 +121,7 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of street
 	 * @param newStreet new street the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setStreet(final String newStreet) 
 	        throws SQLException {
@@ -134,24 +131,23 @@ public class ContactInfo extends Identifier {
 	}
 
 	/**
-	 * Getter of postal code
-	 * @return postal code of the contact
+	 * Getter of area code
+	 * @return area code of the contact
 	 */
 	public final int getAreaCode() {
-	    myLogger.getInstance().info("Postal code of contact info has been getted");
+	    myLogger.getInstance().info("Area code of contact info has been getted");
 		return this.areaCode;
 	}
 
 	/**
-	 * Setter of postal code
-	 * @param newPostalCode new postal code the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * Setter of area code
+	 * @param newAreaCode new area code the contact will have
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setAreaCode(final int newAreaCode) 
 	        throws SQLException {
 		this.areaCode = newAreaCode;
-		myLogger.getInstance().info("Postal code of contact info has been setted");
+		myLogger.getInstance().info("Area code of contact info has been setted");
 		DataBaseController.getInstance().updateAreaCodeContactInfo(getID(), newAreaCode);
 	}
 
@@ -167,8 +163,7 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of city
 	 * @param newCity new city the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setCity(final String newCity) 
 	        throws SQLException {
@@ -189,8 +184,7 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of country
 	 * @param newCountry new country of the contact
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setCountry(final String newCountry) 
 	        throws SQLException {
@@ -209,10 +203,9 @@ public class ContactInfo extends Identifier {
 	}
 
 	/**
-	 * Setter of phone number
-	 * @param newPhoneNumber new phone number the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * Setter of phone
+	 * @param newPhone new phone number the contact will have
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setPhone(final int newPhone) 
 	        throws SQLException {
@@ -233,8 +226,7 @@ public class ContactInfo extends Identifier {
 	/**
 	 * Setter of email
 	 * @param newEmail new email the contact will have
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void setEmail(final String newEmail)
 	        throws SQLException {
