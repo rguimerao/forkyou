@@ -1,6 +1,6 @@
 package backend;
 
-import testing.myLogger;
+import testing.MyLogger;
 import java.sql.SQLException;
 
 /**
@@ -29,6 +29,6 @@ public class Ingredient extends Food {
             final FoodCreator creator) throws SQLException {
 
         super(name, category, forSell, price, creator);
-        myLogger.getInstance().info("A new ingredient with name: " + name + " has been created");
+        MyLogger.info("A new ingredient with name: " + name + " has been created");
 	}
 }

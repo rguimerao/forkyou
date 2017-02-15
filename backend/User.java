@@ -1,12 +1,13 @@
 package backend;
 
-import testing.myLogger;
+import testing.MyLogger;
+import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Class user.
- * A user is a food creator and the main actioner of the app.
+ * A user is a food creator and the main character of the app.
  * @author rguimerao
  *
  */
@@ -42,7 +43,7 @@ public class User extends FoodCreator {
 		this.foodWishlist = new ArrayList<Food>();
 		this.following    = new ArrayList<FoodCreator>();
 		this.nickname     = nickname;
-		myLogger.getInstance().info("A new user has been created with name: " + name);
+		MyLogger.info("A new user has been created with name: " + name);
 	}
 	
 	/**
@@ -56,9 +57,12 @@ public class User extends FoodCreator {
 	/**
 	 * Sets the new nickname of the user
 	 * @param newNickName new nickname the user will have
+	 * @throws SQLException if a DB error occurs 
 	 */
-	public void setNickName(final String newNickName) {
+	public void setNickName(final String newNickName) 
+	        throws SQLException {
 	    this.nickname = newNickName;
+	    DataBaseController.getInstance().updateUserNickName(getID(), newNickName);
 	}
 
 	/**
@@ -66,32 +70,32 @@ public class User extends FoodCreator {
 	 * @return array of foods
 	 */
 	public final ArrayList<Food> getWishlist() {
-	    myLogger.getInstance().info("Food wishlist getted");
+	    MyLogger.info("Food wishlist getted");
 		return this.foodWishlist;
 	}
 	
 	/**
 	 * Adds food to the user's wish list
 	 * @param foodToAdd food to add
-	 * @throws SQLException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void addFoodToWishlist(final Food foodToAdd) 
 	        throws SQLException {
 		this.foodWishlist.add(foodToAdd);
 		foodToAdd.addUserToUsersWantingMe(this);
-		myLogger.getInstance().info("A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
+		MyLogger.info("A food with name: " + foodToAdd.getName() + " has been added to the wishlist");
 	}
 
 	/**
 	 * Removes food from wish list
 	 * @param foodToRemove food to remove
-	 * @throws SQLException 
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void removeFoodFromWishlist(final Food foodToRemove) 
 	        throws SQLException {
 		foodToRemove.removeUserFromUsersWantingMe(this);
 		this.foodWishlist.remove(foodToRemove);
-		myLogger.getInstance().info(foodToRemove.getName() + " has been removed from user wishlist");
+		MyLogger.info(foodToRemove.getName() + " has been removed from user wishlist");
 	}
 	
 	/**
@@ -99,34 +103,38 @@ public class User extends FoodCreator {
 	 * @return array of following users
 	 */
 	public final ArrayList<FoodCreator> getFollowing() {
-	    myLogger.getInstance().info("Followig users of users getted");
+	    MyLogger.info("Followig users of users getted");
 		return this.following;
 	}
 	
 	/**
 	 * Adds a user to the following list only if its different than itself
 	 * @param userToAdd user to add to the following list
+	 * @throws SQLException if a DB error occurs
 	 */
-	public final void followFoodCreator(final FoodCreator foodCreatorToAdd) {
-		if (foodCreatorToAdd != this) { // TODO by id?
+	public final void followFoodCreator(final FoodCreator foodCreatorToAdd) 
+	        throws SQLException {
+		if (foodCreatorToAdd.getID() != this.getID()) {
 			this.following.add(foodCreatorToAdd);
 			foodCreatorToAdd.addFollower(this);
-			myLogger.getInstance().info("User added to following users");
+		    DataBaseController.getInstance().followFoodCreator(getID(), foodCreatorToAdd.getID());
+			MyLogger.info("User added to following users");
 		} else {
-		    myLogger.getInstance().warning("ERROR addFollowing user tried to follow youself");
+		    MyLogger.warning("ERROR addFollowing user tried to follow youself");
 		}
-		// TODO -> DB
 	}
 	
 	/**
 	 * Removes user from the following list
 	 * @param userToRemove user to remove from the following list
+	 * @throws SQLException if a DB error occurs
 	 */
-	public final void removeFollowing(final FoodCreator foodCreatorToRemove) {
+	public final void removeFollowing(final FoodCreator foodCreatorToRemove) 
+	        throws SQLException {
 		this.following.remove(foodCreatorToRemove);
 		foodCreatorToRemove.removeFollower(this);
-		myLogger.getInstance().info("User removed from following users");
-		// TODO -> DB
+	    DataBaseController.getInstance().unFollowFoodCreator(getID(), foodCreatorToRemove.getID());
+		MyLogger.info("User removed from following users");
 	}
 	
 	/**
@@ -139,6 +147,8 @@ public class User extends FoodCreator {
 	 * @param country country of the new brand
 	 * @param phone phone number  of the new brand
 	 * @param email email of the new brand
+	 * @param website website of the brand
+	 * @throws SQLException if a DB error occurs
 	 */
 	public final void createBrand(
 		final String name,
@@ -148,9 +158,12 @@ public class User extends FoodCreator {
 		final String city,
 		final String country,
 		final int phone,
-		final String email) {
+		final String email,
+		final String website,
+		final String hashPassword) 
+		        throws SQLException {
 		
-		/* Brand newBrand = 
+		Brand newBrand = 
 				new Brand(
 						name, 
 						description, 
@@ -159,11 +172,12 @@ public class User extends FoodCreator {
 						city, 
 						country, 
 						phone, 
-						email
-						);
-		db controller -> add new brand */
-		// TODO -> LOGGER
-		// TODO -> DB
-	    myLogger.getInstance().info("A user has created a brand");
+						email,
+						website);
+		DataBaseController.getInstance().createNewContactInfo(newBrand);
+		newBrand.obtainID();
+		DataBaseController.getInstance().createNewFoodCreator(newBrand, hashPassword);
+		DataBaseController.getInstance().createNewBrand(newBrand);
+	    MyLogger.info("A user has created a brand");
 	}
 }

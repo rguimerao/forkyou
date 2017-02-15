@@ -1,7 +1,7 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import testing.myLogger;
+import testing.MyLogger;
 import java.sql.SQLException;
 
 /**
@@ -51,7 +51,7 @@ public class ContactInfo extends Identifier {
 		this.country     = country;
 		this.phone       = phone;
 		this.email       = email;
-		myLogger.getInstance().info("A new contact info has been created");
+		MyLogger.info("A new contact info has been created");
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class ContactInfo extends Identifier {
 	 */
 	@Override
 	public void obtainID() {
-	    myLogger.getInstance().info("obtainID in ContactInfo");
+	    MyLogger.info("obtainID in ContactInfo");
 		try {
             setID(DataBaseController.getInstance().obtainID(this));
         } catch (SQLException e) {
@@ -72,7 +72,7 @@ public class ContactInfo extends Identifier {
 	 * @return name of the contact
 	 */
 	public final String getName() {
-	    myLogger.getInstance().info("Name of contact info has been getted");
+	    MyLogger.info("Name of contact info has been getted");
 		return this.name;
 	}
 
@@ -84,7 +84,7 @@ public class ContactInfo extends Identifier {
 	public final void setName(final String newName) 
 	        throws SQLException {
 		this.name = newName;
-		myLogger.getInstance().info("Name of contact info has been setted");
+		MyLogger.info("Name of contact info has been setted");
 		DataBaseController.getInstance().updateNameContactInfo(getID(), newName);
 	}
 
@@ -93,7 +93,7 @@ public class ContactInfo extends Identifier {
 	 * @return description of the contact
 	 */
 	public final String getDescription() {
-	    myLogger.getInstance().info("Description of contact info has been getted");
+	    MyLogger.info("Description of contact info has been getted");
 		return this.description;
 	}
 
@@ -105,7 +105,7 @@ public class ContactInfo extends Identifier {
 	public final void setDescription(final String newDescription) 
 	        throws SQLException {
 		this.description = newDescription;
-		myLogger.getInstance().info("Description of contact info has been setted");
+		MyLogger.info("Description of contact info has been setted");
 		DataBaseController.getInstance().updateDescriptionContactInfo(getID(), newDescription);
 	}
 
@@ -114,7 +114,7 @@ public class ContactInfo extends Identifier {
 	 * @return street of the contact
 	 */
 	public final String getStreet() {
-	    myLogger.getInstance().info("Street of contact info has been getted");
+	    MyLogger.info("Street of contact info has been getted");
 		return this.street;
 	}
 
@@ -126,7 +126,7 @@ public class ContactInfo extends Identifier {
 	public final void setStreet(final String newStreet) 
 	        throws SQLException {
 		this.street = newStreet;
-		myLogger.getInstance().info("Street of contact info has been setted");
+		MyLogger.info("Street of contact info has been setted");
 		DataBaseController.getInstance().updateStreetContactInfo(getID(), newStreet);
 	}
 
@@ -135,7 +135,7 @@ public class ContactInfo extends Identifier {
 	 * @return area code of the contact
 	 */
 	public final int getAreaCode() {
-	    myLogger.getInstance().info("Area code of contact info has been getted");
+	    MyLogger.info("Area code of contact info has been getted");
 		return this.areaCode;
 	}
 
@@ -147,7 +147,7 @@ public class ContactInfo extends Identifier {
 	public final void setAreaCode(final int newAreaCode) 
 	        throws SQLException {
 		this.areaCode = newAreaCode;
-		myLogger.getInstance().info("Area code of contact info has been setted");
+		MyLogger.info("Area code of contact info has been setted");
 		DataBaseController.getInstance().updateAreaCodeContactInfo(getID(), newAreaCode);
 	}
 
@@ -156,7 +156,7 @@ public class ContactInfo extends Identifier {
 	 * @return city of the contact
 	 */
 	public final String getCity() {
-	    myLogger.getInstance().info("City of contact info has been getted");
+	    MyLogger.info("City of contact info has been getted");
 		return this.city;
 	}
 
@@ -168,7 +168,7 @@ public class ContactInfo extends Identifier {
 	public final void setCity(final String newCity) 
 	        throws SQLException {
 		this.city = newCity;
-		myLogger.getInstance().info("City of contact info has been setted");
+		MyLogger.info("City of contact info has been setted");
 		DataBaseController.getInstance().updateCityContactInfo(getID(), newCity);
 	}
 
@@ -177,7 +177,7 @@ public class ContactInfo extends Identifier {
 	 * @return country of the contact
 	 */
 	public final String getCountry() {
-	    myLogger.getInstance().info("Country of contact info has been getted");
+	    MyLogger.info("Country of contact info has been getted");
 		return this.country;
 	}
 
@@ -189,7 +189,7 @@ public class ContactInfo extends Identifier {
 	public final void setCountry(final String newCountry) 
 	        throws SQLException {
 		this.city = newCountry;
-		myLogger.getInstance().info("Country of contact info has been setted");
+		MyLogger.info("Country of contact info has been setted");
 		DataBaseController.getInstance().updateCountryContactInfo(getID(), newCountry);
 	}
 
@@ -198,7 +198,7 @@ public class ContactInfo extends Identifier {
 	 * @return phone number of the contact
 	 */
 	public final int getPhone() {
-	    myLogger.getInstance().info("Phone number of contact info has been getted");
+	    MyLogger.info("Phone number of contact info has been getted");
 		return this.phone;
 	}
 
@@ -210,7 +210,7 @@ public class ContactInfo extends Identifier {
 	public final void setPhone(final int newPhone) 
 	        throws SQLException {
 		this.phone = newPhone;
-		myLogger.getInstance().info("Phone number of contact info has been setted");
+		MyLogger.info("Phone number of contact info has been setted");
 		DataBaseController.getInstance().updatePhoneContactInfo(getID(), newPhone);
 	}
 
@@ -219,7 +219,7 @@ public class ContactInfo extends Identifier {
 	 * @return email of the contact
 	 */
 	public final String getEmail() {
-	    myLogger.getInstance().info("Email of contact info has been getted");
+	    MyLogger.info("Email of contact info has been getted");
 		return this.email;
 	}
 
@@ -231,7 +231,7 @@ public class ContactInfo extends Identifier {
 	public final void setEmail(final String newEmail)
 	        throws SQLException {
 		this.email = newEmail;
-		myLogger.getInstance().info("Email of contact info has been setted");
+		MyLogger.info("Email of contact info has been setted");
 		DataBaseController.getInstance().updateEmailContactInfo(getID(), newEmail);
 	}
 

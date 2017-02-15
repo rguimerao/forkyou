@@ -1,6 +1,6 @@
 package backend;
 
-import testing.myLogger;
+import testing.MyLogger;
 import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class FoodCreator extends ContactInfo {
         this.foodsCreated   = new ArrayList<Food>();
         this.recipesCreated = new ArrayList<Recipe>();
         this.followers      = new ArrayList<User>();
-        myLogger.getInstance().info("A food creator has been created");
+        MyLogger.info("A food creator has been created");
     }
 	
     /**
@@ -50,7 +50,7 @@ public class FoodCreator extends ContactInfo {
      * @return foods created by the food creator
      */
     public final ArrayList<Food> getFoodsCreated() {
-        myLogger.getInstance().info("Foods created from food creator getted");
+        MyLogger.info("Foods created from food creator getted");
         return this.foodsCreated;
     }
 
@@ -60,7 +60,7 @@ public class FoodCreator extends ContactInfo {
      */
     private final void addFood(final Food foodToAdd) {
         this.foodsCreated.add(foodToAdd);
-        myLogger.getInstance().info("Food added to foods created");
+        MyLogger.info("Food added to foods created");
     }
 
     /**
@@ -68,7 +68,7 @@ public class FoodCreator extends ContactInfo {
      * @return recipes created by the food creator
      */
     public final ArrayList<Recipe> getRecipesCreated() {
-        myLogger.getInstance().info("Recipes from food creator getted");
+        MyLogger.info("Recipes from food creator getted");
         return this.recipesCreated;
     }
 
@@ -78,7 +78,7 @@ public class FoodCreator extends ContactInfo {
      */
     private final void addRecipe(final Recipe recipeToAdd) {
         this.recipesCreated.add(recipeToAdd);
-        myLogger.getInstance().info("Recipe added to food creator");
+        MyLogger.info("Recipe added to food creator");
     }
 	
     /**
@@ -101,7 +101,7 @@ public class FoodCreator extends ContactInfo {
         newIngredient.obtainID();
         DataBaseController.getInstance().createNewIngredient(newIngredient);
         addFood(newIngredient);
-        myLogger.getInstance().info("Ingredient created and added on food creator");
+        MyLogger.info("Ingredient created and added on food creator");
     }
     
     /**
@@ -124,7 +124,7 @@ public class FoodCreator extends ContactInfo {
         newDish.obtainID();
         DataBaseController.getInstance().createNewDish(newDish);
         addFood(newDish);
-        myLogger.getInstance().info("Dish created and added on food creator");
+        MyLogger.info("Dish created and added on food creator");
     }
 	
     /**
@@ -148,7 +148,7 @@ public class FoodCreator extends ContactInfo {
         DataBaseController.getInstance().createNewDish(newDrink);
         DataBaseController.getInstance().createNewDrink(newDrink);
         addFood(newDrink);
-        myLogger.getInstance().info("Drink created and added on food creator");
+        MyLogger.info("Drink created and added on food creator");
     }
 
     /**
@@ -156,12 +156,12 @@ public class FoodCreator extends ContactInfo {
      * For example, french fries (foodToAdd) to burger with fries (dish)
      * @param dish dish where the food will be added
      * @param foodToAdd food to add to the dish
+     * @throws SQLException if a DB error occurs
      */
-    public final void addFoodToDish(final Dish dish, final Food foodToAdd) {
-
-        // TODO -> review dish
+    public final void addFoodToDish(final Dish dish, final Food foodToAdd) 
+            throws SQLException {
         dish.addFood(foodToAdd);
-        myLogger.getInstance().info("Food added to dish on food creator");
+        MyLogger.info("Food added to dish on food creator");
     }
 	
     /**
@@ -182,7 +182,7 @@ public class FoodCreator extends ContactInfo {
         newRecipe.obtainID();
         newRecipe.getDish().setRecipe(newRecipe);
         addRecipe(newRecipe);
-        myLogger.getInstance().info("Recipe created and added on food creator");
+        MyLogger.info("Recipe created and added on food creator");
     }
 
     /**
@@ -196,7 +196,7 @@ public class FoodCreator extends ContactInfo {
         Category newCategory = new Category(name);
         DataBaseController.getInstance().createNewCategory(newCategory);
         newCategory.obtainID();
-        myLogger.getInstance().info("Category created in food creator");
+        MyLogger.info("Category created in food creator");
     }
 
     /**
@@ -239,7 +239,7 @@ public class FoodCreator extends ContactInfo {
         DataBaseController.getInstance().createNewContactInfo(newLocation);
         newLocation.obtainID();
         DataBaseController.getInstance().createNewLocation(newLocation);
-        myLogger.getInstance().info("Location created on food creator");
+        MyLogger.info("Location created on food creator");
     }
 	
     /**
@@ -247,7 +247,7 @@ public class FoodCreator extends ContactInfo {
      * @return array of users
      */
     public final ArrayList<User> getFollowers() {
-        myLogger.getInstance().info("Followers list getted");
+        MyLogger.info("Followers list getted");
         return this.followers;
     }
 	
@@ -257,8 +257,7 @@ public class FoodCreator extends ContactInfo {
      */
     protected final void addFollower(final User followerUserToAdd) {
         this.followers.add(followerUserToAdd);
-        myLogger.getInstance().info("A user is now following you");
-        // TODO -> review from user
+        MyLogger.info("A user is now following you");
     }
 	
     /**
@@ -267,8 +266,7 @@ public class FoodCreator extends ContactInfo {
      */
     protected final void removeFollower(final User userToRemove) {
         this.followers.remove(userToRemove);
-        myLogger.getInstance().info("A user has removed you from its following list");
-        // TODO -> review from user
+        MyLogger.info("A user has removed you from its following list");
     }
 
     /**

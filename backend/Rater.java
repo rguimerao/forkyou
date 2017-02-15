@@ -1,7 +1,7 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import testing.myLogger;
+import testing.MyLogger;
 import java.sql.SQLException;
 
 /**
@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @author rguimerao
  *
  */
-public class Rater implements VisitorRating {
+public class Rater {
 
     private static Rater instance;
     
@@ -19,16 +19,16 @@ public class Rater implements VisitorRating {
      * Constructor of Rater
      */
     private Rater() {
-        myLogger.getInstance().info("A new rater has been created");
+        MyLogger.info("A new rater has been created");
     }
     
     /**
      * Get instace of type Rater
      * @return instance of Rater
      */
-    public final static Rater getInstance() {
+    private final static Rater getInstance() {
         if (instance == null) {
-            myLogger.getInstance().info("Instance of rater was null, creating new one");
+            MyLogger.info("Instance of rater was null, creating new one");
             instance = new Rater();
         }
         
@@ -42,10 +42,11 @@ public class Rater implements VisitorRating {
      * @param userID id of the user rating
      * @throws SQLException if a DB error occurs
      */
-    public void rate(final Brand brand, final int rating, final int userID) 
+    public final static void rate(final Brand brand, final int rating, final int userID) 
             throws SQLException {
+        getInstance();
         DataBaseController.getInstance().rateBrand(brand.getID(), rating, userID);
-        myLogger.getInstance().info("A brand has been rated");
+        MyLogger.info("A brand has been rated");
     }
 
     /**
@@ -55,10 +56,11 @@ public class Rater implements VisitorRating {
      * @param userID id of the user rating
      * @throws SQLException if a DB error occurs
      */
-    public void rate(final Location location, final int rating, final int userID) 
+    public final static void rate(final Location location, final int rating, final int userID) 
             throws SQLException {
+        getInstance();
         DataBaseController.getInstance().rateLocation(location.getID(), rating, userID);
-        myLogger.getInstance().info("A location has been rated");
+        MyLogger.info("A location has been rated");
     }
 
     /**
@@ -66,10 +68,13 @@ public class Rater implements VisitorRating {
      * @param recipe recipe to be rated
      * @param rating rating given to the recipe
      * @param userID id of the user rating
+     * @throws SQLException if a DB error occurs
      */
-    public void rate(final Recipe recipe, final int rating, final int userID) {
-        // TODO
-        myLogger.getInstance().info("A recipe has been rated");
+    public final static void rate(final Recipe recipe, final int rating, final int userID) 
+            throws SQLException {
+        getInstance();
+        DataBaseController.getInstance().rateRecipe(recipe.getID(), rating, userID);
+        MyLogger.info("A recipe has been rated");
     }
 	
     /**
@@ -79,9 +84,10 @@ public class Rater implements VisitorRating {
      * @param userID id of the user rating
      * @throws SQLException if a DB error occurs
      */
-    public void rate(final Food food, final int rating, final int userID) 
+    public final static void rate(final Food food, final int rating, final int userID) 
             throws SQLException {
+        getInstance();
         DataBaseController.getInstance().rateFood(food.getID(), rating, userID);
-        myLogger.getInstance().info("A food has been rated");
+        MyLogger.info("A food has been rated");
     }
 }

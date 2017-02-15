@@ -1,6 +1,6 @@
 package backend;
 
-import testing.myLogger;
+import testing.MyLogger;
 import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,18 +40,11 @@ public class Food extends Identifier {
 		this.category = category;
 		this.forSell  = forSell;
 		this.creator  = creator;
-		
-		if (price >= 0) {
-			this.price = price;
-		} else {
-			this.price = -1;
-			myLogger.getInstance().warning("Price of new food is negative!");
-		}
-
+		this.price    = (price >= 0 ? price : -1);
 		this.usersWantingMe    = new ArrayList<User>();
 		this.purchaseLocations = new ArrayList<Location>();
 		this.category.addFood(this);
-		myLogger.getInstance().info("A new food with name: " + name + " has been created");
+		MyLogger.info("A new food with name: " + name + " has been created");
 	}
 	
 	/**
@@ -59,7 +52,7 @@ public class Food extends Identifier {
 	 */
 	@Override
 	public void obtainID() {
-	    myLogger.getInstance().info("obtainID in Food");
+	    MyLogger.info("obtainID in Food");
 		try {
             setID(DataBaseController.getInstance().obtainID(this));
         } catch (SQLException e) {
@@ -72,7 +65,7 @@ public class Food extends Identifier {
 	 * @return name of the food
 	 */
 	public final String getName() {
-	    myLogger.getInstance().info("Name of food has been requested");
+	    MyLogger.info("Name of food has been requested");
 		return this.name;
 	}
 
@@ -84,7 +77,7 @@ public class Food extends Identifier {
 	public final void setName(final String newName) 
 	        throws SQLException {
 		this.name = newName;
-		myLogger.getInstance().info("Name of food setted");
+		MyLogger.info("Name of food setted");
 		DataBaseController.getInstance().updateFoodName(getID(), newName);
 	}
 
@@ -93,7 +86,7 @@ public class Food extends Identifier {
 	 * @return category the food is in
 	 */
 	public final Category getCategory() {
-	    myLogger.getInstance().info("Category of food getted");
+	    MyLogger.info("Category of food getted");
 		return this.category;
 	}
 
@@ -107,7 +100,7 @@ public class Food extends Identifier {
 	    this.category.removeFood(this);
 		this.category = newCategory;
 		this.category.addFood(this);
-		myLogger.getInstance().info("Category of food setted");
+		MyLogger.info("Category of food setted");
 		DataBaseController.getInstance().updateFoodCategory(getID(), newCategory.getID());
 	}
 
@@ -116,7 +109,7 @@ public class Food extends Identifier {
 	 * @return array of location containing the locations where this food can be bought
 	 */
 	public final ArrayList<Location> getPurchaseLocations() {
-	    myLogger.getInstance().info("Purchase locations of food getted");
+	    MyLogger.info("Purchase locations of food getted");
 		return this.purchaseLocations;
 	}
 
@@ -128,12 +121,12 @@ public class Food extends Identifier {
 	public final void addPurchaseLocation(final Location purchaseLocationToAdd) 
 	        throws SQLException {
 		if(forSell) {
-		    myLogger.getInstance().info("Purchase location added to food");
+		    MyLogger.info("Purchase location added to food");
 			this.purchaseLocations.add(purchaseLocationToAdd);
 			purchaseLocationToAdd.addFood(this);
 			DataBaseController.getInstance().addFoodToLocation(getID(), purchaseLocationToAdd.getID());
 		} else {
-		    myLogger.getInstance().warning("A purchase location has tried to be added to a not for sell food!");
+		    MyLogger.warning("A purchase location has tried to be added to a not for sell food!");
 		}
 	}
 
@@ -142,7 +135,7 @@ public class Food extends Identifier {
 	 * @return true is the food is for sell, false otherwise
 	 */
 	public final boolean isForSell() {
-	    myLogger.getInstance().info("isForSell of food getted");
+	    MyLogger.info("isForSell of food getted");
 		return this.forSell;
 	}
 
@@ -154,7 +147,7 @@ public class Food extends Identifier {
 	public final void invertForSell() 
 	        throws SQLException {
 		this.forSell = !this.forSell;
-		myLogger.getInstance().info("isForSell of food inverted. Now it is: " + this.forSell);
+		MyLogger.info("isForSell of food inverted. Now it is: " + this.forSell);
 		DataBaseController.getInstance().updateFoodForSell(getID(), this.forSell);
 	}
 
@@ -163,7 +156,7 @@ public class Food extends Identifier {
 	 * @return price the food has
 	 */
 	public final float getPrice() {
-	    myLogger.getInstance().info("Price of food getted");
+	    MyLogger.info("Price of food getted");
 		return this.price;
 	}
 
@@ -178,7 +171,7 @@ public class Food extends Identifier {
 	        this.price = newPrice;
 	        DataBaseController.getInstance().updateFoodPrice(getID(), newPrice);
 	    }
-		myLogger.getInstance().info("Price of food setted");
+		MyLogger.info("Price of food setted");
 	}
 
 	/**
@@ -186,7 +179,7 @@ public class Food extends Identifier {
 	 * @return creator of this food
 	 */
 	public final FoodCreator getCreator() {
-	    myLogger.getInstance().info("Creator of food getted");
+	    MyLogger.info("Creator of food getted");
 		return this.creator;
 	}
 	
@@ -195,7 +188,7 @@ public class Food extends Identifier {
 	 * @return array list of users wanting this food
 	 */
 	public final ArrayList<User> getUsersWantingMe() {
-	    myLogger.getInstance().info("Users wanting food of food getted");
+	    MyLogger.info("Users wanting food of food getted");
 		return this.usersWantingMe;
 	}
 	
@@ -207,7 +200,7 @@ public class Food extends Identifier {
 	public final void addUserToUsersWantingMe(final User userToAdd) 
 	        throws SQLException {
 		this.usersWantingMe.add(userToAdd);
-		myLogger.getInstance().info("User added to list of users wanting this food");
+		MyLogger.info("User added to list of users wanting this food");
 		DataBaseController.getInstance().addUserWantingFood(getID(), userToAdd.getID());
 	}
 	
@@ -219,7 +212,7 @@ public class Food extends Identifier {
 	public final void removeUserFromUsersWantingMe(final User userToRemove) 
 	        throws SQLException {
 		this.usersWantingMe.remove(userToRemove);
-		myLogger.getInstance().info("User removed from user wanting this food");
+		MyLogger.info("User removed from user wanting this food");
 		DataBaseController.getInstance().deleteUserWantingFood(getID(), userToRemove.getID());
 	}
 	
@@ -232,7 +225,7 @@ public class Food extends Identifier {
 	 */
 	public void acceptRate(final int rating, final int userID) 
 	        throws SQLException {
-		Rater.getInstance().rate(this, rating, userID);
-		myLogger.getInstance().info("A food has accepted a rating");
+		Rater.rate(this, rating, userID);
+		MyLogger.info("A food has accepted a rating");
 	}
 }

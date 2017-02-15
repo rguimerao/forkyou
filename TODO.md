@@ -4,7 +4,6 @@ List of TODO things inside the project
 Backend:
 <ul>
 	<li>get ratings</li>
-	<li>finish → dish, drink, ratings, recipe, user</li>
 </ul>
 
 Database:
@@ -18,17 +17,18 @@ To review:
 <ul>
 	<li>create dish + recipe (from food creator as well)</li>
 	<li>interactions between classes + DB (use cases) + permisions of classes</li>
-	<li>dish.addfood → updates price</li>
 	<li>food is decorator? or to decorator?</li>
-	<li>Concurrent db interaction</li>
+	<li>Concurrent db interaction + singleton thread?</li>
 	<li>recipe/dish share id</li>
 	<li>Date type obsolete? - format</li>
 	<li>Food → food is in dishes</li>
+	<li>brand to single object not food creator</li>
+	<li>[refactor] rater + dbcontroller</li>
 </ul>
 
 Controllers:
 <ul>
-	<li>ratings done by app controller</li>
+	<li>ratings done by app controller + user</li>
 	<li>frontend controller checks food price >= 0 and not food - creating food</li>
 </ul>
 

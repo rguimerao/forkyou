@@ -1,6 +1,6 @@
 package backend;
 
-import testing.myLogger;
+import testing.MyLogger;
 import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.Date;
@@ -38,7 +38,7 @@ public class Recipe extends Identifier {
 		this.lastUpdate  = new Date();
 		this.creator     = creator;
 		this.dish        = dish;
-		myLogger.getInstance().info("A new recipe has been created");
+		MyLogger.info("A new recipe has been created");
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class Recipe extends Identifier {
 	 */
 	@Override
 	public void obtainID() {
-	    myLogger.getInstance().info("obtainID in Recipe");
+	    MyLogger.info("obtainID in Recipe");
 		try {
             setID(DataBaseController.getInstance().obtainID(this));
         } catch (SQLException e) {
@@ -59,19 +59,21 @@ public class Recipe extends Identifier {
 	 * @return name of the recipe
 	 */
 	public final String getName() {
-	    myLogger.getInstance().info("Name of recipe has been getted");
+	    MyLogger.info("Name of recipe has been getted");
 		return this.name;
 	}
 
 	/**
 	 * Updates recipe's name
 	 * @param newName new name the recipe will have
+	 * @throws SQLException if a DB error occurs
 	 */
-	public final void updateName(final String newName) {
+	public final void updateName(final String newName) 
+	        throws SQLException {
 		this.name = newName;
 		updateLastUpdate();
-		myLogger.getInstance().info("Name of recipe updated");
-		// TODO -> DB
+		MyLogger.info("Name of recipe updated");
+		DataBaseController.getInstance().updateRecipeName(getID(), newName);
 	}
 
 	/**
@@ -79,19 +81,21 @@ public class Recipe extends Identifier {
 	 * @return description of the recipe
 	 */
 	public final String getDescription() {
-	    myLogger.getInstance().info("Description of recipe has been getted");
+	    MyLogger.info("Description of recipe has been getted");
 		return this.description;
 	}
 
 	/**
 	 * Updates recipe's description
 	 * @param newDescription new description the recipe will have
+	 * @throws SQLException if a DB error occurs
 	 */
-	public final void updateDescription(final String newDescription) {
+	public final void updateDescription(final String newDescription) 
+	        throws SQLException {
 		this.description = newDescription;
 		updateLastUpdate();
-		myLogger.getInstance().info("Description of recipe updated");
-		// TODO -> DB
+		MyLogger.info("Description of recipe updated");
+		DataBaseController.getInstance().updateRecipeDescription(getID(), newDescription);
 	}
 
 	/**
@@ -99,17 +103,19 @@ public class Recipe extends Identifier {
 	 * @return last update the recipe was updated
 	 */
 	public final Date getLastUpdate() {
-	    myLogger.getInstance().info("Last update of recipe getted");
+	    MyLogger.info("Last update of recipe getted");
 		return this.lastUpdate;
 	}
 
 	/**
 	 * Updates the last update date
+	 * @throws SQLException if a DB error occurs 
 	 */
-	private final void updateLastUpdate() {
+	private final void updateLastUpdate() 
+	        throws SQLException {
 		this.lastUpdate = new Date();
-		myLogger.getInstance().info("Recipe updated!");
-		// TODO -> DB
+		MyLogger.info("Recipe updated!");
+		DataBaseController.getInstance().updateRecipeLastUpdate(getID(), this.lastUpdate);
 	}
 
 	/**
@@ -117,7 +123,7 @@ public class Recipe extends Identifier {
 	 * @return recipe's food creator
 	 */
 	public final FoodCreator getFoodCreator() {
-	    myLogger.getInstance().info("Creator of recipe getted");
+	    MyLogger.info("Creator of recipe getted");
 		return this.creator;
 	}
 	
@@ -126,7 +132,7 @@ public class Recipe extends Identifier {
 	 * @return dish this recipe creates
 	 */
 	public final Dish getDish() {
-	    myLogger.getInstance().info("Dish of recipe getted");
+	    MyLogger.info("Dish of recipe getted");
 		return this.dish;
 	}
 	
@@ -135,10 +141,11 @@ public class Recipe extends Identifier {
 	 * @param rater rater to execute the rate
 	 * @param rating rating given
 	 * @param userID userId rating
+	 * @throws SQLException if a DB error occurs 
 	 */
-	public void acceptRate(final int rating, final int userID) {
-		Rater.getInstance().rate(this, rating, userID);
-		myLogger.getInstance().info("A recipe has accepted a rating");
-		// TODO -> DB
+	public void acceptRate(final int rating, final int userID) 
+	        throws SQLException {
+		Rater.rate(this, rating, userID);
+		MyLogger.info("A recipe has accepted a rating");
 	}
 }

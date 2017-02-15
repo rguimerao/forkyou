@@ -12,7 +12,7 @@ public class Main {
 		
         //tester.userRemoveItemFromList();
         //tester.foodAddedToCategoryInFoodCreator();
-        //tester.testDBConnection();
+        tester.testDBConnection();
         //tester.testDBSelect();
         //tester.testDBInsertCategory();
         //tester.testFullInsertCategory();

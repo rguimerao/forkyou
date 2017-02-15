@@ -1,6 +1,6 @@
 package backend;
 
-import testing.myLogger;
+import testing.MyLogger;
 import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class Dish extends Food {
 
         super(name, category, forSell, price, creator);
         this.composedFoods = new ArrayList<Food>();
-        myLogger.getInstance().info("A dish has been created");
+        MyLogger.info("A dish has been created");
     }
 	
     /**
@@ -42,40 +42,42 @@ public class Dish extends Food {
      * @return recipe of the dish
      */
     public final Recipe getRecipe() {
-        myLogger.getInstance().info("Recipe of dish has been getted");
+        MyLogger.info("Recipe of dish has been getted");
         return this.recipe;
     }
 
     /**
-     * TODO
+     * Sets a recipe for this dish
      * @param newRecipe new recipe the dish will have
-     * @throws SQLException 
+     * @throws SQLException if a DB error occurs
      */
     public final void setRecipe(final Recipe newRecipe) 
             throws SQLException {
         this.recipe = newRecipe;
-        myLogger.getInstance().info("Recipe of dish has been setted");
+        MyLogger.info("Recipe of dish has been setted");
         DataBaseController.getInstance().updateDishRecipe(getID(), newRecipe.getID());
     }
 	
     /**
      * Updates dish recipe's name
      * @param newName new name dish recipe will have
+     * @throws SQLException if a DB error occurs 
      */
-    public final void updateRecipeName(final String newName) {
+    public final void updateRecipeName(final String newName) 
+            throws SQLException {
         this.recipe.updateName(newName);
-        myLogger.getInstance().info("Recipe's name of dish has been updated");
-        // TODO -> DB
+        MyLogger.info("Recipe's name of dish has been updated");
     }
 	
     /**
      * Updates dish recipe's description
      * @param newDescription new description dish recipe will have
+     * @throws SQLException if a DB error occurs
      */
-    public final void updateRecipeDescription(final String newDescription) {
+    public final void updateRecipeDescription(final String newDescription) 
+            throws SQLException {
         this.recipe.updateDescription(newDescription);
-        myLogger.getInstance().info("Recipe's description of dish has been updated");
-        // TODO -> review
+        MyLogger.info("Recipe's description of dish has been updated");
     }
 
     /**
@@ -83,18 +85,30 @@ public class Dish extends Food {
      * @return array list containing the foods the dish is made of
      */
     public final ArrayList<Food> getComposedFoods() {
-        myLogger.getInstance().info("ComposedFoods of dish has been getted");
+        MyLogger.info("ComposedFoods of dish has been getted");
         return this.composedFoods;
     }
 
     /**
+     * Updates the price when adding a new food
+     * @param priceToAdd new price to add
+     * @throws SQLException if a DB error occurs
+     */
+    private final void updatePrice(final float priceToAdd) 
+            throws SQLException {
+        this.setPrice(this.getPrice() + priceToAdd);
+    }
+    
+    /**
      * Adds a food to the dish
      * @param foodToAdd food to add to the dish
+     * @throws SQLException if a DB error occurs
      */
-    public void addFood(final Food foodToAdd) {
+    public void addFood(final Food foodToAdd) 
+            throws SQLException {
         this.composedFoods.add(foodToAdd);
-        myLogger.getInstance().info("A food has been added to the composed foods of dish");
-        // TODO -> DB
-        // TODO -> update price
+        DataBaseController.getInstance().addFoodToDish(getID(), foodToAdd.getID());
+        updatePrice(foodToAdd.getPrice());
+        MyLogger.info("A food has been added to the composed foods of dish");
     }
 }
