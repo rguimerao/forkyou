@@ -7,12 +7,10 @@ public class Main {
 
     public static void main(String[] args) 
             throws SQLException, ClassNotFoundException {
-       
-        Tester tester = new Tester();
 		
         //tester.userRemoveItemFromList();
         //tester.foodAddedToCategoryInFoodCreator();
-        tester.testDBConnection();
+        Tester.testDBConnection();
         //tester.testDBSelect();
         //tester.testDBInsertCategory();
         //tester.testFullInsertCategory();

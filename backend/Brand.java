@@ -1,8 +1,6 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import testing.MyLogger;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +39,6 @@ public class Brand extends FoodCreator {
 		super(name, description, street, areaCode, city, country, phone, email);
 		this.sellLocations = new ArrayList<Location>();
 		this.website       = website;
-		MyLogger.info("A new brand has been created with name: " + name);
 	}
 	
 	/**
@@ -49,7 +46,6 @@ public class Brand extends FoodCreator {
 	 * @return website of the brand
 	 */
 	public final String getWebsite() {
-	    MyLogger.info("Website of brand getted");
 		return this.website;
 	}
 	
@@ -59,10 +55,8 @@ public class Brand extends FoodCreator {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public final void setWebsite(final String newWebsite) 
-			throws ClassNotFoundException, SQLException {
+	public final void setWebsite(final String newWebsite) {
 		this.website = newWebsite;
-		MyLogger.info("Website of brand setted");
 		DataBaseController.getInstance().updateBrandWebsite(getID(), newWebsite);
 	}
 
@@ -71,23 +65,18 @@ public class Brand extends FoodCreator {
 	 * @return location where the brand sells food
 	 */
 	public final ArrayList<Location> getSellLocations() {
-	    MyLogger.info("Sell locations from brand: " + getName() + " has been getted");
 		return this.sellLocations;
 	}
 
 	/**
 	 * Add a new location to the sellLocations array
 	 * @param newLocation new location to add to the array
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
 	 */
-	public final void addSellLocation(final Location newLocation) 
-			throws SQLException, ClassNotFoundException {
-		this.sellLocations.add(newLocation);
-		if (newLocation.getOwner() != this) {
+	public final void addSellLocation(final Location newLocation) {
+		if (newLocation.getOwner().getID() != getID()) {
+		    this.sellLocations.add(newLocation);
 			newLocation.setOwner(this);
 		}
-		MyLogger.info("A new location has been added to the brand");
 	}
 	
 	/**
@@ -100,7 +89,6 @@ public class Brand extends FoodCreator {
 	 * @param country country of the location
 	 * @param phone phone number of the location
 	 * @param email email of the location
-	 * @throws SQLException if a DB error occurs
 	 */
 	@Override
 	public final void createLocation(
@@ -112,8 +100,7 @@ public class Brand extends FoodCreator {
 		final String country,
 		final int phone,
 		final String email,
-		final Brand owner) 
-				throws SQLException {
+		final Brand owner) {
 		
 		Location newLocation = 
 				new Location(
@@ -130,7 +117,6 @@ public class Brand extends FoodCreator {
 		DataBaseController.getInstance().createNewContactInfo(newLocation);
 		newLocation.obtainID();
 		DataBaseController.getInstance().createNewLocation(newLocation);
-		MyLogger.info("Location created on brand");
 	}
 	
 	/**
@@ -138,11 +124,8 @@ public class Brand extends FoodCreator {
 	 * @param rater rater to execute the rate
 	 * @param rating rating given
 	 * @param userID userId rating
-	 * @throws SQLException if a DB error occurs
 	 */
-	public final void acceptRate(final int rating, final int userID) 
-			throws SQLException {
+	public final void acceptRate(final int rating, final int userID) {
 		Rater.rate(this, rating, userID);
-		MyLogger.info("A brand has accepted a rating");
 	}
 }

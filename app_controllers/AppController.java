@@ -7,7 +7,6 @@ import backend.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import DB_controllers.DataBaseController;
 
 public class AppController {

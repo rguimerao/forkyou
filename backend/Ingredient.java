@@ -1,8 +1,5 @@
 package backend;
 
-import testing.MyLogger;
-import java.sql.SQLException;
-
 /**
  * Class ingredient.
  * An ingredient is a food, a dish is composed by foods, mostly ingredients.
@@ -19,16 +16,14 @@ public class Ingredient extends Food {
      * @param forSell is this ingredient for sell?
      * @param price price of the ingredient
      * @param creator creator of the ingredient
-     * @throws SQLException 
      */
     public Ingredient(
             final String name, 
             final Category category, 
             final boolean forSell, 
             final float price, 
-            final FoodCreator creator) throws SQLException {
+            final FoodCreator creator) {
 
         super(name, category, forSell, price, creator);
-        MyLogger.info("A new ingredient with name: " + name + " has been created");
 	}
 }

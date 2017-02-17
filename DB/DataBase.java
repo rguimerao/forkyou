@@ -1,6 +1,5 @@
 package DB;
 
-import testing.MyLogger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,20 +32,12 @@ public class DataBase{
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            MyLogger.info("Driver com.mysql.jdbc.Driver loaded!");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("Cannot find the driver in the classpath!", e);
         }
     	
         try {
             connection = DriverManager.getConnection(url, username, password);
-            
-            if (!isConnectionClosed()) {
-                MyLogger.info("Connection to DB successful!");
-            } else {
-                MyLogger.severe("ERROR! CONNECTION IS CLOSED");
-            }
-            
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect to the database!", e);
         }
@@ -62,13 +53,9 @@ public class DataBase{
             throws SQLException, ClassNotFoundException {
     	
         if (instance == null) {
-            MyLogger.info("Instance of DB is null, creating new one");
             instance = new DataBase();
         } else if (instance.getConnection().isClosed()) {
-            MyLogger.info("Connection is closed, creating new one");
             instance = new DataBase();
-        } else {
-            MyLogger.info("Instance of DB is not null and it is opened, returning current instance");
         }
 
         return instance;
@@ -79,7 +66,6 @@ public class DataBase{
      * @return current connection
      */
     public final Connection getConnection() {
-        MyLogger.info("Connection of DB returned");
         return connection;
     }
     
@@ -91,7 +77,6 @@ public class DataBase{
     public final boolean isConnectionClosed() 
             throws SQLException {
         try {
-            MyLogger.info("Status of DB getted");
             return connection.isClosed();
         } catch (SQLException e) {
             throw new SQLException("Database error access ocurred", e);
@@ -106,7 +91,6 @@ public class DataBase{
             throws SQLException {
         try {
             instance.getConnection().close();
-            MyLogger.info("DB connection closed");
         } catch (SQLException e) {
             throw new SQLException("Database error access ocurred", e);
         }
@@ -119,7 +103,6 @@ public class DataBase{
      */
     public final void executeInsert(final String query) 
             throws SQLException {
-        MyLogger.info("Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
             try {
@@ -143,7 +126,6 @@ public class DataBase{
      */
     public final void executeUpdate(final String query) 
             throws SQLException {
-        MyLogger.info("Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
             try {
@@ -167,7 +149,6 @@ public class DataBase{
      */
     public final void executeDelete(final String query) 
             throws SQLException {
-        MyLogger.info("Query received is:\n" + query);
         Statement stmt = null;
         if (!isConnectionClosed()) {
             try {
@@ -192,7 +173,6 @@ public class DataBase{
      */
     public final int obtainID(final String query) 
             throws SQLException  {
-        MyLogger.info("Query received is:\n" + query);
         int id = -1;
         Statement stmt = null;
         if (!isConnectionClosed()) {
@@ -211,7 +191,6 @@ public class DataBase{
                 closeConnection();
             }
         }
-        MyLogger.info("ID sent is: " + id);
         return id;
     }
 }

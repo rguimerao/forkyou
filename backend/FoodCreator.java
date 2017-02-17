@@ -1,6 +1,5 @@
 package backend;
 
-import testing.MyLogger;
 import DB_controllers.DataBaseController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ public class FoodCreator extends ContactInfo {
         this.foodsCreated   = new ArrayList<Food>();
         this.recipesCreated = new ArrayList<Recipe>();
         this.followers      = new ArrayList<User>();
-        MyLogger.info("A food creator has been created");
     }
 	
     /**
@@ -50,7 +48,6 @@ public class FoodCreator extends ContactInfo {
      * @return foods created by the food creator
      */
     public final ArrayList<Food> getFoodsCreated() {
-        MyLogger.info("Foods created from food creator getted");
         return this.foodsCreated;
     }
 
@@ -60,7 +57,6 @@ public class FoodCreator extends ContactInfo {
      */
     private final void addFood(final Food foodToAdd) {
         this.foodsCreated.add(foodToAdd);
-        MyLogger.info("Food added to foods created");
     }
 
     /**
@@ -68,7 +64,6 @@ public class FoodCreator extends ContactInfo {
      * @return recipes created by the food creator
      */
     public final ArrayList<Recipe> getRecipesCreated() {
-        MyLogger.info("Recipes from food creator getted");
         return this.recipesCreated;
     }
 
@@ -78,7 +73,6 @@ public class FoodCreator extends ContactInfo {
      */
     private final void addRecipe(final Recipe recipeToAdd) {
         this.recipesCreated.add(recipeToAdd);
-        MyLogger.info("Recipe added to food creator");
     }
 	
     /**
@@ -87,21 +81,18 @@ public class FoodCreator extends ContactInfo {
      * @param category category which the ingredient belongs to
      * @param forSell is the food for sell?
      * @param price price of the ingredient
-     * @throws SQLException if a DB error occurs
      */
     public final void createIngredient(
             final String name, 
             final Category category, 
             final boolean forSell,
-            final float price) 
-                    throws SQLException {
+            final float price) {
         
         Ingredient newIngredient = new Ingredient(name, category, forSell, price, this);
         DataBaseController.getInstance().createNewFood(newIngredient);
         newIngredient.obtainID();
         DataBaseController.getInstance().createNewIngredient(newIngredient);
         addFood(newIngredient);
-        MyLogger.info("Ingredient created and added on food creator");
     }
     
     /**
@@ -110,21 +101,18 @@ public class FoodCreator extends ContactInfo {
      * @param category category which the food belongs to
      * @param forSell is the dish for sell?
      * @param price price of the dish
-     * @throws SQLException if a DB error occurs
      */
     public final void createDish(
             final String name, 
             final Category category, 
             final boolean forSell,
-            final float price) 
-                    throws SQLException {
+            final float price) {
         
         Dish newDish = new Dish(name, category, forSell, price, this);
         DataBaseController.getInstance().createNewFood(newDish);
         newDish.obtainID();
         DataBaseController.getInstance().createNewDish(newDish);
         addFood(newDish);
-        MyLogger.info("Dish created and added on food creator");
     }
 	
     /**
@@ -132,8 +120,7 @@ public class FoodCreator extends ContactInfo {
      * @param name name of the drink
      * @param forSell is the drink for sell?
      * @param price price of the drink
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
+     * @throws SQLException if a DB error occurs
      */
     public final void createDrink(
             final String name, 
@@ -148,7 +135,6 @@ public class FoodCreator extends ContactInfo {
         DataBaseController.getInstance().createNewDish(newDrink);
         DataBaseController.getInstance().createNewDrink(newDrink);
         addFood(newDrink);
-        MyLogger.info("Drink created and added on food creator");
     }
 
     /**
@@ -156,12 +142,9 @@ public class FoodCreator extends ContactInfo {
      * For example, french fries (foodToAdd) to burger with fries (dish)
      * @param dish dish where the food will be added
      * @param foodToAdd food to add to the dish
-     * @throws SQLException if a DB error occurs
      */
-    public final void addFoodToDish(final Dish dish, final Food foodToAdd) 
-            throws SQLException {
+    public final void addFoodToDish(final Dish dish, final Food foodToAdd) {
         dish.addFood(foodToAdd);
-        MyLogger.info("Food added to dish on food creator");
     }
 	
     /**
@@ -169,34 +152,27 @@ public class FoodCreator extends ContactInfo {
      * @param name name of the recipe
      * @param description description and steps of the recipe
      * @param dish dish this new recipe will create
-     * @throws SQLException 
      */
     public final void createRecipe(
             final String name, 
             final String description, 
-            final Dish dish) 
-                    throws SQLException {
+            final Dish dish) {
 
         Recipe newRecipe = new Recipe(name, description, this, dish);
         DataBaseController.getInstance().createNewRecipe(newRecipe);
         newRecipe.obtainID();
         newRecipe.getDish().setRecipe(newRecipe);
         addRecipe(newRecipe);
-        MyLogger.info("Recipe created and added on food creator");
     }
 
     /**
      * Creates a category
      * @param name name of the new category
-     * @throws SQLException if a DB error occurs
      */
-    public final void createCategory(final String name) 
-            throws SQLException {
-
+    public final void createCategory(final String name) {
         Category newCategory = new Category(name);
         DataBaseController.getInstance().createNewCategory(newCategory);
         newCategory.obtainID();
-        MyLogger.info("Category created in food creator");
     }
 
     /**
@@ -210,7 +186,6 @@ public class FoodCreator extends ContactInfo {
      * @param phone phone of the location
      * @param email email of the location
      * @param owner brand owner of the location
-     * @throws SQLException if a DB error occurs
      */
     public void createLocation(
             final String name,
@@ -221,8 +196,7 @@ public class FoodCreator extends ContactInfo {
             final String country,
             final int phone,
             final String email,
-            final Brand owner) 
-                    throws SQLException {
+            final Brand owner) {
 
         Location newLocation = 
                 new Location(
@@ -239,7 +213,6 @@ public class FoodCreator extends ContactInfo {
         DataBaseController.getInstance().createNewContactInfo(newLocation);
         newLocation.obtainID();
         DataBaseController.getInstance().createNewLocation(newLocation);
-        MyLogger.info("Location created on food creator");
     }
 	
     /**
@@ -247,7 +220,6 @@ public class FoodCreator extends ContactInfo {
      * @return array of users
      */
     public final ArrayList<User> getFollowers() {
-        MyLogger.info("Followers list getted");
         return this.followers;
     }
 	
@@ -257,7 +229,6 @@ public class FoodCreator extends ContactInfo {
      */
     protected final void addFollower(final User followerUserToAdd) {
         this.followers.add(followerUserToAdd);
-        MyLogger.info("A user is now following you");
     }
 	
     /**
@@ -266,7 +237,6 @@ public class FoodCreator extends ContactInfo {
      */
     protected final void removeFollower(final User userToRemove) {
         this.followers.remove(userToRemove);
-        MyLogger.info("A user has removed you from its following list");
     }
 
     /**

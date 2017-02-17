@@ -14,11 +14,9 @@ import java.sql.Statement;
  * @author rguimerao
  *
  */
-public class Tester {
-
-    public Tester() {}
+public final class Tester {
 	
-    public User createUser() {
+    public static User createUser() {
         return new User(
                 "John Silver", 
                 "I am a pirate", 
@@ -31,7 +29,7 @@ public class Tester {
                 "thepirate");
     }
 	
-    public void userRemoveItemFromList() throws SQLException {
+    public static void userRemoveItemFromList() throws SQLException {
 		
         System.out.println("Creating user");
         User user = createUser();
@@ -74,7 +72,7 @@ public class Tester {
         }
     }
 	
-	public void foodAddedToCategoryInFoodCreator() 
+	public static void foodAddedToCategoryInFoodCreator() 
 	        throws SQLException {
 	    User user         = createUser();
 	    Category category = new Category("category num 1");
@@ -83,7 +81,7 @@ public class Tester {
 	    System.out.println(category.getFoods().size());
 	}
 	
-	public void testDBConnection() 
+	public static void testDBConnection() 
 	        throws SQLException, ClassNotFoundException {
 		
 	    System.out.println("Testing DB connection");
@@ -91,7 +89,7 @@ public class Tester {
 	    System.out.println("Success!!");
 	}
 	
-	public void testDBSelect() 
+	public static void testDBSelect() 
 			throws ClassNotFoundException, SQLException {
 		
 	    DataBase db = DataBase.getInstance();
@@ -117,14 +115,14 @@ public class Tester {
 	    }
 	}
 
-	public void testDBInsertCategory() 
+	public static void testDBInsertCategory() 
 			throws ClassNotFoundException, SQLException {
 		
 	    User user = createUser();
 	    user.createCategory("Drinks");
 	}
 
-	public void testFullInsertCategory() 
+	public static void testFullInsertCategory() 
 			throws ClassNotFoundException, SQLException {
 	    User user = createUser();
 	    user.createCategory("Pizzas");

@@ -1,8 +1,6 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import testing.MyLogger;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -42,7 +40,6 @@ public class Location extends ContactInfo {
         super(name, description, street, areaCode, city, country, phone, email);
         this.foodsSelling = new ArrayList<Food>();
         this.owner        = owner;
-        MyLogger.info("A new location has been created");
     }
 	
     /**
@@ -50,7 +47,6 @@ public class Location extends ContactInfo {
      * @return array of the foods being sold in this location
      */
     public final ArrayList<Food> getFoodsSelling() {
-        MyLogger.info("Foods selling in this location getted");
         return this.foodsSelling;
     }
 	
@@ -60,7 +56,6 @@ public class Location extends ContactInfo {
      */
     protected final void addFood(final Food foodToAdd) {
         this.foodsSelling.add(foodToAdd);
-        MyLogger.info("A new food has been added to foods selling in this location");
     }
 	
     /**
@@ -68,21 +63,18 @@ public class Location extends ContactInfo {
      * @return brand owner of this location
      */
     public final Brand getOwner() {
-        MyLogger.info("Owner from location getted");
         return this.owner;
     }
 	
     /**
      * Sets a new brand owner for this location
      * @param newOwner new brand owner for the location
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
      */
-    public final void setOwner(final Brand newOwner) 
-            throws ClassNotFoundException, SQLException {
-        this.owner = newOwner;
-        MyLogger.info("New owner from location setted");
-        DataBaseController.getInstance().updateLocationOwner(getID(), newOwner.getID());
+    public final void setOwner(final Brand newOwner) {
+        if (newOwner.getID() != this.owner.getID()) {
+            this.owner = newOwner;
+            DataBaseController.getInstance().updateLocationOwner(getID(), newOwner.getID());   
+        }
     }
 	
     /**
@@ -90,11 +82,8 @@ public class Location extends ContactInfo {
      * @param rater rater to execute the rate
      * @param rating rating given
      * @param userID userId rating
-     * @throws SQLException if a DB error occurs
      */
-    public void acceptRate(final int rating, final int userID) 
-            throws SQLException {
+    public void acceptRate(final int rating, final int userID) {
         Rater.rate(this, rating, userID);
-        MyLogger.info("A location has accepted a rating");
     }
 }

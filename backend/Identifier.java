@@ -1,7 +1,5 @@
 package backend;
 
-import testing.MyLogger;
-
 /**
  * Class to obtain ID of the object and know its position inside the DB
  * @author rguimerao
@@ -18,7 +16,6 @@ public class Identifier {
      */
     public Identifier() {
         this.ID = -1;
-        MyLogger.info("An identifier has been created");
     }
 
     /**
@@ -26,7 +23,6 @@ public class Identifier {
      * @return ID of the object inside the DB
      */
     public int getID() {
-        MyLogger.info("ID of identifier with ID = " + this.ID + " has been getted");
         return this.ID;
     }
 	
@@ -36,7 +32,6 @@ public class Identifier {
      */
     public void setID(int newID) {
         this.ID = newID;
-        MyLogger.info("ID of identifier setted, new ID is: " + newID);
     }
 	
     /**
@@ -44,6 +39,5 @@ public class Identifier {
      * It is overridden
      */
     public void obtainID() {
-        MyLogger.severe("obtainID in Identifier");
     }
 }

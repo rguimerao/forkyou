@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author rguimerao
  *
  */
-public class MyLogger {
+public final class MyLogger {
 
     private static final Logger LOGGER = Logger.getLogger("My Logger");
     

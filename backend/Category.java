@@ -1,7 +1,6 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import testing.MyLogger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -25,7 +24,6 @@ public class Category extends Identifier {
         super();
         this.name  = name;
         this.foods = new ArrayList<Food>();
-        MyLogger.info("A new category has been created with name: " + name);
     }
 
     /**
@@ -38,7 +36,6 @@ public class Category extends Identifier {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        MyLogger.info("obtainID in Category with result: " + getID());
     }
 	
     /**
@@ -46,7 +43,6 @@ public class Category extends Identifier {
      * @return name of the category
      */
     public final String getName() {
-        MyLogger.info("Name of category has been requested");
         return name;
     }
 
@@ -55,7 +51,6 @@ public class Category extends Identifier {
      * @return array list with the foods in the category
      */
     public final ArrayList<Food> getFoods() {
-        MyLogger.info("Array of foods in category has been requested");
         return this.foods;
     }
 
@@ -65,17 +60,13 @@ public class Category extends Identifier {
      */
     protected final void addFood(final Food foodToAdd) {
         this.foods.add(foodToAdd);
-        MyLogger.info("A food with name: " + foodToAdd.getName() + " has been added to a category");
     }
     
     /**
      * Removes a food from this category
      * @param foodToRemove food to remove from the category
-     * @throws SQLException if a DB error occurs
      */
-    protected final void removeFood(final Food foodToRemove) 
-            throws SQLException {
+    protected final void removeFood(final Food foodToRemove) {
         this.foods.remove(foodToRemove);
-        MyLogger.info("A food with name: " + foodToRemove.getName() + " has been removed to a category");
     }
 }

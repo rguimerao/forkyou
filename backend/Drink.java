@@ -1,7 +1,6 @@
 package backend;
 
 import DB_controllers.DataBaseController;
-import testing.MyLogger;
 import java.sql.SQLException;
 
 /**
@@ -19,7 +18,7 @@ public class Drink extends Dish {
      * @param forSell is this drink for sell?
      * @param price price of the drink
      * @param creator creator of this drink
-     * @throws SQLException 
+     * @throws SQLException if a DB error occurs
      */
     public Drink(
             final String name, 
@@ -28,24 +27,18 @@ public class Drink extends Dish {
             final FoodCreator creator) throws SQLException {
 		
         super(name, DataBaseController.getInstance().getDrinksCategory(), forSell, price, creator);
-        MyLogger.info("A drink has been created");
     }
 	
     /**
      * Adds an ingredient to the drink
      * If it is not an ingredient, it won't be added
      * @param ingredientToAdd ingredient to add to the drink
-     * @throws SQLException if a DB error occurs
      */
     @Override
-    public final void addFood(final Food ingredientToAdd) 
-            throws SQLException {
+    public final void addFood(final Food ingredientToAdd) {
         if (ingredientToAdd instanceof Ingredient) {
             this.composedFoods.add(ingredientToAdd);
             super.addFood(ingredientToAdd);
-            MyLogger.info("An ingredient has been added to a drink");
-        } else {
-            MyLogger.warning("A non-ingredient food has tried to be added to a drink!");
         }
     }
 }
