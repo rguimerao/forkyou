@@ -1,13 +1,11 @@
 package DB_controllers;
 
 import DB.DataBase;
-import backend.Brand;
 import backend.Category;
 import backend.ContactInfo;
 import backend.Dish;
 import backend.Drink;
 import backend.Food;
-import backend.FoodCreator;
 import backend.Ingredient;
 import backend.Location;
 import backend.Recipe;
@@ -15,6 +13,7 @@ import backend.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -26,7 +25,7 @@ import java.util.Date;
  */
 public class DataBaseController {
 
-    private static DataBaseController instance;
+    private static DataBaseController instance = null;
     private static DataBase db = null;
 	
 	/**
@@ -123,21 +122,6 @@ public class DataBaseController {
 	}
 	
 	/**
-     * Inserts a new brand into the DB
-     * @param newCategory category to be inserted
-     */
-    public final void createNewBrand(final Brand newBrand) {
-        try {
-            String query = 
-                    "INSERT INTO `brand`(`id`, `website`) "
-                    + "VALUES ('" + newBrand.getID() + "', '" + newBrand.getWebsite() + "');";
-            db.executeInsert(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-	
-	/**
 	 * Inserts a new contact info into the DB
 	 * @param newContactInfo new contact info to be inserted
 	 */
@@ -172,30 +156,15 @@ public class DataBaseController {
 	}
 	
 	/**
-	 * Inserts a new Food Creator into the DB
-	 * @param newFoodCreator food creator to be inserted
-	 * @param hashPassword hash of the food creator password
-	 */
-	public final void createNewFoodCreator(final FoodCreator newFoodCreator, final String hashPassword) {
-	    try {
-	        String query = 
-	                "INSERT INTO `food_creator`(`id`, `password`) "
-	                + "VALUES ('" + newFoodCreator.getID() + "', '" + hashPassword + "');";
-            db.executeInsert(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-	}
-	
-	/**
      * Inserts a new User into the DB
      * @param user new user to be inserted
      */
-    public final void createNewUser(final User user) {
+    public final void createNewUser(final User user, final String hashPassword) {
         try {
             String query = 
-                    "INSERT INTO `user`(`id`, `nickname`) "
-                    + "VALUES ('" + user.getID() + "', '" + user.getNickName() + "');";
+                    "INSERT INTO `user`(`id`, `nickname`, `password`, `website`) "
+                    + "VALUES ('" + user.getID() + "', '" + user.getNickName() 
+                    + "', '" + hashPassword + "', '" + user.getWebsite() + "');";
             db.executeInsert(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -343,13 +312,13 @@ public class DataBaseController {
         String country     = "";
         int phone          = -1;
         String email       = "";
-        
+        String website    = "";
         if (!db.isConnectionClosed()) {
             Statement stmt = null;
             String query   = 
-                    "SELECT id, name, description, street, area_code, city, country, phone, email "
-                    + "FROM Contact_Info, Food_Creator, User "
-                    + "WHERE User.nickname = '" + nickname + "' LIMIT 1;";
+                    "SELECT ci.id, ci.name, ci.description, ci.street, ci.area_code, ci.city, ci.country, ci.phone, ci.email, u.website "
+                    + "FROM Contact_Info ci, User u "
+                    + "WHERE u.nickname = '" + nickname + " AND ci.id = u.id' LIMIT 1;";
             try {
                 stmt = db.getConnection().createStatement();
                 ResultSet rs = stmt.executeQuery(query);
@@ -363,6 +332,7 @@ public class DataBaseController {
                     country     = rs.getString("country");
                     phone       = rs.getInt("phone");
                     email       = rs.getString("email");
+                    website     = rs.getString("website");
                 }
             } catch (SQLException e ) {
                 e.printStackTrace();
@@ -374,10 +344,175 @@ public class DataBaseController {
             }
         }
         
-        User newUser = new User(name, description, street, areaCode, city, country, phone, email, nickname);
+        User newUser = new User(name, description, street, areaCode, city, country, phone, email, nickname, website);
         newUser.setID(id);
         
         return newUser;
+    }
+    
+    /**
+     * TODO
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<User> getUserFollowing(final int userID) throws SQLException {
+        
+        ArrayList<User> following = new ArrayList<>();
+        User followed = null;
+        
+        if (!db.isConnectionClosed()) {
+            String query = 
+                    "SELECT f.id, ci.name, ci.description, ci.street, ci.area_code, ci.city, ci.country, ci.phone, ci.email, u.nickname, u.website "
+                    + "FROM Contact_info ci, User u, Followers f "
+                    + "WHERE u.id='" + userID + "' AND u.id=ci.id AND u.id = f.id_follower;";
+            Statement stmt = null;
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    followed = 
+                            new User(
+                                    rs.getString("ci.name"), 
+                                    rs.getString("ci.description"),
+                                    rs.getString("ci.street"),
+                                    rs.getInt("ci.area_code"),
+                                    rs.getString("ci.city"),
+                                    rs.getString("ci.country"),
+                                    rs.getInt("ci.phone"),
+                                    rs.getString("ci.email"),
+                                    rs.getString("u.nickname"),
+                                    rs.getString("u.website")
+                                    );
+                    followed.setID(rs.getInt("f.id"));
+                    following.add(followed);
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        } 
+        return following;
+    }
+    
+    /**
+     * TODO
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Food> getUserFoods(final User user) throws SQLException {
+        
+        ArrayList<Food> foodsCreated = new ArrayList<>();
+        Food foodCreated = null;
+        
+        if (!db.isConnectionClosed()) {
+            String query = 
+                    "SELECT f.id, f.name, f.for_sell, f.price "
+                    + "FROM User u, Foood f "
+                    + "WHERE u.id='" + user.getID() + "' AND f.id_creator='" + user.getID() + "';";
+            Statement stmt = null;
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    foodCreated = 
+                            new Food(
+                                    rs.getString("f.name"),
+                                    null,
+                                    (rs.getInt("f.for_sell") == 1 ? true : false),
+                                    rs.getFloat("f.price"),
+                                    user
+                                    );
+                    foodCreated.setID(rs.getInt("f.id"));
+                    foodsCreated.add(foodCreated);
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        } 
+        return foodsCreated;
+    }
+    
+    /**
+     * TODO
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Category> getCategories(ArrayList<Category> categories) throws SQLException {
+        Category category = null;
+        
+        if (!db.isConnectionClosed()) {
+            String query = 
+                    "SELECT c.id, c.name "
+                    + "FROM Category c;";
+            Statement stmt = null;
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    category = new Category(rs.getString("c.name"));
+                    category.setID(rs.getInt("c.id"));
+                    categories.add(category);
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        } 
+        return categories;
+    }
+    
+    /**
+     * TODO
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Food> getFoodsFromCategory(final Category category, ArrayList<Food> foodsInCategory) throws SQLException {
+        Food food = null;
+        
+        if (!db.isConnectionClosed()) {
+            String query = 
+                    "SELECT f.id, f.name, f.for_sell, f.price "
+                            + "FROM Foood f, Category c "
+                            + "WHERE c.id='" + category.getID() + "' AND f.id_category='" + category.getID() + "';";
+            Statement stmt = null;
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    food = 
+                            new Food(
+                                    rs.getString("f.name"),
+                                    category,
+                                    (rs.getInt("f.for_sell") == 1 ? true : false),
+                                    rs.getFloat("f.price"),
+                                    null
+                                    );
+                    food.setID(rs.getInt("f.id"));
+                    foodsInCategory.add(food);
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        } 
+        return foodsInCategory;
     }
     
     /*
@@ -391,7 +526,7 @@ public class DataBaseController {
 	 * @return true if it is correct, false otherwise
 	 * @throws SQLException if a DB error occurs
 	 */
-	public boolean checkHash(final String submitedPassword, final FoodCreator foodCreator) 
+	public boolean checkHash(final String submitedPassword, final User user) 
 			throws SQLException {
 		
 		String password = "";
@@ -400,8 +535,8 @@ public class DataBaseController {
 	        Statement stmt = null;
 	        String query   = 
 	                "SELECT password "
-	                + "FROM `Food_Creator` "
-	                + "WHERE id=\'" + foodCreator.getID() + "\' ORDER BY 1 DESC LIMIT 1;";
+	                + "FROM `User` "
+	                + "WHERE id=\'" + user.getID() + "\' ORDER BY 1 DESC LIMIT 1;";
 	    	try {
 		        stmt = db.getConnection().createStatement();
 		        ResultSet rs = stmt.executeQuery(query);
@@ -424,27 +559,10 @@ public class DataBaseController {
 	/*
 	 * RATES
 	 */
-	
-	/**
-     * Rates a brand
-     * @param brandID id of the brand
-     * @param rating rating given
-     * @param userID user rater
-     */
-    public final void rateBrand(final int brandID, final int rating, final int userID) {
-        try {
-            String query = 
-                    "INSERT INTO `User_rates_Brand`(`id_user`, `id_brand`, `rating`) "
-                    + "VALUES ('" + userID + "', '" + brandID + "', '" + rating + "');";
-            db.executeInsert(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     
     /**
-     * Rates a brand
-     * @param brandID id of the brand
+     * Rates a food
+     * @param foodID id of the food
      * @param rating rating given
      * @param userID user rater
      */
@@ -503,12 +621,12 @@ public class DataBaseController {
 	 * @param brandID id of the brand
 	 * @param newWebsite new website to be updated
 	 */
-	public final void updateBrandWebsite(final int brandID, final String newWebsite) {
+	public final void updateUserWebsite(final int userID, final String newWebsite) {
 	    try {
 	        String query = 
-	                "UPDATE `brand` "
+	                "UPDATE `user` "
 	                + "SET `website`=\'" + newWebsite + "\' "
-	                + "WHERE id=\'" + brandID + "\';";
+	                + "WHERE id=\'" + userID + "\';";
             db.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -870,7 +988,7 @@ public class DataBaseController {
     public final void addUserWantingFood(final int foodID, final int userID) {
         try {
             String query = 
-                    "INSERT INTO `User_Wishlist`(`id_user`, `id_food`) "
+                    "INSERT INTO `Wishlist`(`id_user`, `id_food`) "
                     + "VALUES ('" + userID + "', '" + foodID + "');";
             db.executeInsert(query);
         } catch (SQLException e) {
@@ -886,7 +1004,7 @@ public class DataBaseController {
     public final void deleteUserWantingFood(final int foodID, final int userID) {
         try {
             String query = 
-                    "DELETE FROM User_Wishlist"
+                    "DELETE FROM Wishlist"
                     + "WHERE id_food=\'" + foodID + " AND id_user=\'" + userID;
             db.executeDelete(query);
         } catch (SQLException e) {
@@ -899,11 +1017,11 @@ public class DataBaseController {
      * @param userID id of the user following
      * @param foodCreatorID id of the food creator followed
      */
-    public final void followFoodCreator(final int userID, final int foodCreatorID) {
+    public final void followFoodCreator(final int userID, final int followedID) {
         try {
             String query = 
-                    "INSERT INTO `Followers`(`id_user`, `id_followed`) "
-                    + "VALUES ('" + userID + "', '" + foodCreatorID + "');";
+                    "INSERT INTO `Followers`(`id_follower`, `id_followed`) "
+                    + "VALUES ('" + userID + "', '" + followedID + "');";
             db.executeInsert(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -915,11 +1033,11 @@ public class DataBaseController {
      * @param userID id of the user following
      * @param foodCreatorID id of the food creator followed
      */
-    public final void unFollowFoodCreator(final int userID, final int foodCreatorID) {
+    public final void unFollowFoodCreator(final int userID, final int followedID) {
         try {
             String query = 
                     "DELETE FROM Followers "
-                    + "WHERE id_user=\'" + userID + " AND id_followed=\'" + foodCreatorID;
+                    + "WHERE id_follower=\'" + userID + " AND id_followed=\'" + followedID;
             db.executeDelete(query);
         } catch (SQLException e) {
             e.printStackTrace();

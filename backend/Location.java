@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Location extends ContactInfo {
 
     private ArrayList<Food> foodsSelling;
-    private Brand owner;
+    private User owner;
 	
     /**
      * Constructor of location
@@ -35,7 +35,7 @@ public class Location extends ContactInfo {
             final String country,
             final int phone,
             final String email,
-            final Brand owner) {
+            final User owner) {
 
         super(name, description, street, areaCode, city, country, phone, email);
         this.foodsSelling = new ArrayList<Food>();
@@ -62,7 +62,7 @@ public class Location extends ContactInfo {
      * Gets the location owner
      * @return brand owner of this location
      */
-    public final Brand getOwner() {
+    public final User getOwner() {
         return this.owner;
     }
 	
@@ -70,7 +70,7 @@ public class Location extends ContactInfo {
      * Sets a new brand owner for this location
      * @param newOwner new brand owner for the location
      */
-    public final void setOwner(final Brand newOwner) {
+    public final void setOwner(final User newOwner) {
         if (newOwner.getID() != this.owner.getID()) {
             this.owner = newOwner;
             DataBaseController.getInstance().updateLocationOwner(getID(), newOwner.getID());   

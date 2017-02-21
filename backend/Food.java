@@ -16,7 +16,7 @@ public class Food extends Identifier {
     private ArrayList<Location> purchaseLocations;
     private boolean forSell;
     private float price;
-    private FoodCreator creator;
+    private User creator;
     private ArrayList<User> usersWantingMe;
 
     /**
@@ -32,7 +32,7 @@ public class Food extends Identifier {
             final Category category, 
             final boolean forSell, 
             final float price, 
-            final FoodCreator creator) {
+            final User creator) {
 
         super();
         this.name     = name;
@@ -153,7 +153,7 @@ public class Food extends Identifier {
      * Getter of creator
      * @return creator of this food
      */
-    public final FoodCreator getCreator() {
+    public final User getCreator() {
         return this.creator;
     }
 	

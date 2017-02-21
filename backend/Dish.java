@@ -27,7 +27,7 @@ public class Dish extends Food {
             final Category category, 
             final boolean forSell, 
             final float price, 
-            final FoodCreator creator) {
+            final User creator) {
 
         super(name, category, forSell, price, creator);
         this.composedFoods = new ArrayList<Food>();

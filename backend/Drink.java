@@ -24,7 +24,7 @@ public class Drink extends Dish {
             final String name, 
             final boolean forSell,
             final float price, 
-            final FoodCreator creator) throws SQLException {
+            final User creator) throws SQLException {
 		
         super(name, DataBaseController.getInstance().getDrinksCategory(), forSell, price, creator);
     }

@@ -12,16 +12,6 @@ import DB_controllers.DataBaseController;
 public final class Rater {
 
     /**
-     * Rates a brand
-     * @param brand brand to be rated
-     * @param rating rating given to the brand
-     * @param userID id of the user rating
-     */
-    public final static void rate(final Brand brand, final int rating, final int userID) {
-        DataBaseController.getInstance().rateBrand(brand.getID(), rating, userID);
-    }
-
-    /**
      * Rates a location
      * @param location location to be rated
      * @param rating rating given to the location

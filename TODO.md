@@ -9,15 +9,13 @@ Backend:
 Database:
 <ul>
 	<li>[refactor] separate db controller (inserter, updater, selector, deleter</li>
-	<li>[more] select from where - function</li>
+	<li>[more] check if something has changed - app controller</li>
 </ul>
 
 To review:
 <ul>
 	<li>[change] Date type obsolete? - format</li>
 	<li>[more] Food → food is in dishes</li>
-	<li>[change] brand to single object not food creator</li>
-	<li>[refactor] dbcontroller</li>
 </ul>
 
 Controllers:
@@ -28,9 +26,8 @@ Controllers:
 
 Testing and code cleaning:
 <ul>
-	<li>tests</li>
-	<li>identations - contactinfo, recipe, user, brand, appcontroller</li>
-	<li>sonarqube</li>
+	<li>[more] tests</li>
+	<li>[change] identations - contactinfo, recipe, user, appcontroller</li>
 </ul>
 
 New features to add:
@@ -42,6 +39,5 @@ New features to add:
 	<li>Rankings web page</li>
 	<li>Rating has review</li>
 	<li>Food has photo</li>
-	<li>Brand has logo</li>
-	<li>Brand has slogan</li>
+	<li>User has photo</li>
 </ul>

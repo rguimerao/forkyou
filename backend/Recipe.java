@@ -15,7 +15,7 @@ public class Recipe extends Identifier {
 	private String name;
 	private String description;
 	private Date lastUpdate;
-	private FoodCreator creator;
+	private User creator;
 	private Dish dish;
 
 	/**
@@ -28,7 +28,7 @@ public class Recipe extends Identifier {
 	public Recipe(
 		final String name, 
 		final String description, 
-		final FoodCreator creator, 
+		final User creator, 
 		final Dish dish) {
 
 		super();
@@ -107,7 +107,7 @@ public class Recipe extends Identifier {
 	 * Getter of food creator
 	 * @return recipe's food creator
 	 */
-	public final FoodCreator getFoodCreator() {
+	public final User getFoodCreator() {
 		return this.creator;
 	}
 	

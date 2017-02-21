@@ -16,8 +16,8 @@ import java.sql.Statement;
  */
 public class DataBase{
 	
-    private static DataBase instance;
-    private static Connection connection;
+    private static DataBase instance = null;
+    private static Connection connection = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/fork_you_db";
     private static final String username = "root";
     private static final String password = "";

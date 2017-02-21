@@ -20,10 +20,9 @@ public class Category extends Identifier {
      * @param name name of the category
      */
     public Category(final String name) {
-
         super();
         this.name  = name;
-        this.foods = new ArrayList<Food>();
+        this.foods = new ArrayList<>();
     }
 
     /**
@@ -51,6 +50,13 @@ public class Category extends Identifier {
      * @return array list with the foods in the category
      */
     public final ArrayList<Food> getFoods() {
+        if  (this.foods.isEmpty()) {
+            try {
+                DataBaseController.getInstance().getFoodsFromCategory(this, this.foods);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return this.foods;
     }
 

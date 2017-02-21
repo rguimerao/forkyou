@@ -26,7 +26,8 @@ public final class Tester {
                 "Caribean", 
                 0, 
                 "johnsilver@treasureisland.com",
-                "thepirate");
+                "thepirate",
+                "www.thepirate.com");
     }
 	
     public static void userRemoveItemFromList() throws SQLException {

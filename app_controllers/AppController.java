@@ -2,7 +2,6 @@ package app_controllers;
 
 import backend.Category;
 import backend.Food;
-import backend.FoodCreator;
 import backend.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,8 +10,8 @@ import DB_controllers.DataBaseController;
 
 public class AppController {
 
-    private static User currentUser;
-    private static AppController instance;
+    private static User currentUser = null;
+    private static AppController instance = null;
     private static DataBaseController dbController = null;
     
     private AppController() 
@@ -20,12 +19,14 @@ public class AppController {
         dbController = DataBaseController.getInstance();
     }
     
-    public final static AppController getInstance() 
-            throws ClassNotFoundException, SQLException {
+    public final static AppController getInstance() {
         if (instance == null) {
-            instance = new AppController();
+            try {
+                instance = new AppController();
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
         }
-        
         return instance;
     }
     
@@ -39,8 +40,8 @@ public class AppController {
             final int phone,
             final String email,
             final String nickname,
-            final String password) 
-                    throws ClassNotFoundException, SQLException {
+            final String password,
+            final String website) {
         // TODO -> needs security
         User newUser = 
                 new User(
@@ -52,24 +53,26 @@ public class AppController {
                         country, 
                         phone, 
                         email, 
-                        nickname);
+                        nickname,
+                        website);
         dbController.createNewContactInfo(newUser);
         newUser.obtainID();
-        dbController.createNewFoodCreator(newUser, password);
-        dbController.createNewUser(newUser);
+        dbController.createNewUser(newUser, password);
     }
     
-    public final boolean logInUser(final String nickname, final String password) 
-            throws SQLException {
+    public final boolean logInUser(final String nickname, final String password) {
         // TODO -> hash password
-        User volatileUser = dbController.getUserByNickname(nickname);
-        boolean result    = false;
-        
-        if (dbController.checkHash(password, currentUser)) {
-            currentUser = volatileUser;
-            result      = true;
+        User volatileUser = null;
+        boolean result = false;
+        try {
+            volatileUser = dbController.getUserByNickname(nickname);
+            if (dbController.checkHash(password, currentUser)) {
+                currentUser = volatileUser;
+                result      = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        
         return result;
     }
     
@@ -78,16 +81,25 @@ public class AppController {
     }
     
     public final ArrayList<Food> getFoodFromFollowing() {
-        
-        // TODO -> order by date
-        ArrayList<Food> foodFromFollowing = new ArrayList<Food>();
-        for (FoodCreator following : currentUser.getFollowing()) {
+        // TODO -> order by date (now ordered by followed)
+        ArrayList<Food> foodFromFollowing = new ArrayList<>();
+        for (User following : currentUser.getFollowing()) {
             for (Food foodCreated : following.getFoodsCreated()) {
                 foodFromFollowing.add(foodCreated);
             }
         }
         Collections.reverse(foodFromFollowing);
         return (foodFromFollowing);
+    }
+    
+    public final ArrayList<Category> getCategories() {
+        ArrayList<Category> categories = new ArrayList<>();
+        try {
+            DataBaseController.getInstance().getCategories(categories);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
     
     public final ArrayList<Food> getFoodFromCategory(final Category category) {
