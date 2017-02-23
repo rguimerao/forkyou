@@ -352,10 +352,66 @@ public class DataBaseController {
     
     /**
      * TODO
+     * @param nickname nickname of the user to search
+     * @return User user found
+     * @throws SQLException if a DB error occurs
+     */
+    public final User getUserByID(final int userID) 
+            throws SQLException {
+        String name        = "";
+        String description = "";
+        String street      = "";
+        int areaCode       = -1;
+        String city        = "";
+        String country     = "";
+        int phone          = -1;
+        String email       = "";
+        String website     = "";
+        String nickname    = "";
+        if (!db.isConnectionClosed()) {
+            Statement stmt = null;
+            String query   = 
+                    "SELECT ci.name, ci.description, ci.street, ci.area_code, ci.city, ci.country, ci.phone, ci.email, u.website, u.nickname "
+                    + "FROM Contact_Info ci, User u "
+                    + "WHERE u.id = '" + userID + " AND ci.id = u.id' LIMIT 1;";
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    name        = rs.getString("ci.name");
+                    description = rs.getString("ci.description");
+                    street      = rs.getString("ci.street");
+                    areaCode    = rs.getInt("ci.area_code");
+                    city        = rs.getString("ci.city");
+                    country     = rs.getString("ci.country");
+                    phone       = rs.getInt("ci.phone");
+                    email       = rs.getString("ci.email");
+                    website     = rs.getString("u.website");
+                    nickname    = rs.getString("u.nickname");
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        }
+        
+        User newUser = new User(name, description, street, areaCode, city, country, phone, email, nickname, website);
+        newUser.setID(userID);
+        
+        return newUser;
+    }
+    
+    /**
+     * TODO
      * @return
      * @throws SQLException
      */
-    public ArrayList<User> getUserFollowing(final int userID) throws SQLException {
+    public ArrayList<User> getUserFollowing(final int userID) 
+            throws SQLException {
         
         ArrayList<User> following = new ArrayList<>();
         User followed = null;
@@ -403,14 +459,15 @@ public class DataBaseController {
      * @return
      * @throws SQLException
      */
-    public ArrayList<Food> getUserFoods(final User user) throws SQLException {
+    public ArrayList<Food> getUserFoods(final User user) 
+            throws SQLException {
         
         ArrayList<Food> foodsCreated = new ArrayList<>();
         Food foodCreated = null;
         
         if (!db.isConnectionClosed()) {
             String query = 
-                    "SELECT f.id, f.name, f.for_sell, f.price "
+                    "SELECT f.id, f.name, f.for_sell, f.price, f.id_category "
                     + "FROM User u, Foood f "
                     + "WHERE u.id='" + user.getID() + "' AND f.id_creator='" + user.getID() + "';";
             Statement stmt = null;
@@ -421,7 +478,7 @@ public class DataBaseController {
                     foodCreated = 
                             new Food(
                                     rs.getString("f.name"),
-                                    null,
+                                    getCategoryFromID(rs.getInt("f.id_category")),
                                     (rs.getInt("f.for_sell") == 1 ? true : false),
                                     rs.getFloat("f.price"),
                                     user
@@ -446,7 +503,8 @@ public class DataBaseController {
      * @return
      * @throws SQLException
      */
-    public ArrayList<Category> getCategories(ArrayList<Category> categories) throws SQLException {
+    public ArrayList<Category> getCategories(ArrayList<Category> categories) 
+            throws SQLException {
         Category category = null;
         
         if (!db.isConnectionClosed()) {
@@ -479,12 +537,13 @@ public class DataBaseController {
      * @return
      * @throws SQLException
      */
-    public ArrayList<Food> getFoodsFromCategory(final Category category, ArrayList<Food> foodsInCategory) throws SQLException {
+    public ArrayList<Food> getFoodsFromCategory(final Category category, ArrayList<Food> foodsInCategory) 
+            throws SQLException {
         Food food = null;
         
         if (!db.isConnectionClosed()) {
             String query = 
-                    "SELECT f.id, f.name, f.for_sell, f.price "
+                    "SELECT f.id, f.name, f.for_sell, f.price, f.id_creator "
                             + "FROM Foood f, Category c "
                             + "WHERE c.id='" + category.getID() + "' AND f.id_category='" + category.getID() + "';";
             Statement stmt = null;
@@ -498,7 +557,7 @@ public class DataBaseController {
                                     category,
                                     (rs.getInt("f.for_sell") == 1 ? true : false),
                                     rs.getFloat("f.price"),
-                                    null
+                                    getUserByID(rs.getInt("f.id_creator"))
                                     );
                     food.setID(rs.getInt("f.id"));
                     foodsInCategory.add(food);
@@ -513,6 +572,40 @@ public class DataBaseController {
             }
         } 
         return foodsInCategory;
+    }
+    
+    /**
+     * TODO
+     * @return
+     * @throws SQLException
+     */
+    public Category getCategoryFromID(final int categoryID) 
+            throws SQLException {
+        Category category = null;
+        
+        if (!db.isConnectionClosed()) {
+            String query = 
+                    "SELECT c.name, "
+                            + "FROM Category c "
+                            + "WHERE c.id='" + categoryID + "';";
+            Statement stmt = null;
+            try {
+                stmt = db.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    category = new Category(rs.getString("c.name"));
+                    category.setID(categoryID);
+                }
+            } catch (SQLException e ) {
+                e.printStackTrace();
+            } finally {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                db.closeConnection();
+            }
+        } 
+        return category;
     }
     
     /*

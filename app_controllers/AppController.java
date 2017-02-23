@@ -80,7 +80,7 @@ public class AppController {
         return currentUser;
     }
     
-    public final ArrayList<Food> getFoodFromFollowing() {
+    public final ArrayList<Food> getFoodsFromFollowing() {
         // TODO -> order by date (now ordered by followed)
         ArrayList<Food> foodFromFollowing = new ArrayList<>();
         for (User following : currentUser.getFollowing()) {
